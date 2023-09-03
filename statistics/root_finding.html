@@ -1,0 +1,1364 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.353">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>ABC’s of R and Python - Root finding Algorithms</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./minimization.html" rel="next">
+<link href="./pivot_questions.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-DKJJZ86ZQ1"></script>
+
+<script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-DKJJZ86ZQ1', { 'anonymize_ip': true});
+</script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-sidebar floating">
+
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./root_finding.html">Optimization</a></li><li class="breadcrumb-item"><a href="./root_finding.html">Root finding Algorithms</a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">ABC’s of R and Python</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Welcome to Online Study</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+ <span class="menu-text">Table of Contents</span>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./about.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">R Programing</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./about.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">R Programing</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./control_flows.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Control Flows</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./functions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Functions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./vector.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Vectors</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./matrix.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Matrices and Arrays</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+ <span class="menu-text">Strings, Factors, Dates</span>
+  </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Lists.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lists</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+ <span class="menu-text">DataFrames</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">Classes</span>
+  </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Solutions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Solutions</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">
+ <span class="menu-text">Data Manipulation</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+ <span class="menu-text">Map-Reduce</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">Mutation</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">Aggregation</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">Filtering</span>
+  </li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false">
+ <span class="menu-text">Data Cleaning</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false">
+ <span class="menu-text">String Manipulation</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+ <span class="menu-text">text cleaning</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">regex</span>
+  </li>
+      </ul>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">Date Manipulation</span>
+  </li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false">
+ <span class="menu-text">Data Wrangling</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+ <span class="menu-text">Lapply, sapply, tapply, rapply, apply</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">aggregate, by, merge</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">Data Reshaping-reshape, stack</span>
+  </li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false">
+ <span class="menu-text">tidyverse</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+ <span class="menu-text">dplyr, tidyr, purrr</span>
+  </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./tidyverse.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">tidyverse</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./string.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">strings</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./pivot_questions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Questions</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true">
+ <span class="menu-text">Optimization</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./root_finding.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Root finding Algorithms</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./minimization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Minimization</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+ <span class="menu-text">Numerical Differentiation</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">Optim, optimise, uniroot</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">MLE</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">nls</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">Integration</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">Expectation Maximization</span>
+  </li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="false">
+ <span class="menu-text">Data Modelling</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro_dataModeling.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+ <span class="menu-text">Fitting Distributions</span>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="false">
+ <span class="menu-text">Supervised Learning</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" aria-expanded="false">
+ <span class="menu-text">Regression</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./linear_models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data Modeling</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+ <span class="menu-text">Ridge Regression</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">LASSO Regression</span>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" aria-expanded="false">
+ <span class="menu-text">Generalized Linear Models(GLM)</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth4 ">  
+          <li class="sidebar-item">
+ <span class="menu-text">Logistic Regression</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">Probit Regression</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">Poisson Regression</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">Beta Regression</span>
+  </li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" aria-expanded="false">
+ <span class="menu-text">Classification</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-12" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./naive_bayes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Naive Bayes</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+ <span class="menu-text">K-Nearest Neighbours</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">Logistic Classification</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">Neural Networks</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">Linear Discriminant Analysis(LDA)</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">Quadratic Discriminant Analysis(QDA)</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">Support Vector Machines (SVM)</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">Boosting and Regression Trees</span>
+  </li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#" aria-expanded="false">
+ <span class="menu-text">Unsupervised Learning</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" aria-expanded="false">
+ <span class="menu-text">Clustering</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-13" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+ <span class="menu-text">K-means</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">Spectral Clustering</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">Expectation Maximization clustering</span>
+  </li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this Page</h2>
+   
+  <ul>
+  <li><a href="#numerical-solutions" id="toc-numerical-solutions" class="nav-link active" data-scroll-target="#numerical-solutions">Numerical solutions</a></li>
+  <li><a href="#bisection-method" id="toc-bisection-method" class="nav-link" data-scroll-target="#bisection-method">Bisection Method</a>
+  <ul class="collapse">
+  <li><a href="#procedure" id="toc-procedure" class="nav-link" data-scroll-target="#procedure">Procedure</a></li>
+  </ul></li>
+  <li><a href="#newton-raphson" id="toc-newton-raphson" class="nav-link" data-scroll-target="#newton-raphson">Newton-Raphson</a>
+  <ul class="collapse">
+  <li><a href="#procedure-1" id="toc-procedure-1" class="nav-link" data-scroll-target="#procedure-1">Procedure</a></li>
+  </ul></li>
+  <li><a href="#secant-method" id="toc-secant-method" class="nav-link" data-scroll-target="#secant-method">Secant Method</a>
+  <ul class="collapse">
+  <li><a href="#procedure-2" id="toc-procedure-2" class="nav-link" data-scroll-target="#procedure-2">Procedure</a></li>
+  </ul></li>
+  <li><a href="#fixed-point-method" id="toc-fixed-point-method" class="nav-link" data-scroll-target="#fixed-point-method">Fixed Point Method</a>
+  <ul class="collapse">
+  <li><a href="#procedure-3" id="toc-procedure-3" class="nav-link" data-scroll-target="#procedure-3">Procedure</a></li>
+  </ul></li>
+  <li><a href="#exercise" id="toc-exercise" class="nav-link" data-scroll-target="#exercise">Exercise</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content column-body" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Root finding Algorithms</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<p>Every aspect of our lives is bombarded with problems that require solutions. From a simple tasks as travelling, weekend planning, playing etc we desire to utilize the information available and carry out the task efficiently with minimum cost incurred. All these are problems which need optimal solutions.</p>
+<p>In this section we would use define simple math problems and ways to solve them. Then later on tackle real world problems and ways to go around them.</p>
+<p>The first class of numerical methods we will discuss are root finding methods, which approximate the roots (or zeroes) of a function. Suppose that a function <span class="math inline">\(f\)</span> is a continuous function, a root of <span class="math inline">\(f\)</span> is a solution to the equation <span class="math inline">\(f (x) = 0\)</span>. Graphically, a root is where the graph <span class="math inline">\(y = f (x)\)</span> crosses the x-axis.</p>
+<p>Often simple problems have analytic solutions. For example, to solve the roots of<span class="math inline">\(f(x) = x^2-5x + 6\)</span> we can use any of the known methods, ie factorization, completing square or even the quadratic formula. and we would end up having <span class="math inline">\(x=2\)</span> and <span class="math inline">\(x = 3\)</span> as the roots. We could simply code the quadratic formula in R and each time we have a quadratic equation, we could easily find its roots:</p>
+<p><span class="math display">\[x = \frac{-b \pm \sqrt{b^2-4ac}}{2a}\]</span></p>
+<p>In R we could do:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>root <span class="ot">&lt;-</span> <span class="cf">function</span>(a, b, c){</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  (<span class="sc">-</span>b <span class="sc">+</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">1</span>)<span class="sc">*</span><span class="fu">sqrt</span>(b<span class="sc">^</span><span class="dv">2</span> <span class="sc">-</span> <span class="dv">4</span><span class="sc">*</span>a<span class="sc">*</span>c))<span class="sc">/</span>(<span class="dv">2</span><span class="sc">*</span>a)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">root</span>(<span class="dv">1</span>,<span class="sc">-</span><span class="dv">5</span>,<span class="dv">6</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2 3</code></pre>
+</div>
+</div>
+<p>The funtion root above computes the solution to most of the quadratic functions. Of course the function will not work for a quadratic with with a negative discriminant.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">root</span>(<span class="dv">5</span>,<span class="sc">-</span><span class="dv">9</span>,<span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in sqrt(b^2 - 4 * a * c): NaNs produced</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] NaN NaN</code></pre>
+</div>
+</div>
+<p>Thus we can simply convert the discriminant to complex by adding a complex 0 to it and hence making the function work in all instances.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>root <span class="ot">&lt;-</span> <span class="cf">function</span>(a, b, c){</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  (<span class="sc">-</span>b <span class="sc">+</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">1</span>)<span class="sc">*</span><span class="fu">sqrt</span>(b<span class="sc">^</span><span class="dv">2</span> <span class="sc">-</span> <span class="dv">4</span><span class="sc">*</span>a<span class="sc">*</span>c <span class="sc">+</span> 0i))<span class="sc">/</span>(<span class="dv">2</span><span class="sc">*</span>a)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">root</span>(<span class="dv">1</span>,<span class="sc">-</span><span class="dv">5</span>,<span class="dv">6</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2+0i 3+0i</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">root</span>(<span class="dv">5</span>,<span class="sc">-</span><span class="dv">9</span>,<span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.9-0.4358899i 0.9+0.4358899i</code></pre>
+</div>
+</div>
+<p>Instead of writing our own function, we could use <code>polyroot</code> function to find the roots of any polynomial function, ie linear, quadratic,cubic, quartic, quintic, biquadratic etc. We do not have to write our own function:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">polyroot</span>(<span class="fu">c</span>(<span class="dv">6</span>,<span class="sc">-</span><span class="dv">5</span>,<span class="dv">1</span>)) <span class="co">#x^2 - 5x + 6 = 0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2+0i 3-0i</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">polyroot</span>(<span class="fu">c</span>(<span class="sc">-</span><span class="dv">18</span>,<span class="dv">33</span>,<span class="sc">-</span><span class="dv">18</span>,<span class="dv">3</span>)) <span class="co"># 3x^3 -18x^2 + 33x -18 = 0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1-0i 2+0i 3-0i</code></pre>
+</div>
+</div>
+<section id="numerical-solutions" class="level1">
+<h1>Numerical solutions</h1>
+<p>Most of these functions are in a simplified form. What if we had functions that are not polynomial in nature? or a polynomial not in its simplest form? or even a function with no analytic solution? To solve these, we use controlled trial and error method, each time updating the solution depending on how close our previous solution was. We repeat the procedure many times until we converge to a solution that works.</p>
+<p>There are various methods on how the iteration is done. These have different names. Lets look at one simple example. Suppose we want to find <span class="math inline">\(\sqrt{2}\)</span>. We know that the solution lies between 0 and 2. Then our tial and error method will go as follows.</p>
+<p><span class="math display">\[
+\begin{aligned}
+  \operatorname{begin} &amp;= 0, \quad\operatorname{end}=2\\
+x_1 &amp;= \frac{0 + 2}{2} = 1 ~~ie~~ \text{midpoint between }0 \text{ and }2  \\
+\operatorname{error} &amp;= 2-1 = 1\\
+\text{Since error}&amp;&gt;0, \text{we set }\operatorname{begin=}1\quad\\&amp;\text{and compute our next viable point}\quad
+x_2 = \frac{1+2}{2} = 1.5
+~~ie~~ \text{midpoint between }1 \text{ and }2  \\
+\operatorname{error} &amp;= 2-1.5^2 = -0.25\\
+\text{Since error}&amp;&lt;0, \operatorname{end=}1.5\quad
+x_3 = \frac{1+1.5}{2} = 1.25\\
+\operatorname{error} &amp;= 2-1.25^2 = 0.4375\\
+\text{Since error}&amp;&gt;0, \operatorname{begin=}1.25\\
+x_4 &amp;= \frac{1.25+1.5}{2} = 1.375\\
+\vdots
+\end{aligned}
+\]</span></p>
+<p>This algorithm converges slowly. We continue averaging until the <span class="math inline">\(|\epsilon|\leq\tau\)</span> where <span class="math inline">\(\tau\)</span> is taken to be a very small number for example <span class="math inline">\(\tau =10^{-8}\)</span> <code>=1e-8</code>. Write a function <code>sqrt_avg(x)</code> implementing the algorithm above. Notice that for each iteration that we did, the interval was halved and we maintained the interval that contained the solution. This method was introduced in Exercise 3 question 7. We would discuss this method in details in the next section.</p>
+<p>Other times, we do a quick brute force. ie since we need the root/zero of a function ie <span class="math inline">\(f(x) = 0\)</span>, we rewrite the problem such that <span class="math inline">\(x \pm f(x) = x\)</span>. This is simply adding/subtracting a zero as <span class="math inline">\(f(x) = 0\)</span>. We start from a starting position. If we perceive that the solution is below the starting position we use subtraction otherwise we use addition. Then we solve the new <span class="math inline">\(x\)</span> by computing the difference between the current <span class="math inline">\(x\)</span> and the value of the function evaluated at the current position <span class="math inline">\(f(x)\)</span>.</p>
+<p>A quick example. Suppose we have a function <span class="math inline">\(f(x) = x-4\)</span> , we know that the zero of the function occurs at <span class="math inline">\(x=4\)</span> . Assume we start with <span class="math inline">\(x=10\)</span> we could solve the problem as <span class="math inline">\(10 - f(10) = 10 - (10-4) = 4\)</span>. By using one iteration, we converge to the solution <span class="math inline">\(4\)</span>. We used subtraction since our starting point was larger than the solution. What if we had <span class="math inline">\(f(x) = x^2-5x+6\)</span>? Assume we start with <span class="math inline">\(x = 10\)</span> we would have:</p>
+<p><span class="math display">\[
+\begin{aligned}
+\text{iteration 1}\quad&amp;10 - (10^2 - 5(10) + 6) = -46\\
+\text{iteration 2}\quad &amp;-56 - f(-46) = -2398\\
+\vdots
+\end{aligned}
+\]</span></p>
+<p>Notice how instead of converging, we are diverging to <span class="math inline">\(-\infty\)</span>. This is because of the very huge values solved form the <span class="math inline">\(f(x)\)</span>. What if instead of using <span class="math inline">\(x\pm f(x)=x\)</span> we use <span class="math inline">\(x\pm\alpha f(x)=x\)</span> where <span class="math inline">\(\alpha\in(0,1)\)</span> Note that at the solution we would still have <span class="math inline">\(x \pm \alpha\cdot0 = x\)</span> and the equation <span class="math inline">\(x=x\)</span> would have been maintained. We can choose an arbitrary <span class="math inline">\(\alpha\)</span> as long as we remain in the viable region of the solution. Now lets solve the problem above with <span class="math inline">\(\alpha=0.1\)</span></p>
+<p><span class="math display">\[
+\begin{aligned}
+\text{iteration 1}\quad&amp;10 - 0.1(10^2 - 5(10) + 6) = 4.4\\
+\text{iteration 2}\quad &amp;4.4 - 0.1f(4.4) = 4.064\\
+\text{iteration 3}\quad &amp;4.064 - 0.1f(4.064) = 3.84439\\
+\text{iteration 4}\quad &amp;3.84439 - 0.1f(3.84439) = 3.688652\\
+\text{iteration 5}\quad &amp;3.688652- 0.1f(3.688652) = 3.572363\\
+\text{iteration 6}\quad &amp;3.572363 - 0.1f(3.572363) = 3.482366\\
+\text{iteration 7}\quad &amp;3.482366 - 0.1f(3.482366) = 3.410862\\
+\text{iteration 8}\quad &amp;3.410862 - 0.1f(3.410862) = 3.352895\\
+\text{iteration 9}\quad &amp;3.352895 - 0.1f(3.352895) = 3.305152\\
+\text{iteration 10}\quad &amp;3.305152 - 0.1f(3.305152) = 3.265325\\
+\vdots
+\end{aligned}
+\]</span></p>
+<p>Notice how we are converging to <span class="math inline">\(x=3\)</span>. We can quickly run 150 iterations to check the results:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="cf">function</span>(x)x<span class="sc">^</span><span class="dv">2</span> <span class="sc">-</span> <span class="dv">5</span><span class="sc">*</span>x <span class="sc">+</span> <span class="dv">6</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>alpha <span class="ot">&lt;-</span> <span class="fl">0.1</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">150</span>){</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;-</span> x <span class="sc">-</span> alpha <span class="sc">*</span> <span class="fu">f</span>(x) <span class="co"># we used subtraction </span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>x</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3</code></pre>
+</div>
+</div>
+<p>What if we we started at <span class="math inline">\(x = -10\)</span> ? we would use addition</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="cf">function</span>(x)x<span class="sc">^</span><span class="dv">2</span> <span class="sc">-</span> <span class="dv">5</span><span class="sc">*</span>x <span class="sc">+</span> <span class="dv">6</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>alpha <span class="ot">&lt;-</span> <span class="fl">0.07</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">10</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">200</span>){</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;-</span> x <span class="sc">+</span> alpha <span class="sc">*</span> <span class="fu">f</span>(x) <span class="co"># we used addition</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>x</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2</code></pre>
+</div>
+</div>
+<p>We were able to get the correct values of <span class="math inline">\(x=2\)</span> and <span class="math inline">\(x = 3\)</span> . Notice that I used different <span class="math inline">\(\alpha\)</span>, different number of iterations, different signs ie addition vs subtraction. etc These variables are difficult to control. Different methods have been developed to ensure some uniformity in the choice of <span class="math inline">\(\alpha\)</span>, whether to subtract or add etc. Take a look at Exercise 4 question 9 whereby <span class="math inline">\(\alpha\)</span> is dynamic. In the next section we would discuss the methods of determining the <span class="math inline">\(\alpha\)</span>.</p>
+</section>
+<section id="bisection-method" class="level1">
+<h1>Bisection Method</h1>
+<p>The bisection method is one of the simplest numerical methods for root-finding to implement, and it almost always works. The main disadvantage is that convergence is relatively slow. The idea behind the bisection method is root-bracketing, which works by first finding an interval in which the root must lie, and then successively refining the bounding interval in such a way that the root is guaranteed to always lie inside the interval.</p>
+<p>In the bisection method, the width of the bounding interval is successively halved.</p>
+<p>Suppose that <span class="math inline">\(f\)</span> is a continuous function. Then <span class="math inline">\(f\)</span> has a root in the interval <span class="math inline">\(\left(x_{\ell}, x_r\right)\)</span> if either:</p>
+<ul>
+<li><p><span class="math inline">\(-f\left(x_{\ell}\right)&lt;0\)</span> and <span class="math inline">\(f\left(x_r\right)&gt;0\)</span>, or</p></li>
+<li><p><span class="math inline">\(f\left(x_{\ell}\right)&gt;0\)</span> and <span class="math inline">\(f\left(x_r\right)&lt;0\)</span>.</p></li>
+</ul>
+<p>A convenient way to verify this condition is to check if <span class="math inline">\(f\left(x_{\ell}\right)f\left(x_r\right)&lt;0\)</span>. If <span class="math inline">\(x_{\ell}\)</span> and <span class="math inline">\(x_r\)</span> satisfy this condition, we say <span class="math inline">\(x_{\ell}\)</span> and <span class="math inline">\(x_r\)</span> bracket the root. The bisection method works by taking an interval <span class="math inline">\(\left(x_{\ell}, x_r\right)\)</span> that contains a root, then successively refining <span class="math inline">\(x_{\ell}\)</span> and <span class="math inline">\(x_r\)</span> until <span class="math inline">\(x_r-x_{\ell} \leq \varepsilon\)</span> , where <span class="math inline">\(\varepsilon&gt;0\)</span> is the pre-specified tolerance level.</p>
+<section id="procedure" class="level2">
+<h2 class="anchored" data-anchor-id="procedure">Procedure</h2>
+<p>Start with <span class="math inline">\(x_{\ell}&lt;x_r\)</span> such that <span class="math inline">\(f\left(x_{\ell}\right) f\left(x_r\right)&lt;0\)</span>.</p>
+<ol type="1">
+<li><p>If <span class="math inline">\(x_r-x_{\ell} \leq \varepsilon\)</span>, then stop.</p></li>
+<li><p>Compute <span class="math inline">\(x_m=\frac{x_{\ell}+x_r}{2}\)</span>. If <span class="math inline">\(f\left(x_m\right)=0\)</span>, then stop.</p></li>
+<li><p>If <span class="math inline">\(f\left(x_{\ell}\right) f\left(x_m\right)&lt;0\)</span>, then assign <span class="math inline">\(x_r=x_m\)</span>. Otherwise, assign <span class="math inline">\(x_{\ell}=x_m\)</span>.</p></li>
+<li><p>Go back to step 1.</p></li>
+</ol>
+<p>Notice that, at every iteration, the interval <span class="math inline">\(\left(x_{\ell}, x_r\right)\)</span> always contains a root. Assuming we start with <span class="math inline">\(f\left(x_{\ell}\right) f\left(x_r\right)&lt;0\)</span>, the algorithm is guaranteed to converge, with the approximation error reducing by a constant factor <span class="math inline">\(1 / 2\)</span> at each iteration. If we stop when <span class="math inline">\(x_r-x_{\ell} \leq \varepsilon\)</span>, then we know that both <span class="math inline">\(x_{\ell}\)</span> and <span class="math inline">\(x_r\)</span> are within <span class="math inline">\(\varepsilon\)</span> distance of a root.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="cf">function</span>(x)x<span class="sc">^</span><span class="dv">2-5</span><span class="sc">*</span>x<span class="sc">+</span><span class="dv">6</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>my_roots <span class="ot">&lt;-</span> <span class="cf">function</span>(f, x_l, x_r, <span class="at">tolerr =</span> <span class="fl">1e-8</span>){</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">repeat</span>{</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>      mid <span class="ot">&lt;-</span> (x_l <span class="sc">+</span> x_r)<span class="sc">/</span><span class="dv">2</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>      f_mid <span class="ot">&lt;-</span> <span class="fu">f</span>(mid)</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span>(f_mid <span class="sc">==</span> <span class="dv">0</span> <span class="sc">|</span> x_r <span class="sc">-</span> x_l <span class="sc">&lt;</span> tolerr) <span class="cf">break</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span>(<span class="fu">f</span>(x_l)<span class="sc">*</span>f_mid <span class="sc">&lt;</span> <span class="dv">0</span>) x_r <span class="ot">&lt;-</span> mid</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>      <span class="cf">else</span> x_l <span class="ot">&lt;-</span> mid</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>  mid</span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a><span class="fu">my_roots</span>(f,<span class="fl">2.5</span>, <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">my_roots</span>(f,<span class="sc">-</span><span class="dv">10</span>,<span class="fl">2.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">my_roots</span>(\(x)<span class="fu">log</span>(x)<span class="sc">-</span><span class="fu">exp</span>(<span class="sc">-</span>x), <span class="dv">0</span>, <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.3098</code></pre>
+</div>
+</div>
+<p>There is a function in R that does exactly what we have implemented above. Its called <code>uniroot</code>: It has various parameters. do a quick <code>help('uniroot')</code> to know how to use the function</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">uniroot</span>(f, <span class="fu">c</span>(<span class="fl">2.5</span>, <span class="dv">10</span>), <span class="at">tol =</span> <span class="fl">1e-10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$root
+[1] 3
+
+$f.root
+[1] 5.329071e-15
+
+$iter
+[1] 14
+
+$init.it
+[1] NA
+
+$estim.prec
+[1] 5.000134e-11</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">uniroot</span>(f, <span class="at">lower =</span> <span class="sc">-</span><span class="dv">10</span>, <span class="at">upper =</span> <span class="fl">2.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$root
+[1] 2.000006
+
+$f.root
+[1] -6.423345e-06
+
+$iter
+[1] 14
+
+$init.it
+[1] NA
+
+$estim.prec
+[1] 6.103516e-05</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">uniroot</span>(f, <span class="at">lower =</span> <span class="sc">-</span><span class="dv">10</span>, <span class="at">upper =</span> <span class="sc">-</span><span class="dv">9</span>, <span class="at">extendInt =</span> <span class="st">'yes'</span>, <span class="at">tol=</span><span class="fl">1e-15</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$root
+[1] 2
+
+$f.root
+[1] 0
+
+$iter
+[1] 24
+
+$init.it
+[1] 7
+
+$estim.prec
+[1] 0.0003936229</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">uniroot</span>(\(x)<span class="fu">log</span>(x)<span class="sc">-</span><span class="fu">exp</span>(<span class="sc">-</span>x), <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">10</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$root
+[1] 1.309799
+
+$f.root
+[1] -1.897809e-07
+
+$iter
+[1] 8
+
+$init.it
+[1] NA
+
+$estim.prec
+[1] 6.103516e-05</code></pre>
+</div>
+</div>
+<p>Use the function to solve problems in Exercise 4</p>
+</section>
+</section>
+<section id="newton-raphson" class="level1">
+<h1>Newton-Raphson</h1>
+<p>The main idea behind Newton-Raphson is to use the property that the tangent line at a point is the best linear approximation to the function near that point. At the point <span class="math inline">\((x, 0)\)</span>, ie the zero of the function, we can write the equation of the tangent line given that we know the gradient at the particular point. Recall that the slope of a line is computed as rise over run:</p>
+<p><span class="math display">\[
+m = \frac{y_1-y_0}{x_1-x_0}
+\]</span></p>
+<p>Assume we start at point <span class="math inline">\((x_0, y_0)\)</span> on the tangent line, since the tangent line is a good approximation to <span class="math inline">\(f\)</span> near <span class="math inline">\(x_0\)</span>, the next guess <span class="math inline">\(x_1\)</span> is the point where the tangent line crosses the x-axis.</p>
+<p><span class="math display">\[
+m = \frac{0 - y_0}{x_1 - x_0}\\
+\]</span></p>
+<p>Then solving for <span class="math inline">\(x_1\)</span> we get:</p>
+<p><span class="math display">\[
+x_1 = x_0 - \frac{y_0}{m}
+\]</span></p>
+<p>Using function notation ie <span class="math inline">\(m = f'(x_0)\)</span> and <span class="math inline">\(y_0 = f(x_0)\)</span> we obtain</p>
+<p><span class="math display">\[
+x_1 = x_0 - \frac{f(x_0)}{f'(x_0)}
+\]</span></p>
+<p>Repeating the same procedure, the next guess <span class="math inline">\(x_2\)</span> is then</p>
+<p><span class="math display">\[x_2 = x_1-\frac{f\left(x_1\right)}{f^{\prime}\left(x_1\right)}\]</span></p>
+<p>In general we could write this as:</p>
+<p><span class="math display">\[
+x_{n+1} = x_n - \frac{f(x_n)}{f'(x_n)}
+\]</span></p>
+<section id="procedure-1" class="level2">
+<h2 class="anchored" data-anchor-id="procedure-1">Procedure</h2>
+<p>The Newton-Raphson algorithm is described as follows:</p>
+<ul>
+<li><p>Start from an initial value <span class="math inline">\(x_0\)</span> chosen arbitrarily.</p></li>
+<li><p>Repeat:<br>
+<span class="math display">\[
+    x_{n+1} = x_n - \frac{f(x_n)}{f'(x_n)}
+    \]</span></p></li>
+<li><p>Stop when <span class="math inline">\(\left|f\left(x_n\right)\right| \leq \varepsilon\)</span>, where <span class="math inline">\(\varepsilon&gt;0\)</span> is the pre-specified tolerance level.</p></li>
+</ul>
+<p>Notice how this iteration is similar to <span class="math inline">\(x_{n+1} = x_{n} - \alpha f(x_n)\)</span> introduced in the section above, with <span class="math inline">\(\alpha = \frac{1}{f'(x_n)}\)</span>. The newton raphson method is one way of determining the value of <span class="math inline">\(\alpha\)</span>. Using this method, we always subtract, regardless of the starting point.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="cf">function</span>(x)x<span class="sc">^</span><span class="dv">2</span> <span class="sc">-</span> <span class="dv">5</span><span class="sc">*</span>x <span class="sc">+</span> <span class="dv">6</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>fprime <span class="ot">&lt;-</span> <span class="cf">function</span>(x)<span class="dv">2</span><span class="sc">*</span>x <span class="sc">-</span> <span class="dv">5</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">8</span>){</span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;-</span> x <span class="sc">-</span>  <span class="fu">f</span>(x)<span class="sc">/</span><span class="fu">fprime</span>(x) <span class="co"># we used subtraction </span></span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>x</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">10</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">8</span>){</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;-</span> x <span class="sc">-</span>  <span class="fu">f</span>(x)<span class="sc">/</span><span class="fu">fprime</span>(x) <span class="co"># we used subtraction </span></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>x</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2</code></pre>
+</div>
+</div>
+<p>Notice how this time round, we did not bother to do a trial and error on what to include. We just wrote the code, and the different starting points led to the different needed solutions. Notice how i only used 7 iterations to converge to the solution.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">150</span>){</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  alpha <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">/</span><span class="fu">fprime</span>(x)</span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># To write in alpha notation:</span></span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;-</span> x <span class="sc">-</span>  alpha <span class="sc">*</span> <span class="fu">f</span>(x) <span class="co"># we used subtraction </span></span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>x</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="fu">log</span>(x)<span class="sc">-</span><span class="fu">exp</span>(<span class="sc">-</span>x)</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>gprime <span class="ot">&lt;-</span> <span class="cf">function</span>(x)<span class="dv">1</span><span class="sc">/</span>x <span class="sc">+</span> <span class="fu">exp</span>(<span class="sc">-</span>x)</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>tolerr <span class="ot">&lt;-</span> <span class="fl">1e-10</span></span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span>(<span class="fu">abs</span>(<span class="fu">g</span>(x))<span class="sc">&gt;</span>tolerr){</span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;-</span> x <span class="sc">-</span> <span class="fu">g</span>(x)<span class="sc">/</span><span class="fu">gprime</span>(x)</span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a>x</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.3098</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="secant-method" class="level1">
+<h1>Secant Method</h1>
+<p>Note that although newton method converges very fast (quadratically), we need the analytic computation of the gradient. Sometimes this is not easily found, and thus we use the secant slope rather than the tanget slope. The formula remains the same, although <span class="math inline">\(m \neq f'(x)\)</span> but rather <span class="math inline">\(m\)</span> remains to be as previously defined.</p>
+<p>we thus have the secant update method as:</p>
+<p><span class="math display">\[
+x_{n+1} = x_n - \frac{f(x_n)}{m}\quad \text{where } m = \frac{f(x_{n}) - f(x_{n-1})}{x_n - x_{n-1}}  
+\]</span></p>
+<p>Note: Notice that if <span class="math inline">\(x_n\)</span> and <span class="math inline">\(x_{n-1}\)</span> are close to each other, then<br>
+<span class="math display">\[
+f'(x_n)\approx\frac{f(x_n) - f(x_{n-1})}{x_n - x_{n-1}}
+\]</span></p>
+<p>which is why the secant method is often seen as an approximation to the Newton-Raphson method, where we approximate the derivative by a finite difference/numerical approximation.</p>
+<p>The secant method also uses the form <span class="math inline">\(x_{n+1} = x_n-\alpha f(x_n)\)</span> where <span class="math inline">\(\alpha = 1/m\)</span> and <span class="math inline">\(m\)</span> is as defined above.</p>
+<section id="procedure-2" class="level2">
+<h2 class="anchored" data-anchor-id="procedure-2">Procedure</h2>
+<ul>
+<li><p>Start from arbitrary initial values <span class="math inline">\(x_0\)</span> and <span class="math inline">\(x_1\)</span>.</p></li>
+<li><p>Repeat:</p>
+<p><span class="math display">\[x_{n+1} = x_n-\frac{x_n-x_{n-1}}{f(x_n) - f(x_{n-1})}f(x_n)\]</span></p></li>
+<li><p>Stop when <span class="math inline">\(\left|f\left(x_n\right)\right| \leq \varepsilon\)</span>, where <span class="math inline">\(\varepsilon&gt;0\)</span> is the pre-specified tolerance level.</p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="fu">log</span>(x)<span class="sc">-</span><span class="fu">exp</span>(<span class="sc">-</span>x)</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>x0 <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>tolerr <span class="ot">&lt;-</span> <span class="fl">1e-10</span></span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span>(<span class="fu">abs</span>(<span class="fu">f</span>(x1))<span class="sc">&gt;</span>tolerr){</span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>  alpha <span class="ot">&lt;-</span> (x1 <span class="sc">-</span> x0)<span class="sc">/</span>(<span class="fu">f</span>(x1) <span class="sc">-</span> <span class="fu">f</span>(x0))</span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>  x2 <span class="ot">&lt;-</span> x1 <span class="sc">-</span>  alpha <span class="sc">*</span> <span class="fu">f</span>(x1)</span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>  x0 <span class="ot">&lt;-</span> x1</span>
+<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a>  x1 <span class="ot">&lt;-</span> x2</span>
+<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a>x2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.3098</code></pre>
+</div>
+</div>
+<p>The above code can be shortened to</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="fu">log</span>(x)<span class="sc">-</span><span class="fu">exp</span>(<span class="sc">-</span>x)</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>x0 <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>tolerr <span class="ot">&lt;-</span> <span class="fl">1e-10</span></span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span>(<span class="fu">abs</span>(<span class="fu">f</span>(x1))<span class="sc">&gt;</span>tolerr){</span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>  alpha <span class="ot">&lt;-</span> (x1 <span class="sc">-</span> x0)<span class="sc">/</span>(<span class="fu">f</span>(x1) <span class="sc">-</span> <span class="fu">f</span>(x0))</span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a>  x1 <span class="ot">&lt;-</span> (x0 <span class="ot">&lt;-</span> x1) <span class="sc">-</span>  alpha <span class="sc">*</span> <span class="fu">f</span>(x1)</span>
+<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a>x1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.3098</code></pre>
+</div>
+</div>
+<p>Another method is by using the numerical gradient approximation. ie gradient is defined as</p>
+<p><span class="math display">\[
+f'(x) = \lim_{h\to0}\frac{f(x+h) -f(x)}{h}
+\]</span></p>
+<p>Since in the world of computing, <span class="math inline">\(h\)</span> cannot be zero, we set is to be a small number and do the approximation:</p>
+<p><span class="math display">\[
+f'(x) \approx \frac{f(x+h) -f(x)}{h}
+\]</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="fu">log</span>(x)<span class="sc">-</span><span class="fu">exp</span>(<span class="sc">-</span>x)</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>tolerr <span class="ot">&lt;-</span> <span class="fl">1e-10</span></span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>h <span class="ot">&lt;-</span> <span class="fl">1e-5</span></span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span>(<span class="fu">abs</span>(<span class="fu">f</span>(x))<span class="sc">&gt;</span>tolerr){</span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>  alpha <span class="ot">&lt;-</span> h <span class="sc">/</span> (<span class="fu">f</span>(x <span class="sc">+</span> h) <span class="sc">-</span> <span class="fu">f</span>(x))</span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;-</span> x <span class="sc">-</span>  alpha <span class="sc">*</span> <span class="fu">f</span>(x)</span>
+<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb44-9"><a href="#cb44-9" aria-hidden="true" tabindex="-1"></a>x</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.3098</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="fixed-point-method" class="level1">
+<h1>Fixed Point Method</h1>
+<p>A fixed point of a function <span class="math inline">\(f\)</span> is the point such that <span class="math inline">\(g(x) = x\)</span>. Graphically its the point where the graph <span class="math inline">\(g(x)\)</span> crosses the line <span class="math inline">\(y=x\)</span></p>
+<p>An interesting/useful property of fixed points is that they remain fixed after iteratively applying the function an arbitrary number of times. That is, if <span class="math inline">\(x\)</span> is a fixed point of <span class="math inline">\(g\)</span>, then</p>
+<p><span class="math display">\[
+x = g(x) = g(g(x)) = g(g(g(x))) = \cdots
+\]</span></p>
+<p>The problem of finding fixed points can be framed as a root-finding problem. Define the function <span class="math inline">\(f (x)\)</span> by the equation <span class="math inline">\(f(x)= c[g(x) − x]\)</span>, for some constant <span class="math inline">\(c\neq 0\)</span>. Then <span class="math inline">\(f (x) = 0\)</span> if and only if <span class="math inline">\(g(x) = x\)</span>. Conversely, the problem of finding solutions to <span class="math inline">\(f (x) = 0\)</span> is equivalent to finding the fixed points of the function <span class="math inline">\(g(x) = cf (x) + x\)</span> Note that there are often many ways to write <span class="math inline">\(f (x) = 0\)</span> as <span class="math inline">\(g(x) = x\)</span>, and, in practice, some are better than others.</p>
+<section id="procedure-3" class="level2">
+<h2 class="anchored" data-anchor-id="procedure-3">Procedure</h2>
+<ul>
+<li><p>Start from an initial value <span class="math inline">\(x_0\)</span>.</p></li>
+<li><p>Compute <span class="math inline">\(g\left(x_0\right)\)</span> as the next value <span class="math inline">\(x_1\)</span>.</p></li>
+<li><p>Repeat:</p>
+<p><span class="math display">\[
+x_{n+1} = g\left(x_n\right)
+\]</span></p></li>
+<li><p>stop when <span class="math inline">\(\left|x_n-x_{n-1}\right| \leq \varepsilon\)</span>, for some user-specified tolerance level <span class="math inline">\(\varepsilon&gt;0\)</span>.</p></li>
+</ul>
+<p>Using the example above: <span class="math inline">\(f(x) = \log(x) - \exp(-x)\)</span> , we first have to express the problem as a fixed point</p>
+<p><span class="math display">\[
+\log(x) - e^{-x} = 0 \implies x = e^{e^{-x}}
+\]</span></p>
+<p>Now our <span class="math inline">\(g(x) = e{e{-x}}\)</span>, then the fixed point of <span class="math inline">\(g(x)\)</span> corresponds to the root of <span class="math inline">\(f(x)\)</span></p>
+<p>A quick implementation:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="fu">exp</span>(<span class="fu">exp</span>(<span class="sc">-</span>x))</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>x_old <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>x_new <span class="ot">&lt;-</span> <span class="fu">g</span>(x_old)</span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>its <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>tol <span class="ot">&lt;-</span> <span class="fl">1e-8</span></span>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span>(<span class="fu">abs</span>(x_new <span class="sc">-</span> x_old) <span class="sc">&gt;</span> tol){</span>
+<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a>  x_old <span class="ot">&lt;-</span> x_new</span>
+<span id="cb46-8"><a href="#cb46-8" aria-hidden="true" tabindex="-1"></a>  x_new <span class="ot">&lt;-</span> <span class="fu">g</span>(x_old)</span>
+<span id="cb46-9"><a href="#cb46-9" aria-hidden="true" tabindex="-1"></a>  its <span class="ot">&lt;-</span> its <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb46-10"><a href="#cb46-10" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb46-11"><a href="#cb46-11" aria-hidden="true" tabindex="-1"></a>x_new</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.3098</code></pre>
+</div>
+</div>
+<p>A shorter version</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="cf">function</span>(x)<span class="fu">exp</span>(<span class="fu">exp</span>(<span class="sc">-</span>x))</span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>tolerr <span class="ot">&lt;-</span> <span class="fl">1e-8</span></span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span>(<span class="fu">abs</span>(x <span class="sc">-</span> (x <span class="ot">&lt;-</span> <span class="fu">g</span>(x)))<span class="sc">&gt;</span>tolerr){}</span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>x</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.3098</code></pre>
+</div>
+</div>
+<p>Using recursion:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>s <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">x =</span> <span class="dv">10</span>, <span class="at">tol =</span> <span class="fl">1e-8</span>) {</span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(<span class="fu">abs</span>((y<span class="ot">&lt;-</span><span class="fu">exp</span>(<span class="fu">exp</span>(<span class="sc">-</span>x)))<span class="sc">-</span> x)<span class="sc">&lt;</span>tol)x <span class="cf">else</span> <span class="fu">s</span>(y)</span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a><span class="fu">s</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.3098</code></pre>
+</div>
+</div>
+<p>Notice that using the fixed point for this particular problem, we can begin from any number, ie including negative numbers, while for the methods previously discussed, we could only start from positive numbers since we cannot evaluate a logarithm of a negative number. Chose the method to implement wisely.</p>
+<p>The methods mentioned above can be extended to solve multivariate functions.</p>
+<p>Suppose we have a system of linear equation. How can we solve this?</p>
+<p><span class="math display">\[
+\begin{pmatrix}1\\1\end{pmatrix}x + \begin{pmatrix}-4\\2\end{pmatrix}y = \begin{pmatrix}-7\\5\end{pmatrix}
+\]</span></p>
+<p>Notice that the system has been written in vector notations. We can then implement the solution as <span class="math inline">\(x_{n+1} = x_{n} - \alpha f(x_n)\)</span>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>h <span class="ot">&lt;-</span> <span class="cf">function</span>(x, <span class="at">z =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">7</span>,<span class="dv">5</span>)) x[<span class="dv">1</span>] <span class="sc">+</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">4</span>,<span class="dv">2</span>)<span class="sc">*</span>x[<span class="dv">2</span>] <span class="sc">-</span> z</span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>) <span class="co">#initial starting point</span></span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>){</span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;-</span> x <span class="sc">-</span> <span class="fl">0.2</span><span class="sc">*</span><span class="fu">h</span>(x)</span>
+<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a>x <span class="co"># final root of the function</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1 2</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="exercise" class="level1">
+<h1>Exercise</h1>
+<ol type="1">
+<li>Find the root of the following function</li>
+</ol>
+<p><span class="math display">\[
+\begin{aligned}
+3x+2y+4z &amp;= 4\\
+4x+2y+4z &amp;= 2\\
+x+y+4z&amp;=4\\
+\end{aligned}
+\]</span></p>
+<p>Since the above is a system of simultaneous equations, the exact solution for above can be obtained by using the <code>solve</code> function. First we could rewrite the above in matrix notation ie <span class="math inline">\(Ax = b\)</span> as shown below</p>
+<p><span class="math display">\[
+\begin{aligned}
+\begin{pmatrix}3&amp;2&amp;4\\4&amp;2&amp;4\\1&amp;1&amp;4\end{pmatrix} \begin{pmatrix}x\\y\\z\end{pmatrix}=\begin{pmatrix}4\\2\\4\end{pmatrix}
+\end{aligned}
+\]</span></p>
+<p>This can be solved in R as:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">4</span>), <span class="dv">3</span>)</span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">2</span>,<span class="dv">4</span>)</span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a><span class="fu">solve</span>(A, b)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -2.0  4.0  0.5</code></pre>
+</div>
+</div>
+<p>Now use newton raphson and the to find the root of the problem.</p>
+<ol start="2" type="1">
+<li><p>Using the <code>uniroot</code> function, Obtain the inverse function of <span class="math inline">\(f(x) = x\log(x)\)</span></p>
+<p>ie a function <span class="math inline">\(g\)</span> whereby <span class="math inline">\(g(\cdot) = f^{-1}(\cdot)\)</span> or simply <span class="math inline">\(g(f(x)) =f(g(x)) = x\)</span></p></li>
+</ol>
+
+
+</section>
+
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation column-body">
+  <div class="nav-page nav-page-previous">
+      <a href="./pivot_questions.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Questions</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./minimization.html" class="pagination-link">
+        <span class="nav-page-text">Minimization</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">Copyright 2023, Onyambu, S.</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/oonyambu">
+      <i class="bi bi-github" role="img">
+</i> 
+    </a>
+  </li>  
+</ul>
+    </div>
+  </div>
+</footer>
+
+
+
+</body></html>

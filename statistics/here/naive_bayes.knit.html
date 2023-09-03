@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.353">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>ABC’s of R and Python - Naive Bayes</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-DKJJZ86ZQ1"></script>
+
+<script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-DKJJZ86ZQ1', { 'anonymize_ip': true});
+</script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-sidebar floating">
+
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">
+      ABC's of R and Python
+      </li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">ABC’s of R and Python</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Welcome to Online Study</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+ <span class="menu-text">Table of Contents</span>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../about.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">R Programing</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../about.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">R Programing</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../control_flows.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Control Flows</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../functions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Functions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../vector.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Vectors</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../matrix.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Matrices and Arrays</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+ <span class="menu-text">Strings, Factors, Dates</span>
+  </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Lists.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lists</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+ <span class="menu-text">DataFrames</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">Classes</span>
+  </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Solutions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Solutions</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">
+ <span class="menu-text">Data Manipulation</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+ <span class="menu-text">Map-Reduce</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">Mutation</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">Aggregation</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">Filtering</span>
+  </li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false">
+ <span class="menu-text">Data Cleaning</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false">
+ <span class="menu-text">String Manipulation</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+ <span class="menu-text">text cleaning</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">regex</span>
+  </li>
+      </ul>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">Date Manipulation</span>
+  </li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false">
+ <span class="menu-text">Data Wrangling</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+ <span class="menu-text">Lapply, sapply, tapply, rapply, apply</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">aggregate, by, merge</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">Data Reshaping-reshape, stack</span>
+  </li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false">
+ <span class="menu-text">tidyverse</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+ <span class="menu-text">dplyr, tidyr, purrr</span>
+  </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tidyverse.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">tidyverse</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../string.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">strings</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pivot_questions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Questions</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="false">
+ <span class="menu-text">Optimization</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../root_finding.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Root finding Algorithms</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../minimization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Minimization</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+ <span class="menu-text">Numerical Differentiation</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">Optim, optimise, uniroot</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">MLE</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">nls</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">Integration</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">Expectation Maximization</span>
+  </li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="false">
+ <span class="menu-text">Data Modelling</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro_dataModeling.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+ <span class="menu-text">Fitting Distributions</span>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="false">
+ <span class="menu-text">Supervised Learning</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" aria-expanded="false">
+ <span class="menu-text">Regression</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../linear_models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data Modeling</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+ <span class="menu-text">Ridge Regression</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">LASSO Regression</span>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" aria-expanded="false">
+ <span class="menu-text">Generalized Linear Models(GLM)</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth4 ">  
+          <li class="sidebar-item">
+ <span class="menu-text">Logistic Regression</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">Probit Regression</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">Poisson Regression</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">Beta Regression</span>
+  </li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" aria-expanded="false">
+ <span class="menu-text">Classification</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-12" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../naive_bayes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Naive Bayes</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+ <span class="menu-text">K-Nearest Neighbours</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">Logistic Classification</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">Neural Networks</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">Linear Discriminant Analysis(LDA)</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">Quadratic Discriminant Analysis(QDA)</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">Support Vector Machines (SVM)</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">Boosting and Regression Trees</span>
+  </li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#" aria-expanded="false">
+ <span class="menu-text">Unsupervised Learning</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" aria-expanded="false">
+ <span class="menu-text">Clustering</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-13" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+ <span class="menu-text">K-means</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">Spectral Clustering</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">Expectation Maximization clustering</span>
+  </li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this Page</h2>
+   
+  <ul>
+  <li><a href="#exercise" id="toc-exercise" class="nav-link active" data-scroll-target="#exercise">Exercise:</a>
+  <ul class="collapse">
+  <li><a href="#python-2" id="toc-python-2" class="nav-link" data-scroll-target="#python-2">Python</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content column-body" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Naive Bayes</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<script src="https://cdn.datacamp.com/datacamp-light-latest.min.js"></script>
+<p>Assumes that all features are independent of one another. And each impact the response y differently.</p>
+<p>The cummulative impact is just a multiplication of each of the individual impacts.</p>
+<p>We all know the bayes theorem. I will not bore you with the math. Lets look at a simple example:</p>
+<p>Consider a data set with 1500 observations and the following output classes:</p>
+<ul>
+<li>Cat</li>
+<li>Parrot</li>
+<li>Turtle</li>
+</ul>
+<p>The Predictor variables are categorical in nature i.e., they store two values, either True or False:</p>
+<ul>
+<li>Swim</li>
+<li>Wings</li>
+<li>Green Color</li>
+<li>Sharp Teeth</li>
+</ul>
+<p><span class="math display">\[
+\begin{array}{|c|c|c|c|c|}
+\hline \text { Type } &amp; \text { Swim } &amp; \text { Wings } &amp; \text { Green } &amp; \text { Sharp teeth } \\
+\hline \text { Cat } &amp; 450 / 500 &amp; 0 &amp; 0 &amp; 500 / 500 \\
+\hline \text { Parrot } &amp; 50 / 500 &amp; 500 / 500 &amp; 400 / 500 &amp; 0 \\
+\hline \text { Turtle } &amp; 500 / 500 &amp; 0 &amp; 100 / 500 &amp; 50 / 500 \\
+\hline
+\end{array}
+\]</span></p>
+<p>From the above table, we can summarise that:</p>
+<ul>
+<li><p>The class of type cats shows that: - Out of <span class="math inline">\(500,450(90 \%)\)</span> cats can swim - 0 number of cats have wings - 0 number of cats are of Green color - All 500 cats have sharp teeth</p></li>
+<li><p>The class of type Parrot shows that: - <span class="math inline">\(50(10 \%)\)</span> parrots have a true value for swim - All 500 parrots have wings - Out of <span class="math inline">\(500,400(80 \%)\)</span> parrots are green in color - No parrots have sharp teeth</p></li>
+<li><p>The class of type Turtle shows: - All 500 turtles can swim - 0 number of turtles have wings - Out of <span class="math inline">\(500,100(20 \%)\)</span> turtles are green in color - 50 out of <span class="math inline">\(500(10 \%)\)</span> turtles have sharp teeth</p></li>
+</ul>
+<p>Now, with the available data, let’s classify the following observation into one of the output classes (Cats, Parrot or Turtle) by using the Naive Bayes Classifier. <span class="math display">\[
+\begin{array}{|c|c|c|c|c|}
+&amp; \hline\text { Swim } &amp; \text { Wings } &amp; \text { Green } &amp; \text { Sharp Teeth } \\
+\hline \text { Observation } &amp; \text { True } &amp; \text { False } &amp; \text { True } &amp; \text { False }\\\hline
+\end{array}
+\]</span></p>
+<p>The goal here is to predict whether the animal is a Cat, Parrot or a Turtle based on the defined predictor variables (swim, wings, green, sharp teeth).</p>
+<p>To solve this, we will use the Naive Bayes approach, Assume we have</p>
+<p><span class="math display">\[
+P(\text{variable}_j \mid X\in \text{Class}_k) = P(V_j\mid k)\text{ and }P(X\in \text{Class}_k) = P(C = k)
+\]</span><br>
+We can compute the probability of belonging to class <span class="math inline">\(k\)</span> given the variables as:</p>
+<p>Then the probability that a new observation <span class="math inline">\(X\)</span> belongs to class <span class="math inline">\(k\)</span> can be computed as:</p>
+<p><span class="math display">\[
+\begin{aligned}P(X\in \text{Class}_k \mid \text{variable}_1\cdots\text{ variable}_p )=&amp;\frac{P(V_1 \mid C = k)P(V_2\mid C = k)  \cdots  P(V_p \mid C = k)P(C= k)}{P( Multiple Evidences)}\\
+\propto&amp;P(X\in\text{Class}_k)\prod_j^p P(\text{Variable}_i\mid X\in \text{Class}_k)
+\end{aligned}
+\]</span></p>
+<p>Note that I ignored the denominator as it is a normalizing constant.</p>
+<p>In the observation, the variables Swim and Green are true and the outcome can be any one of the animals (Cat, Parrot, Turtle). To check if the animal is a cat: <span class="math display">\[
+\begin{aligned}
+P( Cat \mid Swim, Green )=&amp;\frac{P( Swim \mid Cat ) \times P (Green \mid Cat ) \times P(Cat)}{P( Swim, Green )}\\
+=&amp;\frac{0.9 * 0 * 0.333}{P( Swim, Green)}=0
+\end{aligned}
+\]</span></p>
+<p>To check if the animal is a Parrot: <span class="math display">\[
+\begin{aligned}
+P(Parrot| Swim, Green) =&amp; \frac{P(Swim|Parrot) P(Green|Parrot) P(Parrot)}{P(Swim, Green)}\\
+=&amp;\frac{ 0.1 * 0.80 * 0.333}{P(Swim, Green)}\\
+=&amp; \frac{0.0264}{ P(Swim, Green)}
+\end{aligned}
+\]</span></p>
+<p>To check if the animal is a Turtle: <span class="math display">\[
+\begin{aligned}
+P(Turtle| Swim, Green) =&amp;\frac{ P(Swim|Turtle)  P(Green|Turtle)  P(Turtle)}{ P(Swim, Green)}\\
+=&amp;\frac{ 1 * 0.2 * 0.333}{ P(Swim, Green)}\\
+= &amp;\frac{0.0666}{ P(Swim, Green)}\\
+\end{aligned}
+\]</span></p>
+<p>For all the above calculations the denominator is the same i.e, <span class="math inline">\(P(Swim, Green)\)</span>, thus wont impact the solution. The value of <code>P(Turtle| Swim, Green)</code> is greater than <code>P(Parrot| Swim, Green)</code>, therefore we can correctly predict the class of the animal as Turtle.</p>
+<p>What if the variable is continuous? How do we proceed? We compute the likelihood for being in class <span class="math inline">\(k\)</span>using the normal density and then include the prior. ie:</p>
+<p>Taking</p>
+<p><span class="math display">\[
+\begin{array}{}
+\mathcal{L}(\text{Variable}_i | X\in \text{Class}_k) = \mathcal{N}(\nu_i;~\mu_k, ~\sigma_k)
+\end{array}
+\]</span></p>
+<p>We can compute the likelihood of belonging in class <span class="math inline">\(k\)</span> as:</p>
+<p><span class="math display">\[p(X\in \text{Class}_k \mid \text{V}_1\cdots\text{V}_p )\propto P(C = k)\prod_{j=1}^p\mathcal{N}(\nu_j ,~\mu_k, ~\sigma_k)\]</span></p>
+<p>Note that to perform the computation, use the log-likelihood for stability as the likelihood produces numbers which are essentially 0. Then afterwards exponentiate the results before normalizing.</p>
+<p>ie</p>
+<p><span class="math display">\[
+\ell = \log P(C=k) + \sum_{j=1}^p\log \mathcal{N}(\nu_j ,~\mu_k, ~\sigma_k)
+\]</span></p>
+<p>For example:</p>
+<p>assume we had the data below</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th><span class="math inline">\(X_1\)</span></th>
+<th><span class="math inline">\(X_2\)</span></th>
+<th><span class="math inline">\(y\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>5.1</td>
+<td>3.5</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>4.9</td>
+<td>3</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td>7</td>
+<td>3.2</td>
+<td>2</td>
+</tr>
+<tr class="even">
+<td>6.4</td>
+<td>3.2</td>
+<td>2</td>
+</tr>
+<tr class="odd">
+<td>6.3</td>
+<td>3.3</td>
+<td>3</td>
+</tr>
+<tr class="even">
+<td>5.8</td>
+<td>2.7</td>
+<td>3</td>
+</tr>
+</tbody>
+</table>
+<p>We want to predict the class of some new observations below:</p>
+<ul>
+<li><p><span class="math inline">\(X_1 = 5.9, X_2= 3.2\)</span></p></li>
+<li><p><span class="math inline">\(X_1 = 5.1, X_2 = 3.5\)</span></p></li>
+<li><p><span class="math inline">\(X_1 = 5.7, X_2 = 2.8\)</span></p></li>
+</ul>
+<p>Solution:</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" aria-current="page">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Python</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InIiLCJzYW1wbGUiOiIjIGRhdGFcbngxIDwtIGMoNS4xLCA0LjksIDcsIDYuNCwgNi4zLCA1LjgpXG54MiA8LSBjKDMuNSwgMywgMy4yLCAzLjIsIDMuMywgMi43KVxueSA8LSBjKDEsIDEsIDIsIDIsIDMsIDMpXG5cbiMgUHJpb3IgcHJvYmFiaWxpdGllc1xucHJpb3IgPC0gYyh0YWJsZSh5KSlcblxuIyBtZWFucyBwZXIgZ3JvdXAgaWUgbXVfa1xubWVhbl94MSA8LSB0YXBwbHkoeDEsIHksIG1lYW4pXG5tZWFuX3gyIDwtIHRhcHBseSh4MiwgeSwgbWVhbilcblxuIyBzZCBwZXIgZ3JvdXBcbnNkX3gxIDwtIHRhcHBseSh4MSwgeSwgc2QpXG5zZF94MiA8LSB0YXBwbHkoeDIsIHksIHNkKVxuXG4jIElmIGFueSBvZiB0aGUgc2QncyBhcmUgemVybywgcmVwbGFjZSB3aXRoIGEgdGhyZXNoaG9sZDpcbnNkX3gyW3NkX3gyIDwgMC4wMDFdIDwtIDAuMDAxXG5cblxuIyBOb3cgbGV0cyB0YWtlIG91ciBuZXcgZGF0YSBpcyBcbnhfbmV3IDwtIGMoNS45LDMuMilcblxuIyBjb21wdXRlIHRoZSBwb3N0ZXJpb3Igb2YgYmVsb25naW5nIHRvIGNsYXNzIDEgOlxuY2xhc3MxIDwtIGxvZyhwcmlvclsxXSkgKyBcbiAgICAgICAgICBsb2coZG5vcm0oeF9uZXdbMV0sIG1lYW5feDFbMV0sIHNkX3gxWzFdKSkgKyBcbiAgICAgICAgICBsb2coZG5vcm0oeF9uZXdbMl0sIG1lYW5feDJbMV0sIHNkX3gyWzFdKSlcblxuIyBjb21wdXRlIHRoZSBwb3N0ZXJpb3Igb2YgYmVsb25naW5nIHRvIGNsYXNzIDIgOlxuY2xhc3MyIDwtIGxvZyhwcmlvclsyXSkgKyBcbiAgICAgICAgICBsb2coZG5vcm0oeF9uZXdbMV0sIG1lYW5feDFbMl0sIHNkX3gxWzJdKSkgKyBcbiAgICAgICAgICBsb2coZG5vcm0oeF9uZXdbMl0sIG1lYW5feDJbMl0sIHNkX3gyWzJdKSlcblxuIyBjb21wdXRlIHRoZSBwb3N0ZXJpb3Igb2YgYmVsb25naW5nIHRvIGNsYXNzIDMgOlxuXG5jbGFzczMgPC0gbG9nKHByaW9yWzNdKSArIFxuICAgICAgICAgIGxvZyhkbm9ybSh4X25ld1sxXSwgbWVhbl94MVszXSwgc2RfeDFbM10pKSArIFxuICAgICAgICAgIGxvZyhkbm9ybSh4X25ld1syXSwgbWVhbl94MlszXSwgc2RfeDJbM10pKVxuXG4jcHJvYmFiaWxpdGllc1xucCA8LSBleHAoYyhjbGFzczEsIGNsYXNzMiwgY2xhc3MzKSlcbnAvc3VtKHApICNub3JtYWxpemUifQ==
+</div>
+<p>From the probabilities above, we can tell that the first new observation belongs to <code>class 3</code> as this has the highest probability. Note that the code is repetitive and redundant. R does vectorization, and it will be good to make use of this feature. Thus the new code will be</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InIiLCJzYW1wbGUiOiIjIFByZXBhcmUgZGF0YTpcbnRyYWluWCA8LSBjYmluZCh4MSwgeDIpXG50cmFpblkgPC0geVxudGVzdFggPC0gbWF0cml4KGMoNS45LDUuMSw1LjcsMy4yLDMuNSwyLjgpLCBuY29sID0gMilcbiAgXG4jIEEgZ3JvdXBpbmcgbGlzdCB0byBjb21wdXRlIHRoZSBtZWFucyBhbmQgc2RzIG9mIHRoZSB3aG9sZSBkYXRhc2V0XG5ncm91cCA8LSAgbGlzdChjb2wodHJhaW5YKSwgYXJyYXkodHJhaW5ZLCBkaW0odHJhaW5YKSkpXG5cbiNjb21wdXRlIHRoZSBtZWFucyBhbmQgc2RzLiByZXBsYWNlIGlmIGFueSBzZHMgPDAuMDAxIHdpdGggMC4wMDFcbm1lYW5zIDwtIHRhcHBseSh0cmFpblgsIGdyb3VwLCBtZWFuKVxuc2RzIDwtIHRhcHBseSh0cmFpblgsIGdyb3VwLCBzZClcbnNkc1tzZHM8MC4wMDFdIDwtIDAuMDAxXG5cbiMgQ29tcHV0ZSBwcm9iYWJpbGl0aWVzIGZvciB0aGUgdGVzdCBjYXNlc1xucHJpb3JzIDwtIGxvZyhjKHRhYmxlKHRyYWluWSkpKVxuayA8LSBsZW5ndGgocHJpb3JzKSAjIG51bWJlciBvZiBjbGFzc2VzXG5wIDwtIGRub3JtKHQodGVzdFgpWyxnbChucm93KHRlc3RYKSwgayldLCBtZWFucywgc2RzLCBsb2cgPSBUUlVFKVxucHJvYnMgPC0gdChwcm9wLnRhYmxlKGV4cChtYXRyaXgoY29sU3VtcyhwKSwgaykgKyBwcmlvcnMpLCAyKSlcbnByb2JzIn0=
+</div>
+<p>The predicted classes can easily be obtained as</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InIiLCJzYW1wbGUiOiJtYXguY29sKHByb2JzKSJ9
+</div>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImltcG9ydCBudW1weSBhcyBucCwgcGFuZGFzIGFzIHBkXG5mcm9tIHNjaXB5LnN0YXRzIGltcG9ydCBub3JtXG4jIGRhdGFcblxueDEgPSBucC5yX1s1LjEsIDQuOSwgNywgNi40LCA2LjMsIDUuOF1cbngyID0gbnAucl9bMy41LCAzLCAzLjIsIDMuMiwgMy4zLCAyLjddXG55ID0gbnAucl9bMSwgMSwgMiwgMiwgMywgM11cblxuXG4jIFByaW9yIHByb2JhYmlsaXRpZXNcbmxldmVscywgcHJpb3IgPSBucC51bmlxdWUoeSwgcmV0dXJuX2NvdW50cyA9IFRydWUpXG5cbiMgbWVhbnMgcGVyIGdyb3VwIGllIG11X2tcbm1lYW5feDEgPSAgbnAuYXJyYXkoW25wLm1lYW4oeDFbeT09bGV2XSkgZm9yIGxldiBpbiBsZXZlbHNdKVxubWVhbl94MiA9IG5wLmFycmF5KFtucC5tZWFuKHgyW3k9PWxldl0pIGZvciBsZXYgaW4gbGV2ZWxzXSlcblxuIyBzZCBwZXIgZ3JvdXBcbnNkX3gxID0gbnAuYXJyYXkoW25wLnN0ZCh4MVt5PT1sZXZdLGRkb2YgPSAxKSBmb3IgbGV2IGluIGxldmVsc10pXG5zZF94MiA9IG5wLmFycmF5KFtucC5zdGQoeDJbeT09bGV2XSwgZGRvZiA9IDEpIGZvciBsZXYgaW4gbGV2ZWxzXSlcblxuXG4jIElmIGFueSBvZiB0aGUgc2QncyBhcmUgemVybywgcmVwbGFjZSB3aXRoIGEgdGhyZXNoaG9sZDpcbnNkX3gyW3NkX3gyIDwgMC4wMDFdID0gMC4wMDFcblxuIyBOb3cgbGV0cyBhc3N1bWUgb3VyIG5ldyBkYXRhIGlzIFxueF9uZXcgPSBucC5yX1s1LjksMy4yXVxuIyBjb21wdXRlIHRoZSBsaWtlbGlob29kIHRvIGJlbG9uZyBpbiBjbGFzcyAxIDpcblxuY2xhc3MxID0gKG5wLmxvZyhwcmlvclswXSkgKyBcbiAgICAgICAgIG5vcm0ubG9ncGRmKHhfbmV3WzBdLCBtZWFuX3gxWzBdLCBzZF94MVswXSkgK1xuICAgICAgICAgbm9ybS5sb2dwZGYoeF9uZXdbMV0sIG1lYW5feDJbMF0sIHNkX3gyWzBdKSlcblxuIyBjb21wdXRlIHRoZSBsaWtlbGlob29kIHRvIGJlbG9uZyBpbiBjbGFzcyAyOlxuY2xhc3MyID0gbnAubG9nKHByaW9yWzFdKSArIFxcXG4gICAgICAgICBub3JtLmxvZ3BkZih4X25ld1swXSwgbWVhbl94MVsxXSwgc2RfeDFbMV0pICtcXFxuICAgICAgICAgbm9ybS5sb2dwZGYoeF9uZXdbMV0sIG1lYW5feDJbMV0sIHNkX3gyWzFdKVxuXG5cbiMgY29tcHV0ZSB0aGUgbGlrZWxpaG9vZCB0byBiZWxvbmcgaW4gY2xhc3MgMzpcbmNsYXNzMyA9IChucC5sb2cocHJpb3JbMl0pICsgXG4gICAgICAgIG5vcm0ubG9ncGRmKHhfbmV3WzBdLCBtZWFuX3gxWzJdLCBzZF94MVsyXSkgK1xuICAgICAgICBub3JtLmxvZ3BkZih4X25ld1sxXSwgbWVhbl94MlsyXSwgc2RfeDJbMl0pKVxuXG4jcHJvYmFiaWxpdGllc1xucCA9IG5wLmV4cChucC5yX1tjbGFzczEsIGNsYXNzMiwgY2xhc3MzXSlcbnAvc3VtKHApICNub3JtYWxpemUifQ==
+</div>
+<p>From the probabilities above, we can tell that the first new observation belongs to <code>class 3</code> as this has the highest probability. Note that the code is repetitive and redundant. <code>numpy/pandas</code> does vectorization, and it will be good to make use of this feature. Thus the new code will be</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImltcG9ydCBwYW5kYXMgYXMgcGQgXG5mcm9tIHNjaXB5LnN0YXRzIGltcG9ydCBub3JtXG5cbiMgRGF0YVxudHJhaW5YICA9IG5wLmNfW3gxLCB4Ml1cbnRyYWluWSA9IHlcbnRlc3RYID0gbnAuYXJyYXkoWzUuOSw1LjEsNS43LDMuMiwzLjUsMi44XSkucmVzaGFwZSgyLC0xKS5UXG5cbiMgTWVhbnMgYW5kIFN0ZHNcbm1lYW5zID0gcGQuRGF0YUZyYW1lKHRyYWluWCkuZ3JvdXBieSh0cmFpblkpLm1lYW4oKVxuc3RkcyA9IHBkLkRhdGFGcmFtZSh0cmFpblgpLmdyb3VwYnkodHJhaW5ZKS5zdGQoKVxuc3Rkc1tzdGRzIDwgMWUtM10gPSAxZS0zXG5cbiMgQ29tcHV0ZSBwcm9ic1xuXywgcHJpb3JzID0gbnAudW5pcXVlKHksIHJldHVybl9jb3VudHMgPSBUcnVlKVxucCA9IG5wLmV4cChub3JtKG1lYW5zLCBzdGRzKS5sb2dwZGYodGVzdFhbOixOb25lXSkuc3VtKDIpICsgbnAubG9nKHByaW9ycykpICBcbnByb2JzID0gcC9wLnN1bSgxKVs6LCBOb25lXVxucHJvYnMifQ==
+</div>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6InByb2JzLmFyZ21heCgxKSJ9
+</div>
+</div>
+</div>
+</div>
+<p>The implementation above involves numeric variables. Naive Bayes does assume that the continuous variables are independent of one another and are normally distributed. For categorical variables, the implementation is as shown in the first example.</p>
+<p>There are packages written that do the naive bayes classification.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">Python</a></li></ul>
+<div class="tab-content">
+<div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
+<p>in R we can use the <code>e1071</code> library to perform Naive Bayes. For this, we can pass both numeric and categorical predictors. Therefore its preferred to pass in a dataframe. The column names of the test must match the column names of train. or both of them should not have column names.</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InIiLCJzYW1wbGUiOiJjb2xuYW1lcyh0cmFpblgpIDwtIE5VTExcbm1vZGVsIDwtIGUxMDcxOjpuYWl2ZUJheWVzKHRyYWluWCwgdHJhaW5ZKVxucHJlZGljdChtb2RlbCwgdGVzdFgpIn0=
+</div>
+<p>If we want the probabilities as previously obtained we would do</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InIiLCJzYW1wbGUiOiJwcmVkaWN0KG1vZGVsLCB0ZXN0WCwgdHlwZSA9ICdyYXcnKSJ9
+</div>
+</div>
+<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImZyb20gc2tsZWFybi5uYWl2ZV9iYXllcyBpbXBvcnQgR2F1c3NpYW5OQlxubW9kZWwgPSBHYXVzc2lhbk5CKCkuZml0KHRyYWluWCwgdHJhaW5ZKVxubW9kZWwucHJlZGljdCh0ZXN0WCkifQ==
+</div>
+<p>If we want the probabilities as previously obtained we would do</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6Im1vZGVsLnByZWRpY3RfcHJvYmEodGVzdFgpIn0=
+</div>
+<p>These probability results do not exactly match the ones in R. this is because of the usage of a variance smoothing parameter that adds an epsilon to every element of the variance matrix. Also numpy uses 0 ddof (delta degrees of freedom) by default, thus dividing by <code>N</code> when computing the variance instead of dividing by <code>N-1</code>. The subtle differences leads to the differences in the results</p>
+</div>
+</div>
+</div>
+<section id="exercise" class="level1">
+<h1>Exercise:</h1>
+<p>Implement a Naive Bayes function that will predict the class of new observations from a training set that contains both numeric and categorical predictors. The training set must be a dataframe. Use the <a href="https://raw.githubusercontent.com/oonyambu/ECON430/main/horseshoe_crab.csv">Horseshoe crab Data</a> provided below to test your function taking y as the response variables. Note that <code>color</code> <code>spine</code> and <code>y</code> are categorical variables.</p>
+<p>::: {.panel-tabset .group=‘language’} ## R</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InIiLCJzYW1wbGUiOiJjcmFicyA8LSByZWFkLmNzdihcImh0dHBzOi8vcmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbS9vb255YW1idS9FQ09ONDMwL21haW4vaG9yc2VzaG9lX2NyYWIuY3N2XCIsIFxuICAgICAgICAgICAgICAgICAgY29sQ2xhc3NlcyA9IGMoXCJmYWN0b3JcIiwgXCJmYWN0b3JcIiwgXCJkb3VibGVcIixcbiAgICAgICAgICAgICAgICAgICAgICAgXCJpbnRlZ2VyXCIsIFwiaW50ZWdlclwiLCBcImZhY3RvclwiKSlcblxudHJhaW4gPC0gaGVhZChjcmFicywgMTMwKVxudGVzdCA8LSB0YWlsKGNyYWJzLCAtMTMwKSJ9
+</div>
+<section id="python-2" class="level2">
+<h2 class="anchored" data-anchor-id="python-2">Python</h2>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InB5dGhvbiIsInNhbXBsZSI6ImltcG9ydCBwYW5kYXMgYXMgcGRcbmNyYWJzID0gKHBkLnJlYWRfY3N2KFwiaHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL29vbnlhbWJ1L0VDT040MzAvbWFpbi9ob3JzZXNob2VfY3JhYi5jc3ZcIiwgXG4gICAgICAgIGR0eXBlID0geydjb2xvcic6J2NhdGVnb3J5JywgJ3NwaW5lJzonY2F0ZWdvcnknLCAnd2lkdGgnOidmbG9hdCcsIFxuICAgICAgICAnc2F0ZWxsJzonaW50JywgJ3dlaWdodCc6J2ludCcsICd5JzonY2F0ZWdvcnknfSkpXG5cbnRyYWluID0gY3JhYnMuaGVhZCgxMzApXG50ZXN0ID0gY3JhYnMudGFpbCgtMTMwKSJ9
+</div>
+<p>:::</p>
+<p>Your function should match the following results for the head</p>
+<div data-datacamp-exercise="" data-height="300" data-encoded="true">
+eyJsYW5ndWFnZSI6InIiLCJzYW1wbGUiOiIjIyBQcm9iYWJpbGl0aWVzXG5wcmVkaWN0KGUxMDcxOjpuYWl2ZUJheWVzKHl+Lix0cmFpbiksIHRlc3QsIHR5cGUgPSAncmF3Jyl8PmhlYWQoKVxuIyBBY2N1cmFjeVxuTWV0cmljczo6YWNjdXJhY3kodGVzdCR5LCBwcmVkaWN0KGUxMDcxOjpuYWl2ZUJheWVzKHl+Lix0cmFpbiksIHRlc3QpKSJ9
+</div>
+<iframe src="https://trinket.io/embed/python3/a5bd54189b" width="100%" height="356" frameborder="0" marginwidth="0" marginheight="0" allowfullscreen=""></iframe>
+<script src="https://cdn.datacamp.com/datacamp-light-latest.min.js"></script>\n
+<div data-datacamp-exercise="" data-height="356" data-encoded="true">%s</div>
+
+
+</section>
+</section>
+
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">Copyright 2023, Onyambu, S.</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/oonyambu">
+      <i class="bi bi-github" role="img">
+</i> 
+    </a>
+  </li>  
+</ul>
+    </div>
+  </div>
+</footer>
+
+
+
+</body></html>

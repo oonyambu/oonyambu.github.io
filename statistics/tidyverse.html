@@ -1,0 +1,2362 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.353">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>ABC’s of R and Python - tidyverse</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./string.html" rel="next">
+<link href="./Solutions.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-DKJJZ86ZQ1"></script>
+
+<script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-DKJJZ86ZQ1', { 'anonymize_ip': true});
+</script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-sidebar floating">
+
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">tidyverse</li><li class="breadcrumb-item"><a href="./tidyverse.html">tidyverse</a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">ABC’s of R and Python</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Welcome to Online Study</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+ <span class="menu-text">Table of Contents</span>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./about.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">R Programing</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./about.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">R Programing</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./control_flows.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Control Flows</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./functions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Functions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./vector.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Vectors</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./matrix.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Matrices and Arrays</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+ <span class="menu-text">Strings, Factors, Dates</span>
+  </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Lists.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lists</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+ <span class="menu-text">DataFrames</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">Classes</span>
+  </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Solutions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Solutions</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">
+ <span class="menu-text">Data Manipulation</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+ <span class="menu-text">Map-Reduce</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">Mutation</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">Aggregation</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">Filtering</span>
+  </li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false">
+ <span class="menu-text">Data Cleaning</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false">
+ <span class="menu-text">String Manipulation</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+ <span class="menu-text">text cleaning</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">regex</span>
+  </li>
+      </ul>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">Date Manipulation</span>
+  </li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false">
+ <span class="menu-text">Data Wrangling</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+ <span class="menu-text">Lapply, sapply, tapply, rapply, apply</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">aggregate, by, merge</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">Data Reshaping-reshape, stack</span>
+  </li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">
+ <span class="menu-text">tidyverse</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+ <span class="menu-text">dplyr, tidyr, purrr</span>
+  </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./tidyverse.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">tidyverse</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./string.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">strings</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./pivot_questions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Questions</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="false">
+ <span class="menu-text">Optimization</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./root_finding.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Root finding Algorithms</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./minimization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Minimization</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+ <span class="menu-text">Numerical Differentiation</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">Optim, optimise, uniroot</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">MLE</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">nls</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">Integration</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">Expectation Maximization</span>
+  </li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="false">
+ <span class="menu-text">Data Modelling</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro_dataModeling.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+ <span class="menu-text">Fitting Distributions</span>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="false">
+ <span class="menu-text">Supervised Learning</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" aria-expanded="false">
+ <span class="menu-text">Regression</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./linear_models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data Modeling</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+ <span class="menu-text">Ridge Regression</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">LASSO Regression</span>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" aria-expanded="false">
+ <span class="menu-text">Generalized Linear Models(GLM)</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth4 ">  
+          <li class="sidebar-item">
+ <span class="menu-text">Logistic Regression</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">Probit Regression</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">Poisson Regression</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">Beta Regression</span>
+  </li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" aria-expanded="false">
+ <span class="menu-text">Classification</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-12" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./naive_bayes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Naive Bayes</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+ <span class="menu-text">K-Nearest Neighbours</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">Logistic Classification</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">Neural Networks</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">Linear Discriminant Analysis(LDA)</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">Quadratic Discriminant Analysis(QDA)</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">Support Vector Machines (SVM)</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">Boosting and Regression Trees</span>
+  </li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#" aria-expanded="false">
+ <span class="menu-text">Unsupervised Learning</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" aria-expanded="false">
+ <span class="menu-text">Clustering</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-13" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+ <span class="menu-text">K-means</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">Spectral Clustering</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">Expectation Maximization clustering</span>
+  </li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this Page</h2>
+   
+  <ul>
+  <li><a href="#packages" id="toc-packages" class="nav-link active" data-scroll-target="#packages">Packages</a></li>
+  <li><a href="#the-pipe-operator" id="toc-the-pipe-operator" class="nav-link" data-scroll-target="#the-pipe-operator">The pipe operator</a>
+  <ul class="collapse">
+  <li><a href="#argument-placeholder" id="toc-argument-placeholder" class="nav-link" data-scroll-target="#argument-placeholder">Argument Placeholder</a></li>
+  <li><a href="#when-to-use-pipe" id="toc-when-to-use-pipe" class="nav-link" data-scroll-target="#when-to-use-pipe">When to use pipe</a></li>
+  </ul></li>
+  <li><a href="#tibble" id="toc-tibble" class="nav-link" data-scroll-target="#tibble">tibble</a></li>
+  <li><a href="#readr" id="toc-readr" class="nav-link" data-scroll-target="#readr">readr</a></li>
+  <li><a href="#tidyr" id="toc-tidyr" class="nav-link" data-scroll-target="#tidyr">tidyr</a>
+  <ul class="collapse">
+  <li><a href="#unite" id="toc-unite" class="nav-link" data-scroll-target="#unite">Unite</a></li>
+  <li><a href="#separate" id="toc-separate" class="nav-link" data-scroll-target="#separate">Separate</a></li>
+  <li><a href="#pivot_wider" id="toc-pivot_wider" class="nav-link" data-scroll-target="#pivot_wider">pivot_wider</a>
+  <ul class="collapse">
+  <li><a href="#exercise" id="toc-exercise" class="nav-link" data-scroll-target="#exercise">Exercise</a></li>
+  </ul></li>
+  <li><a href="#pivot_longer" id="toc-pivot_longer" class="nav-link" data-scroll-target="#pivot_longer">pivot_longer</a>
+  <ul class="collapse">
+  <li><a href="#the-.value-argument-passed-to-names_to" id="toc-the-.value-argument-passed-to-names_to" class="nav-link" data-scroll-target="#the-.value-argument-passed-to-names_to">The .value argument passed to <code>names_to</code></a></li>
+  <li><a href="#exercise-1" id="toc-exercise-1" class="nav-link" data-scroll-target="#exercise-1">Exercise</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#dplyr" id="toc-dplyr" class="nav-link" data-scroll-target="#dplyr">dplyr</a>
+  <ul class="collapse">
+  <li><a href="#selecting-variables-using-select" id="toc-selecting-variables-using-select" class="nav-link" data-scroll-target="#selecting-variables-using-select">Selecting variables using <code>select</code></a></li>
+  <li><a href="#filter-rows-with-filter" id="toc-filter-rows-with-filter" class="nav-link" data-scroll-target="#filter-rows-with-filter">Filter rows with <code>filter</code></a></li>
+  <li><a href="#ordering-the-observations-using-arrange" id="toc-ordering-the-observations-using-arrange" class="nav-link" data-scroll-target="#ordering-the-observations-using-arrange">Ordering the observations using <code>arrange</code></a></li>
+  <li><a href="#adding-variables-using-mutate" id="toc-adding-variables-using-mutate" class="nav-link" data-scroll-target="#adding-variables-using-mutate">Adding variables using <code>mutate</code></a>
+  <ul class="collapse">
+  <li><a href="#useful-mutate-functions" id="toc-useful-mutate-functions" class="nav-link" data-scroll-target="#useful-mutate-functions">Useful mutate functions</a></li>
+  </ul></li>
+  <li><a href="#summarize-using-summarise" id="toc-summarize-using-summarise" class="nav-link" data-scroll-target="#summarize-using-summarise">Summarize using <code>summarise</code></a></li>
+  <li><a href="#exercise-2" id="toc-exercise-2" class="nav-link" data-scroll-target="#exercise-2">Exercise:</a></li>
+  </ul></li>
+  <li><a href="#relational-data-with-dplyr" id="toc-relational-data-with-dplyr" class="nav-link" data-scroll-target="#relational-data-with-dplyr">Relational Data With dplyr:</a></li>
+  <li><a href="#purrr" id="toc-purrr" class="nav-link" data-scroll-target="#purrr">purrr</a></li>
+  <li><a href="#stringr" id="toc-stringr" class="nav-link" data-scroll-target="#stringr">stringr</a></li>
+  <li><a href="#lubridate" id="toc-lubridate" class="nav-link" data-scroll-target="#lubridate">lubridate</a></li>
+  <li><a href="#forcats" id="toc-forcats" class="nav-link" data-scroll-target="#forcats">forcats</a></li>
+  <li><a href="#ggplot2" id="toc-ggplot2" class="nav-link" data-scroll-target="#ggplot2">ggplot2</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content column-body" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">tidyverse</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<p>This project was developed to make it simple to manipulate the data. Although one can use Base R to do data manipulation, there are inconsistencies regarding the function names and parameters. Tidyverse package takes the notion of <a href="https://en.wikipedia.org/wiki/MapReduce">MapReduce</a> to a whole new level.</p>
+<section id="packages" class="level1">
+<h1>Packages</h1>
+<p>Loading tidyverse library, loads 9 libraries with it:</p>
+<ol type="1">
+<li><p><a href="https://tibble.tidyverse.org/"><strong>tibble</strong></a> – A tibble is a reimagined dataframe. The package aims as enabling you to confront problems earlier, typically leading to cleaner, more expressive code.</p></li>
+<li><p><a href="https://readr.tidyverse.org/"><strong>readr</strong></a> <strong>–</strong> The goal of readr is to provide a fast and friendly way to read rectangular data from delimited files.</p></li>
+<li><p><a href="https://tidyr.tidyverse.org/"><strong>tidyr</strong></a> <strong>–</strong> The goal of tidyr is to help you create <strong>tidy data</strong>.</p></li>
+<li><p><a href="https://dplyr.tidyverse.org/"><strong>dplyr</strong></a> – Is a grammar of data manipulation, providing a consistent set of verbs that help you solve the most common data manipulation challenges.</p></li>
+<li><p><a href="https://purrr.tidyverse.org/"><strong>purrr</strong></a> <strong>–</strong> Enhances R’s functional programming (FP) toolkit by providing a complete and consistent set of tools for working with functions and vectors</p></li>
+<li><p><a href="https://stringr.tidyverse.org/"><strong>stringr</strong></a> – Provides a cohesive set of functions designed to make working with strings as easy as possible.</p></li>
+<li><p><a href="https://lubridate.tidyverse.org/"><strong>lubridate</strong></a> – Makes it easier to work with dates</p></li>
+<li><p><a href="https://forcats.tidyverse.org/"><strong>forcats</strong></a> – Aims at providing a suite of tools that solve common problems with factors, including changing the order of levels or the values</p></li>
+<li><p><a href="https://ggplot2.tidyverse.org/"><strong>ggplot2</strong></a> – Used for easy plotting. ggplot2 is a system for declaratively creating graphics, based on <a href="https://www.amazon.com/Grammar-Graphics-Statistics-Computing/dp/0387245448/ref=as_li_ss_tl">The Grammar of Graphics</a>.</p></li>
+</ol>
+</section>
+<section id="the-pipe-operator" class="level1">
+<h1>The pipe operator</h1>
+<p>Pipe in R is <strong>an infix operator that was introduced in magrittr package by Stefan Milton Bache, which is used to pass the output of one function as an input to another function</strong> which ideally makes our code easily readable and efficient. In other words pipe operator %&gt;% is used to express a sequence of multiple operations in an elegant way.</p>
+<p>All the packages in the tidyverse (except ggplot2) were written to be compatible with the pipe operator, denoted by <code>%&gt;%</code>, often pronounced as “and then”. The pipe is meant to help make code easier to read and understand.</p>
+<p>The primary way the <code>%&gt;%</code> operator works is to put the object on the lefthand side into the first argument of the function on the righthand side:</p>
+<ul>
+<li><p><code>f(x)</code> can be written as <code>x %&gt;% f()</code>.</p></li>
+<li><p><code>f(x,y)</code> can be written as <code>x %&gt;% f(y)</code>.</p></li>
+<li><p>By extension, we can include multiple pipes: <code>x %&gt;% f(y) %&gt;% g(z)</code> is equivalent to <code>g(f(x,y),z)</code>.</p></li>
+</ul>
+<p>Side Note: The pipe operator is from the magrittr package, but packages in the tidyverse will load <code>%&gt;%</code> automatically.</p>
+<p>Note that as per R version 4.0.0, there is a native pipe in R ie <code>|&gt;</code> and cab be used almost as similar as <code>%&gt;%</code> though there are some differences.</p>
+<p>Examples using pipe.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>x <span class="sc">|&gt;</span> <span class="fu">sqrt</span>() <span class="sc">|&gt;</span> <span class="fu">log</span>() <span class="sc">|&gt;</span> <span class="fu">sum</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2.393746</code></pre>
+</div>
+</div>
+<p>The above can also be done as:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>x <span class="sc">%&gt;%</span> <span class="fu">sqrt</span>() <span class="sc">%&gt;%</span> <span class="fu">log</span>() <span class="sc">%&gt;%</span> <span class="fu">sum</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2.393746</code></pre>
+</div>
+</div>
+<p>When using multiple pipes in one expression, it is more readable to write the pipes on separate lines:</p>
+<pre><code>x %&gt;%
+  f(y) %&gt;%
+  g(z)</code></pre>
+<p>The above piping might not be ideal since the functions are simple and straightforward. Although when dealing with data manipulation, you will notice how the pipe comes in handy.</p>
+<section id="argument-placeholder" class="level2">
+<h2 class="anchored" data-anchor-id="argument-placeholder">Argument Placeholder</h2>
+<p>When using the pipe operator the <code>.</code> can be used as an argument placeholder on the righthand side to represent the object on the lefthand side.</p>
+<ul>
+<li><p><code>f(x,y)</code> can be written as <code>y %&gt;% f(x, .)</code></p></li>
+<li><p><code>lm(Volume~Height, data = trees)</code> can be written as <code>trees %&gt;% lm(Volume ~ Height, data = .)</code></p></li>
+</ul>
+<p>The native pipe <code>|&gt;</code> on the other hand uses <code>_</code> as the argument placeholder, but does not accept argument matching by position. Thus one must <a href="https://onyambu.quarto.pub/statistics/functions.html#passing-arguments"><strong>pass the argument by name</strong></a><strong>:</strong></p>
+<ul>
+<li><p><code>f(x,y)</code> can be written as <code>y |&gt; f(x,y = _)</code>.</p></li>
+<li><p><code>trees |&gt; lm(Volume ~ Height, data = _)</code></p></li>
+</ul>
+<p>Note:</p>
+<ul>
+<li><p><code>trees %&gt;% lm(Volume ~ Height, .)</code> works</p></li>
+<li><p><code>trees |&gt; lm(Volume ~ Height, _)</code> does not work.</p></li>
+</ul>
+<p>Run the above to determine as to whether they run or not.</p>
+</section>
+<section id="when-to-use-pipe" class="level2">
+<h2 class="anchored" data-anchor-id="when-to-use-pipe">When to use pipe</h2>
+<p>It is not compulsory to use pipes, though they can simplify your task. In case you have more than one input at a time, then you can decide not to use pipe. Also, if it simple to directly call the function on the data, there is no need to use a pipe. On the other hand, if the input has to be manipulated in a complex manner before obtaining the output, consider using the pipe. Note also that whenever you are working with tidyverse, you should consider using the magritrr pipe <code>%&gt;%</code> rather than the native pipeas it is already loaded to your searchpath.</p>
+</section>
+</section>
+<section id="tibble" class="level1">
+<h1>tibble</h1>
+<p>Tibbles are data frames with the added class <code>tbl_df</code> that makes the way R prints the object more readable. The tibble() function can create tibbles, the same way that <code>data.frame()</code> does. The <code>as_tibble()</code> function coerces lists and matrices into tibbles.</p>
+</section>
+<section id="readr" class="level1">
+<h1>readr</h1>
+<p>This is a package used to read data into R. The main functions include</p>
+<ul>
+<li><p><code>read_csv</code> - Imports Comma Separated Values dataset ie csv files</p></li>
+<li><p><code>read_table</code> - Reads text files ie txt files. These are files where values are separated by one or more spaces.</p></li>
+</ul>
+<p>Also in order to clean data, functions such as <code>parse_number</code> will be put into effect.</p>
+<p>Some of the datasets to use will be found <a href="https://gattonweb.uky.edu/sheather/book/data_sets.php">here</a>.</p>
+</section>
+<section id="tidyr" class="level1">
+<h1>tidyr</h1>
+<p>A dataset is called tidy if the following three rules are satisfied:</p>
+<ul>
+<li><p>Each variable must have its own column.</p></li>
+<li><p>Each observation must have its own row.</p></li>
+<li><p>Each value must have its own cell.</p></li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/tidy data.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+<p>Any dataset that is not tidy is sometimes called messy.</p>
+<p>The first step in tidying data is to figure out what the variables and observations are.</p>
+<p>The main functions in the tidyr package help make data tidy. Once the variables and observations are specified, there are several functions that address common issues with messy data:</p>
+<ul>
+<li><p><code>pivot_longer</code> - used when one variable is spread across multiple columns and need to be stacked</p></li>
+<li><p><code>pivot_wider</code> – used when one observation is scattered across multiple rows and need to be spread across multiple columns instead</p></li>
+<li><p><code>separate</code> – used when cells contain multiple values (from different variables).</p></li>
+<li><p><code>unite</code> – used when a single variable is spread across multiple columns.</p></li>
+</ul>
+<p>All of the tidyr functions have the same basic syntax:</p>
+<ol type="1">
+<li><p>The first argument is a data frame (or tibble).</p></li>
+<li><p>Subsequent arguments describe what to do with the data frame. (variable names can be used without quotations).</p></li>
+<li><p>The output is a data frame (same class as the input).</p></li>
+</ol>
+<section id="unite" class="level2">
+<h2 class="anchored" data-anchor-id="unite">Unite</h2>
+<p>As stated before, this is used to bring together data spread across multiple variables/cells into one variable/cell. For example assume we have a dataset whereby we have a column containing year, another column containing month and another column containing day. These three columns need to be just one column denoted as date.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Year =</span> <span class="fu">c</span>(<span class="dv">2021</span>, <span class="dv">2022</span>, <span class="dv">2023</span>, <span class="dv">2021</span>),</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">month =</span> <span class="fu">c</span>(<span class="dv">8</span>,<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">1</span>), </span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">day =</span> <span class="fu">c</span>(<span class="dv">23</span>,<span class="dv">14</span>, <span class="dv">30</span>, <span class="dv">8</span>))</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Year month day
+1 2021     8  23
+2 2022     7  14
+3 2023     8  30
+4 2021     1   8</code></pre>
+</div>
+</div>
+<p>Note that we can unite all the above to just have one column:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unite</span>(df, Date, Year, month, day, <span class="at">sep =</span> <span class="st">'-'</span>, <span class="at">remove =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       Date Year month day
+1 2021-8-23 2021     8  23
+2 2022-7-14 2022     7  14
+3 2023-8-30 2023     8  30
+4  2021-1-8 2021     1   8</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unite</span>(Date, <span class="fu">everything</span>(), <span class="at">sep =</span> <span class="st">'-'</span>, <span class="at">remove =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       Date Year month day
+1 2021-8-23 2021     8  23
+2 2022-7-14 2022     7  14
+3 2023-8-30 2023     8  30
+4  2021-1-8 2021     1   8</code></pre>
+</div>
+</div>
+<p>Type <code>help("unite")</code> skim through the help page. Run the examples. Then try the following.</p>
+<p>Quiz: Load the tidyverse package. Type <code>table5</code> in the console. You should see a dataframe containing 6 observations and 4 variables. Note that the <code>Year</code> variable has been broken down into two variables. ie <code>Century</code> and <code>year</code> unite these two and create a correct Year variable. You should get what looks like <code>table3</code></p>
+</section>
+<section id="separate" class="level2">
+<h2 class="anchored" data-anchor-id="separate">Separate</h2>
+<p>The <code>separate()</code> function pulls apart one column into multiple columns, by splitting wherever a separator character appears. It is the opposite of <code>unite</code></p>
+<p>Quiz: Use <code>separate</code> function to convert <code>table5</code> to look exactly like <code>table2</code>. Hint <code>?separate</code></p>
+<p>Note that <code>separate()</code>&nbsp;has been superseded in favour of&nbsp;<a href="http://127.0.0.1:15445/help/library/tidyr/help/separate_wider_position"><code>separate_wider_position()</code></a>&nbsp;and&nbsp;<code>separate_wider_delim()</code> .</p>
+<p>Both <code>separate</code> and <code>unite</code> can be accomplished using the <code>mutate</code> function.</p>
+</section>
+<section id="pivot_wider" class="level2">
+<h2 class="anchored" data-anchor-id="pivot_wider">pivot_wider</h2>
+<p>When an observation is scattered across multiple rows, we want to widen the observation from stacked rows into one wider row.</p>
+<p>Consider <code>table2</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>table2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 12 × 4
+   country      year type            count
+   &lt;chr&gt;       &lt;dbl&gt; &lt;chr&gt;           &lt;dbl&gt;
+ 1 Afghanistan  1999 cases             745
+ 2 Afghanistan  1999 population   19987071
+ 3 Afghanistan  2000 cases            2666
+ 4 Afghanistan  2000 population   20595360
+ 5 Brazil       1999 cases           37737
+ 6 Brazil       1999 population  172006362
+ 7 Brazil       2000 cases           80488
+...</code></pre>
+</div>
+</div>
+<p>Consider the case and population for each country per year to be one observation. Then the two should be on one row and not two rows. Look at the image below:</p>
+<p><img src="images/wider.png" class="img-fluid" width="606"></p>
+<p>The image depicts the process of reshaping/casting/pivoting the data into a wider format. This wider format will be considered as the tidy data. The longer format provided above is untidy/messy.</p>
+<p><code>pivot_wider()</code>&nbsp;“widens” data, increasing the number of columns and decreasing the number of rows. The inverse transformation is&nbsp;<a href="https://tidyr.tidyverse.org/reference/pivot_longer.html"><code>pivot_longer()</code></a> To transform the data as shown in the image above, the code will be:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>table2 <span class="sc">%&gt;%</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">id_cols =</span> <span class="fu">c</span>(country, year), <span class="at">names_from =</span> type, <span class="at">values_from =</span> count)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 4
+  country      year  cases population
+  &lt;chr&gt;       &lt;dbl&gt;  &lt;dbl&gt;      &lt;dbl&gt;
+1 Afghanistan  1999    745   19987071
+2 Afghanistan  2000   2666   20595360
+3 Brazil       1999  37737  172006362
+4 Brazil       2000  80488  174504898
+5 China        1999 212258 1272915272
+6 China        2000 213766 1280428583</code></pre>
+</div>
+</div>
+<ul>
+<li><p>The <code>id_cols</code> are the columns that need to be maintained, ie not widened/spread</p></li>
+<li><p>The <code>names_from</code> is the column(s) that contains variable names.</p></li>
+<li><p>The <code>values_from</code> is the column(s) that contains the values from multiple variables.</p></li>
+</ul>
+<p>Look at the <a href="https://tidyr.tidyverse.org/reference/pivot_wider.html">help page</a> to learn more about the various parameters of this function. Run all the examples of that page looking at the different code used to generate the required output.</p>
+<section id="exercise" class="level3">
+<h3 class="anchored" data-anchor-id="exercise">Exercise</h3>
+<p><a href="https://stackoverflow.com/questions/64808185/restructure-dataframe-pivot-wider/64808330#64808330">[1]</a>, <a href="https://stackoverflow.com/questions/70586249/long-to-wide-data/70586319#70586319">[8]</a>, <a href="https://stackoverflow.com/questions/73437545/manipulate-a-pair-data-in-r/73437626#73437626">[9]</a></p>
+<p><a href="https://stackoverflow.com/questions/67941220/pivot-wider-using-multiple-variables-for-publication-table/67941356#67941356">[2]</a></p>
+<p><a href="https://stackoverflow.com/questions/67422513/r-pivot-wider-or-dcast-to-cast-multiple-columns/67422688#67422688">[3]</a></p>
+<p><a href="https://stackoverflow.com/questions/72386255/pivot-wider-combine-duplicate-observations-and-create-new-variable-columns-for/72386290#72386290">[4]</a></p>
+<p><a href="https://stackoverflow.com/questions/70269158/in-dplyr-when-use-pivot-wide-i-want-to-replace-na-at-the-same-time/70269315#70269315">[5]</a></p>
+<p><a href="https://stackoverflow.com/questions/72724479/classifying-columns-based-on-str-detect/72724683#72724683">[6]</a> try</p>
+</section>
+</section>
+<section id="pivot_longer" class="level2">
+<h2 class="anchored" data-anchor-id="pivot_longer">pivot_longer</h2>
+<p><code>pivot_longer()</code>&nbsp;“lengthens” data, increasing the number of rows and decreasing the number of columns. The inverse transformation is&nbsp;<a href="https://tidyr.tidyverse.org/reference/pivot_wider.html"><code>pivot_wider()</code></a></p>
+<p>consider <code>table4a</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>table4a</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 3
+  country     `1999` `2000`
+  &lt;chr&gt;        &lt;dbl&gt;  &lt;dbl&gt;
+1 Afghanistan    745   2666
+2 Brazil       37737  80488
+3 China       212258 213766</code></pre>
+</div>
+</div>
+<p><img src="images/longer.png" class="img-fluid"></p>
+<p>From the above, we can tell that the data in table 4a is messy. This is because we have more than one observation per row. For example in row 1 we have the cases in 1999 and the cases in 2000. Note that the cases per year which should belong in one variable are spread over multiple variables/columns.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>table4a <span class="sc">%&gt;%</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="sc">-</span>country)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 3
+  country     name   value
+  &lt;chr&gt;       &lt;chr&gt;  &lt;dbl&gt;
+1 Afghanistan 1999     745
+2 Afghanistan 2000    2666
+3 Brazil      1999   37737
+4 Brazil      2000   80488
+5 China       1999  212258
+6 China       2000  213766</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>table4a <span class="sc">%&gt;%</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="sc">-</span>country, <span class="at">names_to =</span> <span class="st">'year'</span>, <span class="at">values_to =</span> <span class="st">'cases'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 3
+  country     year   cases
+  &lt;chr&gt;       &lt;chr&gt;  &lt;dbl&gt;
+1 Afghanistan 1999     745
+2 Afghanistan 2000    2666
+3 Brazil      1999   37737
+4 Brazil      2000   80488
+5 China       1999  212258
+6 China       2000  213766</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>table4a <span class="sc">%&gt;%</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pivot_longer</span>(<span class="fu">c</span>(<span class="st">`</span><span class="at">1999</span><span class="st">`</span>, <span class="st">`</span><span class="at">2000</span><span class="st">`</span>), <span class="at">names_to =</span> <span class="st">"year"</span>, <span class="at">values_to =</span> <span class="st">"cases"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 3
+  country     year   cases
+  &lt;chr&gt;       &lt;chr&gt;  &lt;dbl&gt;
+1 Afghanistan 1999     745
+2 Afghanistan 2000    2666
+3 Brazil      1999   37737
+4 Brazil      2000   80488
+5 China       1999  212258
+6 China       2000  213766</code></pre>
+</div>
+</div>
+<p>Note that in we had to use back tick quotes since the names are non-standard/non-syntactic.</p>
+<p>Read through the <a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">help page</a> to better understand the function. Run the examples, especially the last one.</p>
+<p>Note: Most of the times, the names have to be captured using some particular pattern. One need to learn about regular expressions in order to easily used the <code>name_pattern</code> parameter.</p>
+<section id="the-.value-argument-passed-to-names_to" class="level3">
+<h3 class="anchored" data-anchor-id="the-.value-argument-passed-to-names_to">The .value argument passed to <code>names_to</code></h3>
+<p>Used when multiple variables are spread across multiple columns.</p>
+<p>Lets take a look at only one varibale <code>x</code> spread across multiple columns: Check the different codes below:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>df1 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x_1 =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, <span class="at">x_2 =</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">3</span>, <span class="at">x_3 =</span> <span class="dv">4</span><span class="sc">:</span><span class="dv">5</span>)</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="fu">pivot_longer</span>(df1, <span class="fu">everything</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 2
+  name  value
+  &lt;chr&gt; &lt;int&gt;
+1 x_1       1
+2 x_2       2
+3 x_3       4
+4 x_1       2
+5 x_2       3
+6 x_3       5</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pivot_longer</span>(df1, <span class="fu">everything</span>(), <span class="at">names_to =</span> <span class="st">'group'</span>, <span class="at">values_to =</span> <span class="st">'x'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 2
+  group     x
+  &lt;chr&gt; &lt;int&gt;
+1 x_1       1
+2 x_2       2
+3 x_3       4
+4 x_1       2
+5 x_2       3
+6 x_3       5</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pivot_longer</span>(df1, <span class="fu">everything</span>(), </span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>             <span class="at">names_to =</span> <span class="fu">c</span>(<span class="st">'var'</span>, <span class="st">'group'</span>), <span class="at">names_sep =</span> <span class="st">'_'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 3
+  var   group value
+  &lt;chr&gt; &lt;chr&gt; &lt;int&gt;
+1 x     1         1
+2 x     2         2
+3 x     3         4
+4 x     1         2
+5 x     2         3
+6 x     3         5</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pivot_longer</span>(df1, <span class="fu">everything</span>(), </span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>             <span class="at">names_to =</span> <span class="fu">c</span>(<span class="st">'.value'</span>, <span class="st">'group'</span>), <span class="at">names_sep =</span> <span class="st">'_'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 2
+  group     x
+  &lt;chr&gt; &lt;int&gt;
+1 1         1
+2 2         2
+3 3         4
+4 1         2
+5 2         3
+6 3         5</code></pre>
+</div>
+</div>
+<p>Notice how when we used the <code>.value</code> within the <code>names_to</code> parameter, the value column was named according to the word that occupied the position prior to the separator in the names of the selected variables.</p>
+<p>What if instead of having just one variable, we had 2, ie <code>x</code> and <code>y</code>? The only way to obtain the needed results is by using <code>.value</code> as an the argument of <code>names_to</code> parameter.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>df2 <span class="ot">&lt;-</span> <span class="fu">cbind</span>(df1, <span class="at">y_1 =</span> <span class="dv">11</span><span class="sc">:</span><span class="dv">12</span>, <span class="at">y_2 =</span> <span class="dv">12</span><span class="sc">:</span><span class="dv">13</span>, <span class="at">y_3 =</span> <span class="dv">14</span><span class="sc">:</span><span class="dv">15</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pivot_longer</span>(df2, <span class="fu">everything</span>(), </span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>             <span class="at">names_to =</span> <span class="fu">c</span>(<span class="st">".value"</span>, <span class="st">"group"</span>), <span class="at">names_sep =</span> <span class="st">"_"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 3
+  group     x     y
+  &lt;chr&gt; &lt;int&gt; &lt;int&gt;
+1 1         1    11
+2 2         2    12
+3 3         4    14
+4 1         2    12
+5 2         3    13
+6 3         5    15</code></pre>
+</div>
+</div>
+<p>Quiz: clean the names of <code>anscombe</code> dataset by running <code>anscombe %&gt;%janitor::clean_names(numerals = 'right')</code>. Using the dataset with cleaned names, pivot the data to obtain only two columns ie columns <code>x</code> and <code>y</code>.</p>
+</section>
+<section id="exercise-1" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-1">Exercise</h3>
+<p><a href="https://stackoverflow.com/questions/51698191/renaming-multiple-columns-and-gathering-with-dplyr-in-r/51698304#51698304">[1]</a>, <a href="https://stackoverflow.com/questions/68398787/pivot-longer-for-multiple-observations-in-a-row/68398821#68398821">[4]</a></p>
+<p><a href="https://stackoverflow.com/questions/68089787/counting-occurencies-in-every-column-in-r/68089904#68089904">[2]</a></p>
+<p><a href="https://stackoverflow.com/questions/68089787/counting-occurencies-in-every-column-in-r/68089904#68089904">[3]</a></p>
+<p><a href="https://stackoverflow.com/questions/67793317/pivot-longer-gvcf-columns-into-rows/67793499#67793499">[4]</a></p>
+<p><a href="https://stackoverflow.com/questions/71042111/performing-pivot-longer-over-multiple-sets-of-columns/71042185#71042185">[5]</a></p>
+<p><a href="https://stackoverflow.com/questions/75217027/create-a-new-data-frame-with-the-variables-names/75217101#75217101">[6]</a> Use the data frame shown below</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">structure</span>(<span class="fu">list</span>(<span class="at">wind =</span> <span class="fu">c</span>(<span class="fl">0.84</span>, <span class="fl">1.77</span>, <span class="fl">3.5</span>, <span class="fl">6.44</span>, <span class="fl">7.55</span>), <span class="at">ROS =</span> <span class="fu">c</span>(<span class="fl">0.01</span>, </span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="fl">0.03</span>, <span class="fl">0.05</span>, <span class="fl">0.07</span>, <span class="fl">0.1</span>), <span class="at">T0_1 =</span> <span class="fu">c</span>(<span class="dv">1110</span>, <span class="dv">350</span>, <span class="dv">250</span>, <span class="dv">300</span>, <span class="dv">311</span>), <span class="at">T0_2 =</span> <span class="fu">c</span>(<span class="dv">560</span>, </span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="dv">200</span>, <span class="dv">364</span>, <span class="dv">258</span>, <span class="dv">159</span>), <span class="at">T0_3 =</span> <span class="fu">c</span>(<span class="dv">258</span>, <span class="dv">147</span>, <span class="dv">369</span>, <span class="dv">123</span>, <span class="dv">624</span>), <span class="at">T180_1 =</span> <span class="fu">c</span>(<span class="dv">554</span>, </span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a><span class="dv">226</span>, <span class="dv">547</span>, <span class="dv">842</span>, <span class="dv">366</span>), <span class="at">T180_2 =</span> <span class="fu">c</span>(<span class="dv">258</span>, <span class="dv">147</span>, <span class="dv">369</span>, <span class="dv">123</span>, <span class="dv">624</span>), <span class="at">T180_3 =</span> <span class="fu">c</span>(<span class="dv">110</span>, </span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a><span class="dv">350</span>, <span class="dv">250</span>, <span class="dv">300</span>, <span class="dv">311</span>)), <span class="at">class =</span> <span class="st">"data.frame"</span>, <span class="at">row.names =</span> <span class="fu">c</span>(<span class="cn">NA</span>, </span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a><span class="sc">-</span>5L))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Other useful tidyr functions include <code>fill</code> <code>unnest</code>, <code>unpack</code>, and <code>unchop</code> . Learn more about <code>fill</code></p>
+</section>
+</section>
+</section>
+<section id="dplyr" class="level1">
+<h1>dplyr</h1>
+<p>There are five main functions in the dplyr package that are useful for data manipulation. The data is assumed to be tidy.</p>
+<ul>
+<li><p><a href="https://dplyr.tidyverse.org/reference/select.html"><code>select()</code></a> picks variables based on their names.</p></li>
+<li><p><a href="https://dplyr.tidyverse.org/reference/filter.html"><code>filter()</code></a> picks cases based on their values.</p></li>
+<li><p><a href="https://dplyr.tidyverse.org/reference/arrange.html"><code>arrange()</code></a> changes the ordering of the rows.</p></li>
+<li><p><a href="https://dplyr.tidyverse.org/reference/mutate.html"><code>mutate()</code></a> adds new variable that are functions of existing variables</p></li>
+<li><p><a href="https://dplyr.tidyverse.org/reference/summarise.html"><code>summarise()</code></a> reduces multiple values down to a single summary.</p></li>
+</ul>
+<section id="selecting-variables-using-select" class="level2">
+<h2 class="anchored" data-anchor-id="selecting-variables-using-select">Selecting variables using <code>select</code></h2>
+<p>In data manipulation, we often desire to work on a subset of the variables in the whole dataset. The <code>select</code> function is used to only pick the variables of interest to work on.</p>
+<p>Tidyverse selections implement a dialect of R where operators make it easy to select variables:</p>
+<ul>
+<li><p><code>:</code> for selecting a range of consecutive variables.</p></li>
+<li><p><code>!</code> for taking the complement of a set of variables.</p></li>
+<li><p><code>&amp;</code> and <code>|</code> for selecting the intersection or the union of two sets of variables.</p></li>
+<li><p><code>c()</code> for combining selections.</p></li>
+</ul>
+<div class="cell" data-messgae="false">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>starwars</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 87 × 14
+   name     height  mass hair_color skin_color eye_color birth_year sex   gender
+   &lt;chr&gt;     &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; 
+ 1 Luke Sk…    172    77 blond      fair       blue            19   male  mascu…
+ 2 C-3PO       167    75 &lt;NA&gt;       gold       yellow         112   none  mascu…
+ 3 R2-D2        96    32 &lt;NA&gt;       white, bl… red             33   none  mascu…
+ 4 Darth V…    202   136 none       white      yellow          41.9 male  mascu…
+ 5 Leia Or…    150    49 brown      light      brown           19   fema… femin…
+ 6 Owen La…    178   120 brown, gr… light      blue            52   male  mascu…
+ 7 Beru Wh…    165    75 brown      light      blue            47   fema… femin…
+...</code></pre>
+</div>
+</div>
+<p><strong>select <code>name, height and mass</code> from the <code>starwars</code> dataset.</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>starwars <span class="sc">%&gt;%</span> </span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(name, height, mass) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 87 × 3
+   name               height  mass
+   &lt;chr&gt;               &lt;int&gt; &lt;dbl&gt;
+ 1 Luke Skywalker        172    77
+ 2 C-3PO                 167    75
+ 3 R2-D2                  96    32
+ 4 Darth Vader           202   136
+ 5 Leia Organa           150    49
+ 6 Owen Lars             178   120
+ 7 Beru Whitesun lars    165    75
+...</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>starwars <span class="sc">%&gt;%</span> </span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">c</span>(name, height, mass))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 87 × 3
+   name               height  mass
+   &lt;chr&gt;               &lt;int&gt; &lt;dbl&gt;
+ 1 Luke Skywalker        172    77
+ 2 C-3PO                 167    75
+ 3 R2-D2                  96    32
+ 4 Darth Vader           202   136
+ 5 Leia Organa           150    49
+ 6 Owen Lars             178   120
+ 7 Beru Whitesun lars    165    75
+...</code></pre>
+</div>
+</div>
+<p>Note: There is no need to use the quotes eg <code>"name"</code> since we are working on tidyverse. If the names are not syntactically correct, eg contain punctuation marks, starts with numbers etc, you will have to use backticks or quotes to select those names.</p>
+<p><strong>select the first 3 variables</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>starwars <span class="sc">%&gt;%</span> </span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 87 × 3
+   name               height  mass
+   &lt;chr&gt;               &lt;int&gt; &lt;dbl&gt;
+ 1 Luke Skywalker        172    77
+ 2 C-3PO                 167    75
+ 3 R2-D2                  96    32
+ 4 Darth Vader           202   136
+ 5 Leia Organa           150    49
+ 6 Owen Lars             178   120
+ 7 Beru Whitesun lars    165    75
+...</code></pre>
+</div>
+</div>
+<p><strong>select everything apart from the <code>sex</code> and <code>gender</code></strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>starwars <span class="sc">%&gt;%</span> </span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>sex, <span class="sc">-</span>gender) <span class="co"># you can also do !sex, !gender</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 87 × 12
+   name        height  mass hair_color skin_color eye_color birth_year homeworld
+   &lt;chr&gt;        &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt;    
+ 1 Luke Skywa…    172    77 blond      fair       blue            19   Tatooine 
+ 2 C-3PO          167    75 &lt;NA&gt;       gold       yellow         112   Tatooine 
+ 3 R2-D2           96    32 &lt;NA&gt;       white, bl… red             33   Naboo    
+ 4 Darth Vader    202   136 none       white      yellow          41.9 Tatooine 
+ 5 Leia Organa    150    49 brown      light      brown           19   Alderaan 
+ 6 Owen Lars      178   120 brown, gr… light      blue            52   Tatooine 
+ 7 Beru White…    165    75 brown      light      blue            47   Tatooine 
+...</code></pre>
+</div>
+</div>
+<p><strong>select from <code>hair_color</code> to <code>sex</code></strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>starwars <span class="sc">%&gt;%</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(hair_color<span class="sc">:</span>sex)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 87 × 5
+   hair_color    skin_color  eye_color birth_year sex   
+   &lt;chr&gt;         &lt;chr&gt;       &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt; 
+ 1 blond         fair        blue            19   male  
+ 2 &lt;NA&gt;          gold        yellow         112   none  
+ 3 &lt;NA&gt;          white, blue red             33   none  
+ 4 none          white       yellow          41.9 male  
+ 5 brown         light       brown           19   female
+ 6 brown, grey   light       blue            52   male  
+ 7 brown         light       blue            47   female
+...</code></pre>
+</div>
+</div>
+<p><strong>select everything else apart from <code>hair_color</code> to <code>sex</code></strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>starwars <span class="sc">%&gt;%</span> </span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">!</span>(hair_color<span class="sc">:</span>sex)) <span class="co"># you could also use -(hair_color:sex)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 87 × 9
+   name           height  mass gender homeworld species films vehicles starships
+   &lt;chr&gt;           &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;     &lt;chr&gt;   &lt;lis&gt; &lt;list&gt;   &lt;list&gt;   
+ 1 Luke Skywalker    172    77 mascu… Tatooine  Human   &lt;chr&gt; &lt;chr&gt;    &lt;chr [2]&gt;
+ 2 C-3PO             167    75 mascu… Tatooine  Droid   &lt;chr&gt; &lt;chr&gt;    &lt;chr [0]&gt;
+ 3 R2-D2              96    32 mascu… Naboo     Droid   &lt;chr&gt; &lt;chr&gt;    &lt;chr [0]&gt;
+ 4 Darth Vader       202   136 mascu… Tatooine  Human   &lt;chr&gt; &lt;chr&gt;    &lt;chr [1]&gt;
+ 5 Leia Organa       150    49 femin… Alderaan  Human   &lt;chr&gt; &lt;chr&gt;    &lt;chr [0]&gt;
+ 6 Owen Lars         178   120 mascu… Tatooine  Human   &lt;chr&gt; &lt;chr&gt;    &lt;chr [0]&gt;
+ 7 Beru Whitesun…    165    75 femin… Tatooine  Human   &lt;chr&gt; &lt;chr&gt;    &lt;chr [0]&gt;
+...</code></pre>
+</div>
+</div>
+<p>In addition, you can use <strong>selection helpers</strong>. Some helpers select specific columns:</p>
+<ul>
+<li><p><a href="http://127.0.0.1:34481/help/library/tidyselect/help/everything"><code>everything()</code></a>: Matches all variables.</p></li>
+<li><p><a href="http://127.0.0.1:34481/help/library/tidyselect/help/everything"><code>last_col()</code></a>: Select last variable, possibly with an offset.</p></li>
+</ul>
+<p><strong>select the last column</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>starwars <span class="sc">%&gt;%</span> </span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">last_col</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 87 × 1
+   starships
+   &lt;list&gt;   
+ 1 &lt;chr [2]&gt;
+ 2 &lt;chr [0]&gt;
+ 3 &lt;chr [0]&gt;
+ 4 &lt;chr [1]&gt;
+ 5 &lt;chr [0]&gt;
+ 6 &lt;chr [0]&gt;
+ 7 &lt;chr [0]&gt;
+...</code></pre>
+</div>
+</div>
+<p><strong>select from <code>species</code> to the last column</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>starwars <span class="sc">%&gt;%</span> </span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(species<span class="sc">:</span><span class="fu">last_col</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 87 × 4
+   species films     vehicles  starships
+   &lt;chr&gt;   &lt;list&gt;    &lt;list&gt;    &lt;list&gt;   
+ 1 Human   &lt;chr [5]&gt; &lt;chr [2]&gt; &lt;chr [2]&gt;
+ 2 Droid   &lt;chr [6]&gt; &lt;chr [0]&gt; &lt;chr [0]&gt;
+ 3 Droid   &lt;chr [7]&gt; &lt;chr [0]&gt; &lt;chr [0]&gt;
+ 4 Human   &lt;chr [4]&gt; &lt;chr [0]&gt; &lt;chr [1]&gt;
+ 5 Human   &lt;chr [5]&gt; &lt;chr [1]&gt; &lt;chr [0]&gt;
+ 6 Human   &lt;chr [3]&gt; &lt;chr [0]&gt; &lt;chr [0]&gt;
+ 7 Human   &lt;chr [3]&gt; &lt;chr [0]&gt; &lt;chr [0]&gt;
+...</code></pre>
+</div>
+</div>
+<p>Other helpers select variables by matching patterns in their names:</p>
+<ul>
+<li><p><a href="http://127.0.0.1:34481/help/library/tidyselect/help/starts_with"><code>starts_with()</code></a>: Starts with a prefix.</p></li>
+<li><p><a href="http://127.0.0.1:34481/help/library/tidyselect/help/starts_with"><code>ends_with()</code></a>: Ends with a suffix.</p></li>
+<li><p><a href="http://127.0.0.1:34481/help/library/tidyselect/help/starts_with"><code>contains()</code></a>: Contains a literal string.</p></li>
+<li><p><a href="http://127.0.0.1:34481/help/library/tidyselect/help/starts_with"><code>matches()</code></a>: Matches a regular expression.</p></li>
+</ul>
+<p><strong>select columns that start with an <code>s</code></strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>starwars <span class="sc">%&gt;%</span> </span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">starts_with</span>(<span class="st">'s'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 87 × 4
+   skin_color  sex    species starships
+   &lt;chr&gt;       &lt;chr&gt;  &lt;chr&gt;   &lt;list&gt;   
+ 1 fair        male   Human   &lt;chr [2]&gt;
+ 2 gold        none   Droid   &lt;chr [0]&gt;
+ 3 white, blue none   Droid   &lt;chr [0]&gt;
+ 4 white       male   Human   &lt;chr [1]&gt;
+ 5 light       female Human   &lt;chr [0]&gt;
+ 6 light       male   Human   &lt;chr [0]&gt;
+ 7 light       female Human   &lt;chr [0]&gt;
+...</code></pre>
+</div>
+</div>
+<p><strong>select columns that end with <code>color</code></strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(starwars , <span class="fu">ends_with</span>(<span class="st">'color'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 87 × 3
+   hair_color    skin_color  eye_color
+   &lt;chr&gt;         &lt;chr&gt;       &lt;chr&gt;    
+ 1 blond         fair        blue     
+ 2 &lt;NA&gt;          gold        yellow   
+ 3 &lt;NA&gt;          white, blue red      
+ 4 none          white       yellow   
+ 5 brown         light       brown    
+ 6 brown, grey   light       blue     
+ 7 brown         light       blue     
+...</code></pre>
+</div>
+</div>
+<p><strong>select columns that contain <code>y</code></strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(starwars, <span class="fu">contains</span>(<span class="st">'y'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 87 × 2
+   eye_color birth_year
+   &lt;chr&gt;          &lt;dbl&gt;
+ 1 blue            19  
+ 2 yellow         112  
+ 3 red             33  
+ 4 yellow          41.9
+ 5 brown           19  
+ 6 blue            52  
+ 7 blue            47  
+...</code></pre>
+</div>
+</div>
+<p>We can also select using a predicate function. ie select columns that satisfy a given condition.</p>
+<ul>
+<li><a href="http://127.0.0.1:34481/help/library/tidyselect/help/where"><code>where()</code></a>: Applies a function to all variables and selects those for which the function returns <code>TRUE</code>.</li>
+</ul>
+<p><strong>select numeric columns</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>starwars <span class="sc">%&gt;%</span> </span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">where</span>(is.numeric)) <span class="co"># select only numeric variables</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 87 × 3
+   height  mass birth_year
+    &lt;int&gt; &lt;dbl&gt;      &lt;dbl&gt;
+ 1    172    77       19  
+ 2    167    75      112  
+ 3     96    32       33  
+ 4    202   136       41.9
+ 5    150    49       19  
+ 6    178   120       52  
+ 7    165    75       47  
+...</code></pre>
+</div>
+</div>
+<p><strong>select columns that are lists</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(starwars, <span class="fu">where</span>(is.list))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 87 × 3
+   films     vehicles  starships
+   &lt;list&gt;    &lt;list&gt;    &lt;list&gt;   
+ 1 &lt;chr [5]&gt; &lt;chr [2]&gt; &lt;chr [2]&gt;
+ 2 &lt;chr [6]&gt; &lt;chr [0]&gt; &lt;chr [0]&gt;
+ 3 &lt;chr [7]&gt; &lt;chr [0]&gt; &lt;chr [0]&gt;
+ 4 &lt;chr [4]&gt; &lt;chr [0]&gt; &lt;chr [1]&gt;
+ 5 &lt;chr [5]&gt; &lt;chr [1]&gt; &lt;chr [0]&gt;
+ 6 &lt;chr [3]&gt; &lt;chr [0]&gt; &lt;chr [0]&gt;
+ 7 &lt;chr [3]&gt; &lt;chr [0]&gt; &lt;chr [0]&gt;
+...</code></pre>
+</div>
+</div>
+<p><strong>select columns that contain atleast one NA</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(starwars , <span class="fu">where</span>(<span class="sc">~</span><span class="fu">any</span>(<span class="fu">is.na</span>(.x))))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 87 × 8
+   height  mass hair_color    birth_year sex    gender    homeworld species
+    &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;              &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;     &lt;chr&gt;     &lt;chr&gt;  
+ 1    172    77 blond               19   male   masculine Tatooine  Human  
+ 2    167    75 &lt;NA&gt;               112   none   masculine Tatooine  Droid  
+ 3     96    32 &lt;NA&gt;                33   none   masculine Naboo     Droid  
+ 4    202   136 none                41.9 male   masculine Tatooine  Human  
+ 5    150    49 brown               19   female feminine  Alderaan  Human  
+ 6    178   120 brown, grey         52   male   masculine Tatooine  Human  
+ 7    165    75 brown               47   female feminine  Tatooine  Human  
+...</code></pre>
+</div>
+</div>
+<p>Note that a predicate function must be a function that returns either <code>TRUE</code> or <code>FALSE</code> regardless of the input. the length of the output must be 1.</p>
+<p>Run <code>?dplyr::select</code> to learn more of the selection methods.</p>
+</section>
+<section id="filter-rows-with-filter" class="level2">
+<h2 class="anchored" data-anchor-id="filter-rows-with-filter">Filter rows with <code>filter</code></h2>
+<p>This is used to obtain a subset of the observations in the dataset. It enables us to keep/retain rows that satisfy desired condition(s).</p>
+<p>To be retained, the row must produce a value of <code>TRUE</code> for all conditions. Note that when a condition evaluates to <code>NA</code> the row will be dropped, unlike base subsetting with <code>[</code>.</p>
+<p><strong>filter rows where <code>species</code> ie equal to <code>"Human"</code></strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(starwars, species <span class="sc">==</span> <span class="st">"Human"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 35 × 14
+   name     height  mass hair_color skin_color eye_color birth_year sex   gender
+   &lt;chr&gt;     &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; 
+ 1 Luke Sk…    172    77 blond      fair       blue            19   male  mascu…
+ 2 Darth V…    202   136 none       white      yellow          41.9 male  mascu…
+ 3 Leia Or…    150    49 brown      light      brown           19   fema… femin…
+ 4 Owen La…    178   120 brown, gr… light      blue            52   male  mascu…
+ 5 Beru Wh…    165    75 brown      light      blue            47   fema… femin…
+ 6 Biggs D…    183    84 black      light      brown           24   male  mascu…
+ 7 Obi-Wan…    182    77 auburn, w… fair       blue-gray       57   male  mascu…
+...</code></pre>
+</div>
+</div>
+<p>filter rows where <code>mass</code> is greater than <code>1000</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(starwars, mass <span class="sc">&gt;</span> <span class="dv">1000</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 14
+  name      height  mass hair_color skin_color eye_color birth_year sex   gender
+  &lt;chr&gt;      &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; 
+1 Jabba De…    175  1358 &lt;NA&gt;       green-tan… orange           600 herm… mascu…
+# ℹ 5 more variables: homeworld &lt;chr&gt;, species &lt;chr&gt;, films &lt;list&gt;,
+#   vehicles &lt;list&gt;, starships &lt;list&gt;</code></pre>
+</div>
+</div>
+<p>filters rows where <code>mass</code> is greater than the global average:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a>starwars <span class="sc">%&gt;%</span> <span class="fu">filter</span>(mass <span class="sc">&gt;</span> <span class="fu">mean</span>(mass, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 14
+   name     height  mass hair_color skin_color eye_color birth_year sex   gender
+   &lt;chr&gt;     &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; 
+ 1 Darth V…    202   136 none       white      yellow          41.9 male  mascu…
+ 2 Owen La…    178   120 brown, gr… light      blue            52   male  mascu…
+ 3 Chewbac…    228   112 brown      unknown    blue           200   male  mascu…
+ 4 Jabba D…    175  1358 &lt;NA&gt;       green-tan… orange         600   herm… mascu…
+ 5 Jek Ton…    180   110 brown      fair       blue            NA   male  mascu…
+ 6 IG-88       200   140 none       metal      red             15   none  mascu…
+ 7 Bossk       190   113 none       green      red             53   male  mascu…
+...</code></pre>
+</div>
+</div>
+<p>filtering by multiple criteria within a single logical expression</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(starwars, hair_color <span class="sc">==</span> <span class="st">"none"</span> <span class="sc">&amp;</span> eye_color <span class="sc">==</span> <span class="st">"black"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 9 × 14
+  name      height  mass hair_color skin_color eye_color birth_year sex   gender
+  &lt;chr&gt;      &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; 
+1 Nien Nunb    160    68 none       grey       black             NA male  mascu…
+2 Gasgano      122    NA none       white, bl… black             NA male  mascu…
+3 Kit Fisto    196    87 none       green      black             NA male  mascu…
+4 Plo Koon     188    80 none       orange     black             22 male  mascu…
+5 Lama Su      229    88 none       grey       black             NA male  mascu…
+6 Taun We      213    NA none       grey       black             NA fema… femin…
+7 Shaak Ti     178    57 none       red, blue… black             NA fema… femin…
+...</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(starwars, hair_color <span class="sc">==</span> <span class="st">"none"</span> <span class="sc">|</span> eye_color <span class="sc">==</span> <span class="st">"black"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 38 × 14
+   name     height  mass hair_color skin_color eye_color birth_year sex   gender
+   &lt;chr&gt;     &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; 
+ 1 Darth V…    202   136 none       white      yellow          41.9 male  mascu…
+ 2 Greedo      173    74 &lt;NA&gt;       green      black           44   male  mascu…
+ 3 IG-88       200   140 none       metal      red             15   none  mascu…
+ 4 Bossk       190   113 none       green      red             53   male  mascu…
+ 5 Lobot       175    79 none       light      blue            37   male  mascu…
+ 6 Ackbar      180    83 none       brown mot… orange          41   male  mascu…
+ 7 Nien Nu…    160    68 none       grey       black           NA   male  mascu…
+...</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="co"># When multiple expressions are used, they are combined using &amp;</span></span>
+<span id="cb76-2"><a href="#cb76-2" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(starwars, hair_color <span class="sc">==</span> <span class="st">"none"</span>, eye_color <span class="sc">==</span> <span class="st">"black"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 9 × 14
+  name      height  mass hair_color skin_color eye_color birth_year sex   gender
+  &lt;chr&gt;      &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; 
+1 Nien Nunb    160    68 none       grey       black             NA male  mascu…
+2 Gasgano      122    NA none       white, bl… black             NA male  mascu…
+3 Kit Fisto    196    87 none       green      black             NA male  mascu…
+4 Plo Koon     188    80 none       orange     black             22 male  mascu…
+5 Lama Su      229    88 none       grey       black             NA male  mascu…
+6 Taun We      213    NA none       grey       black             NA fema… femin…
+7 Shaak Ti     178    57 none       red, blue… black             NA fema… femin…
+...</code></pre>
+</div>
+</div>
+<p><strong>select the numeric variables and filter if any of the variables have <code>NA</code></strong>. ie The result should contain at least 1 NA per observation/row:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a>starwars <span class="sc">%&gt;%</span> </span>
+<span id="cb78-2"><a href="#cb78-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">where</span>(is.numeric)) <span class="sc">%&gt;%</span> </span>
+<span id="cb78-3"><a href="#cb78-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">if_any</span>(<span class="fu">everything</span>(), is.na))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 51 × 3
+   height  mass birth_year
+    &lt;int&gt; &lt;dbl&gt;      &lt;dbl&gt;
+ 1     97    32         NA
+ 2    180    NA         64
+ 3    180   110         NA
+ 4    150    NA         48
+ 5     NA    NA         NA
+ 6    160    68         NA
+ 7    191    90         NA
+...</code></pre>
+</div>
+</div>
+<p><strong>select the numeric variables and filter if all of the numeric variables have <code>NA</code></strong>. ie the result should contain NA in all the variables:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb80"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a>starwars <span class="sc">%&gt;%</span> </span>
+<span id="cb80-2"><a href="#cb80-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">where</span>(is.numeric)) <span class="sc">%&gt;%</span> </span>
+<span id="cb80-3"><a href="#cb80-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">if_all</span>(<span class="fu">everything</span>(), is.na))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 3
+  height  mass birth_year
+   &lt;int&gt; &lt;dbl&gt;      &lt;dbl&gt;
+1     NA    NA         NA
+2     NA    NA         NA
+3     NA    NA         NA
+4     NA    NA         NA
+5     NA    NA         NA
+6     NA    NA         NA</code></pre>
+</div>
+</div>
+<p>Well the above results is not useful. But the logic is helpful.</p>
+<p><strong>Now filter if all numeric variables have NA</strong>. Note that you are not required to select. You just need to have same result as above with the other non-numeric columns included.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb82"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a>starwars <span class="sc">%&gt;%</span> </span>
+<span id="cb82-2"><a href="#cb82-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">if_all</span>(<span class="fu">where</span>(is.numeric), is.na))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 14
+  name      height  mass hair_color skin_color eye_color birth_year sex   gender
+  &lt;chr&gt;      &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; 
+1 Arvel Cr…     NA    NA brown      fair       brown             NA male  mascu…
+2 Finn          NA    NA black      dark       dark              NA male  mascu…
+3 Rey           NA    NA brown      light      hazel             NA fema… femin…
+4 Poe Dame…     NA    NA brown      light      brown             NA male  mascu…
+5 BB8           NA    NA none       none       black             NA none  mascu…
+6 Captain …     NA    NA unknown    unknown    unknown           NA &lt;NA&gt;  &lt;NA&gt;  
+# ℹ 5 more variables: homeworld &lt;chr&gt;, species &lt;chr&gt;, films &lt;list&gt;,
+...</code></pre>
+</div>
+</div>
+<p>This shows us the actors who’s all of the numeric information is missing.</p>
+<p><strong>Obtain actors who have all their numeric information above average</strong>. ie their mass is greater than the mean of mass, their height is greater than the mean of height, they are young ie year of birth is greater than the average year of birth,etc</p>
+<p>Notice that in this dataset, we only have 3 numeric variables and therefore we can easily do:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb84"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a>starwars <span class="sc">%&gt;%</span> </span>
+<span id="cb84-2"><a href="#cb84-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(mass <span class="sc">&gt;</span> <span class="fu">mean</span>(mass, <span class="at">na.rm =</span><span class="cn">TRUE</span>),</span>
+<span id="cb84-3"><a href="#cb84-3" aria-hidden="true" tabindex="-1"></a>         height <span class="sc">&gt;</span> <span class="fu">mean</span>(height, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb84-4"><a href="#cb84-4" aria-hidden="true" tabindex="-1"></a>         birth_year <span class="sc">&gt;</span> <span class="fu">mean</span>(birth_year, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))<span class="sc">%&gt;%</span></span>
+<span id="cb84-5"><a href="#cb84-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(name)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 1
+  name                 
+  &lt;chr&gt;                
+1 Chewbacca            
+2 Jabba Desilijic Tiure</code></pre>
+</div>
+</div>
+<p>But what if we had a lot of numeric variables? Note that the code above feels repetitive. W e could use <code>if_all</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb86"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb86-1"><a href="#cb86-1" aria-hidden="true" tabindex="-1"></a>starwars <span class="sc">%&gt;%</span> </span>
+<span id="cb86-2"><a href="#cb86-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">if_all</span>(<span class="fu">where</span>(is.numeric), <span class="sc">~</span>.x <span class="sc">&gt;</span> <span class="fu">mean</span>(.x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)))<span class="sc">%&gt;%</span></span>
+<span id="cb86-3"><a href="#cb86-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(name)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 1
+  name                 
+  &lt;chr&gt;                
+1 Chewbacca            
+2 Jabba Desilijic Tiure</code></pre>
+</div>
+</div>
+<p>We introduced two functions: <code>if_any</code> and <code>if_all</code>. They both take in the columns selected, and the function to be performed on each of the columns, then they combine the results to a single column using either <code>|</code> for <code>if_any</code> or <code>&amp;</code> for <code>if_all</code></p>
+<p><strong>More example:</strong></p>
+<ul>
+<li><p>From the iris dataset, select/filter rows whereby both the <code>Petal.Width</code> and the <code>Sepal.Width</code> are greater than or equal to <code>2.5</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb88"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a>iris <span class="sc">%&gt;%</span></span>
+<span id="cb88-2"><a href="#cb88-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">filter</span>(<span class="fu">if_all</span>(<span class="fu">c</span>(Petal.Width, Sepal.Width), <span class="sc">~</span> . <span class="sc">&gt;=</span> <span class="fl">2.5</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Sepal.Length Sepal.Width Petal.Length Petal.Width   Species
+1          6.3         3.3          6.0         2.5 virginica
+2          7.2         3.6          6.1         2.5 virginica
+3          6.7         3.3          5.7         2.5 virginica</code></pre>
+</div>
+</div>
+<p>Notice that for the above example, each observation has <code>petal width &gt;= 2.5</code> and <code>sepal width&gt;=2.5</code></p>
+<p>The question could have been rephrased as to filter rows whereby the columns that end in <code>Width</code> are greater than or equal to <code>2.5</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb90"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb90-1"><a href="#cb90-1" aria-hidden="true" tabindex="-1"></a>iris <span class="sc">%&gt;%</span></span>
+<span id="cb90-2"><a href="#cb90-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">if_all</span>(<span class="fu">ends_with</span>(<span class="st">"Width"</span>), <span class="sc">~</span> . <span class="sc">&gt;=</span> <span class="fl">2.5</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Sepal.Length Sepal.Width Petal.Length Petal.Width   Species
+1          6.3         3.3          6.0         2.5 virginica
+2          7.2         3.6          6.1         2.5 virginica
+3          6.7         3.3          5.7         2.5 virginica</code></pre>
+</div>
+</div></li>
+<li><p>From the iris dataset, select/filter rows whereby any of the columns that end with <code>Width</code> is greater than 4</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb92"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb92-1"><a href="#cb92-1" aria-hidden="true" tabindex="-1"></a>iris <span class="sc">%&gt;%</span></span>
+<span id="cb92-2"><a href="#cb92-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">if_any</span>(<span class="fu">ends_with</span>(<span class="st">"Width"</span>), <span class="sc">~</span> . <span class="sc">&gt;</span> <span class="dv">4</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+1          5.7         4.4          1.5         0.4  setosa
+2          5.2         4.1          1.5         0.1  setosa
+3          5.5         4.2          1.4         0.2  setosa</code></pre>
+</div>
+</div></li>
+</ul>
+<p><strong>Using the starwars dataset obtain the tallest actor</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb94"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a>starwars <span class="sc">%&gt;%</span> </span>
+<span id="cb94-2"><a href="#cb94-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(height <span class="sc">==</span> <span class="fu">max</span>(height, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 14
+  name      height  mass hair_color skin_color eye_color birth_year sex   gender
+  &lt;chr&gt;      &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; 
+1 Yarael P…    264    NA none       white      yellow            NA male  mascu…
+# ℹ 5 more variables: homeworld &lt;chr&gt;, species &lt;chr&gt;, films &lt;list&gt;,
+#   vehicles &lt;list&gt;, starships &lt;list&gt;</code></pre>
+</div>
+</div>
+<p>What about the shortest actor?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb96"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb96-1"><a href="#cb96-1" aria-hidden="true" tabindex="-1"></a>starwars <span class="sc">%&gt;%</span> </span>
+<span id="cb96-2"><a href="#cb96-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(height <span class="sc">==</span> <span class="fu">min</span>(height, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 14
+  name  height  mass hair_color skin_color eye_color birth_year sex   gender   
+  &lt;chr&gt;  &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;    
+1 Yoda      66    17 white      green      brown            896 male  masculine
+# ℹ 5 more variables: homeworld &lt;chr&gt;, species &lt;chr&gt;, films &lt;list&gt;,
+#   vehicles &lt;list&gt;, starships &lt;list&gt;</code></pre>
+</div>
+</div>
+<p>The notion of filtering the minimum and maximum is so common that <code>dplyr</code> provides functions <code>slice_min</code> and <code>slice_max</code> to do the same:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb98"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb98-1"><a href="#cb98-1" aria-hidden="true" tabindex="-1"></a><span class="fu">slice_min</span>(starwars, height)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 14
+  name  height  mass hair_color skin_color eye_color birth_year sex   gender   
+  &lt;chr&gt;  &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;    
+1 Yoda      66    17 white      green      brown            896 male  masculine
+# ℹ 5 more variables: homeworld &lt;chr&gt;, species &lt;chr&gt;, films &lt;list&gt;,
+#   vehicles &lt;list&gt;, starships &lt;list&gt;</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb100"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb100-1"><a href="#cb100-1" aria-hidden="true" tabindex="-1"></a>starwars <span class="sc">%&gt;%</span> </span>
+<span id="cb100-2"><a href="#cb100-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_max</span>(height)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 14
+  name      height  mass hair_color skin_color eye_color birth_year sex   gender
+  &lt;chr&gt;      &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; 
+1 Yarael P…    264    NA none       white      yellow            NA male  mascu…
+# ℹ 5 more variables: homeworld &lt;chr&gt;, species &lt;chr&gt;, films &lt;list&gt;,
+#   vehicles &lt;list&gt;, starships &lt;list&gt;</code></pre>
+</div>
+</div>
+<p>We could also filter the youngest actor</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb102"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb102-1"><a href="#cb102-1" aria-hidden="true" tabindex="-1"></a><span class="fu">slice_max</span>(starwars, birth_year)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 14
+  name  height  mass hair_color skin_color eye_color birth_year sex   gender   
+  &lt;chr&gt;  &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;    
+1 Yoda      66    17 white      green      brown            896 male  masculine
+# ℹ 5 more variables: homeworld &lt;chr&gt;, species &lt;chr&gt;, films &lt;list&gt;,
+#   vehicles &lt;list&gt;, starships &lt;list&gt;</code></pre>
+</div>
+</div>
+<p>What if for every sex, we wanted to determine the shortest/tallest actor? we will use <code>.by</code> argument. and select the relevant columns to display, ie name,height and sex</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb104"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb104-1"><a href="#cb104-1" aria-hidden="true" tabindex="-1"></a>starwars <span class="sc">%&gt;%</span></span>
+<span id="cb104-2"><a href="#cb104-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(height <span class="sc">==</span> <span class="fu">max</span>(height, <span class="at">na.rm =</span><span class="cn">TRUE</span>), <span class="at">.by =</span> sex) <span class="sc">%&gt;%</span></span>
+<span id="cb104-3"><a href="#cb104-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(name, height, sex)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 3
+  name                  height sex           
+  &lt;chr&gt;                  &lt;int&gt; &lt;chr&gt;         
+1 Jabba Desilijic Tiure    175 hermaphroditic
+2 IG-88                    200 none          
+3 Ric Olié                 183 &lt;NA&gt;          
+4 Quarsh Panaka            183 &lt;NA&gt;          
+5 Yarael Poof              264 male          
+6 Taun We                  213 female        </code></pre>
+</div>
+</div>
+<p>Using the <code>slice_max</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb106"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb106-1"><a href="#cb106-1" aria-hidden="true" tabindex="-1"></a>starwars <span class="sc">%&gt;%</span></span>
+<span id="cb106-2"><a href="#cb106-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_max</span>(height,<span class="at">by =</span> sex)<span class="sc">%&gt;%</span></span>
+<span id="cb106-3"><a href="#cb106-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(name, height, sex)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 3
+  name                  height sex           
+  &lt;chr&gt;                  &lt;int&gt; &lt;chr&gt;         
+1 Yarael Poof              264 male          
+2 IG-88                    200 none          
+3 Taun We                  213 female        
+4 Jabba Desilijic Tiure    175 hermaphroditic
+5 Ric Olié                 183 &lt;NA&gt;          
+6 Quarsh Panaka            183 &lt;NA&gt;          </code></pre>
+</div>
+</div>
+<p>This can also be accomplished using the <code>group_by</code> function:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb108"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb108-1"><a href="#cb108-1" aria-hidden="true" tabindex="-1"></a>starwars <span class="sc">%&gt;%</span></span>
+<span id="cb108-2"><a href="#cb108-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(sex) <span class="sc">%&gt;%</span> </span>
+<span id="cb108-3"><a href="#cb108-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(height <span class="sc">==</span> <span class="fu">max</span>(height, <span class="at">na.rm =</span><span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb108-4"><a href="#cb108-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(name, height, sex)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 3
+# Groups:   sex [5]
+  name                  height sex           
+  &lt;chr&gt;                  &lt;int&gt; &lt;chr&gt;         
+1 Jabba Desilijic Tiure    175 hermaphroditic
+2 IG-88                    200 none          
+3 Ric Olié                 183 &lt;NA&gt;          
+4 Quarsh Panaka            183 &lt;NA&gt;          
+5 Yarael Poof              264 male          
+6 Taun We                  213 female        </code></pre>
+</div>
+</div>
+<p>Using <code>iris</code> dataset, select observation with the minimum sepal length within each species</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb110"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb110-1"><a href="#cb110-1" aria-hidden="true" tabindex="-1"></a>iris <span class="sc">%&gt;%</span> </span>
+<span id="cb110-2"><a href="#cb110-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_min</span>(Sepal.Length, <span class="at">by =</span> Species)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Sepal.Length Sepal.Width Petal.Length Petal.Width    Species
+1          4.3         3.0          1.1         0.1     setosa
+2          4.9         2.4          3.3         1.0 versicolor
+3          4.9         2.5          4.5         1.7  virginica</code></pre>
+</div>
+</div>
+<p>What if we wanted the observations with the smallest and the second smallest sepal length within each species?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb112"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb112-1"><a href="#cb112-1" aria-hidden="true" tabindex="-1"></a>iris <span class="sc">%&gt;%</span> </span>
+<span id="cb112-2"><a href="#cb112-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_min</span>(Sepal.Length, <span class="at">n =</span> <span class="dv">2</span>, <span class="at">by =</span> Species, <span class="at">with_ties =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Sepal.Length Sepal.Width Petal.Length Petal.Width    Species
+1          4.3         3.0          1.1         0.1     setosa
+2          4.4         2.9          1.4         0.2     setosa
+3          4.9         2.4          3.3         1.0 versicolor
+4          5.0         2.0          3.5         1.0 versicolor
+5          4.9         2.5          4.5         1.7  virginica
+6          5.6         2.8          4.9         2.0  virginica</code></pre>
+</div>
+</div>
+<p>Note: You cannot use both <code>group_by</code> and <code>by/.by</code> in one call. ie if the data is grouped, you cannot use <code>by/.by</code></p>
+<p>Run <code>?dplyr::filter</code> to learn more regarding data filtering.</p>
+</section>
+<section id="ordering-the-observations-using-arrange" class="level2">
+<h2 class="anchored" data-anchor-id="ordering-the-observations-using-arrange">Ordering the observations using <code>arrange</code></h2>
+<p><code>arrange()</code> orders the rows of a data frame by the values of selected columns.</p>
+<p>Unlike other dplyr verbs, <code>arrange()</code> largely ignores grouping; you need to explicitly mention grouping variables (or use <code>.by_group = TRUE</code>) in order to group by them, and functions of variables are evaluated once per data frame, not once per group.</p>
+<p>arrange trees dataset with descending volume value</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb114"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb114-1"><a href="#cb114-1" aria-hidden="true" tabindex="-1"></a>trees <span class="sc">%&gt;%</span> </span>
+<span id="cb114-2"><a href="#cb114-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(Volume))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Girth Height Volume
+1   20.6     87   77.0
+2   17.9     80   58.3
+3   17.5     82   55.7
+4   17.3     81   55.4
+5   18.0     80   51.5
+6   18.0     80   51.0
+7   16.3     77   42.6
+8   16.0     72   38.3
+9   14.5     74   36.3
+...</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb116"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb116-1"><a href="#cb116-1" aria-hidden="true" tabindex="-1"></a><span class="fu">arrange</span>(mtcars, cyl, disp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                     mpg cyl  disp  hp drat    wt  qsec vs am gear carb
+Toyota Corolla      33.9   4  71.1  65 4.22 1.835 19.90  1  1    4    1
+Honda Civic         30.4   4  75.7  52 4.93 1.615 18.52  1  1    4    2
+Fiat 128            32.4   4  78.7  66 4.08 2.200 19.47  1  1    4    1
+Fiat X1-9           27.3   4  79.0  66 4.08 1.935 18.90  1  1    4    1
+Lotus Europa        30.4   4  95.1 113 3.77 1.513 16.90  1  1    5    2
+Datsun 710          22.8   4 108.0  93 3.85 2.320 18.61  1  1    4    1
+Toyota Corona       21.5   4 120.1  97 3.70 2.465 20.01  1  0    3    1
+Porsche 914-2       26.0   4 120.3  91 4.43 2.140 16.70  0  1    5    2
+Volvo 142E          21.4   4 121.0 109 4.11 2.780 18.60  1  1    4    2
+...</code></pre>
+</div>
+</div>
+<p>arrange by descending <code>wt</code> per <code>cyl</code> group</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb118"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb118-1"><a href="#cb118-1" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">%&gt;%</span> </span>
+<span id="cb118-2"><a href="#cb118-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(cyl) <span class="sc">%&gt;%</span> </span>
+<span id="cb118-3"><a href="#cb118-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(wt), <span class="at">.by_group =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 32 × 11
+# Groups:   cyl [3]
+     mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb
+   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+ 1  24.4     4 147.     62  3.69  3.19  20       1     0     4     2
+ 2  22.8     4 141.     95  3.92  3.15  22.9     1     0     4     2
+ 3  21.4     4 121     109  4.11  2.78  18.6     1     1     4     2
+ 4  21.5     4 120.     97  3.7   2.46  20.0     1     0     3     1
+ 5  22.8     4 108      93  3.85  2.32  18.6     1     1     4     1
+ 6  32.4     4  78.7    66  4.08  2.2   19.5     1     1     4     1
+...</code></pre>
+</div>
+</div>
+<p>Arrange the <code>iris</code> dataset in descending order of the variables that start with <code>Sepal</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb120"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb120-1"><a href="#cb120-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as_tibble</span>(iris) <span class="sc">%&gt;%</span> </span>
+<span id="cb120-2"><a href="#cb120-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">across</span>(<span class="fu">starts_with</span>(<span class="st">"Sepal"</span>), desc))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 150 × 5
+   Sepal.Length Sepal.Width Petal.Length Petal.Width Species  
+          &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt; &lt;fct&gt;    
+ 1          7.9         3.8          6.4         2   virginica
+ 2          7.7         3.8          6.7         2.2 virginica
+ 3          7.7         3            6.1         2.3 virginica
+ 4          7.7         2.8          6.7         2   virginica
+ 5          7.7         2.6          6.9         2.3 virginica
+ 6          7.6         3            6.6         2.1 virginica
+ 7          7.4         2.8          6.1         1.9 virginica
+...</code></pre>
+</div>
+</div>
+</section>
+<section id="adding-variables-using-mutate" class="level2">
+<h2 class="anchored" data-anchor-id="adding-variables-using-mutate">Adding variables using <code>mutate</code></h2>
+<p>Apart from selecting a subset of the data, we often also desire to add new variables to our existing data. The new variables often tend to be a function of the already existing variables. <a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate()</a> always adds new columns at the end of your dataset. You can always change the position where the variable is added.</p>
+<p>first select the name, height and mass. Compute height in inches(ie 2.54cm = 1 inch), mass in pounds (ie 1kg = 2.2lbs)</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb122"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb122-1"><a href="#cb122-1" aria-hidden="true" tabindex="-1"></a>starwars <span class="sc">%&gt;%</span> </span>
+<span id="cb122-2"><a href="#cb122-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(name, gender, height, mass) <span class="sc">%&gt;%</span> </span>
+<span id="cb122-3"><a href="#cb122-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">height_inches =</span> height<span class="sc">/</span><span class="fl">2.54</span>, </span>
+<span id="cb122-4"><a href="#cb122-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">mass_lbs =</span> mass <span class="sc">*</span> <span class="fl">2.2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 87 × 6
+   name               gender    height  mass height_inches mass_lbs
+   &lt;chr&gt;              &lt;chr&gt;      &lt;int&gt; &lt;dbl&gt;         &lt;dbl&gt;    &lt;dbl&gt;
+ 1 Luke Skywalker     masculine    172    77          67.7    169. 
+ 2 C-3PO              masculine    167    75          65.7    165  
+ 3 R2-D2              masculine     96    32          37.8     70.4
+ 4 Darth Vader        masculine    202   136          79.5    299. 
+ 5 Leia Organa        feminine     150    49          59.1    108. 
+ 6 Owen Lars          masculine    178   120          70.1    264  
+ 7 Beru Whitesun lars feminine     165    75          65.0    165  
+...</code></pre>
+</div>
+</div>
+<p>Using the iris dataset, scale the numeric variables. ie <span class="math inline">\(\frac{x - \mu_x}{\sigma_x}\)</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb124"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb124-1"><a href="#cb124-1" aria-hidden="true" tabindex="-1"></a>iris <span class="sc">%&gt;%</span></span>
+<span id="cb124-2"><a href="#cb124-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.numeric), <span class="sc">~</span>(.x <span class="sc">-</span> <span class="fu">mean</span>(.x))<span class="sc">/</span><span class="fu">sd</span>(.x)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    Sepal.Length Sepal.Width Petal.Length   Petal.Width    Species
+1    -0.89767388  1.01560199  -1.33575163 -1.3110521482     setosa
+2    -1.13920048 -0.13153881  -1.33575163 -1.3110521482     setosa
+3    -1.38072709  0.32731751  -1.39239929 -1.3110521482     setosa
+4    -1.50149039  0.09788935  -1.27910398 -1.3110521482     setosa
+5    -1.01843718  1.24503015  -1.33575163 -1.3110521482     setosa
+6    -0.53538397  1.93331463  -1.16580868 -1.0486667950     setosa
+7    -1.50149039  0.78617383  -1.33575163 -1.1798594716     setosa
+8    -1.01843718  0.78617383  -1.27910398 -1.3110521482     setosa
+9    -1.74301699 -0.36096697  -1.33575163 -1.3110521482     setosa
+...</code></pre>
+</div>
+</div>
+<p>Note that the code looks almost similar to using <code>filter</code> +<code>if_any/if_all</code>. Instead, we used <code>mutate</code> + <code>across</code> While <code>if_any/if_all</code> combined the logical columns to generate 1 logical vector, <code>across</code> does not combine the results of the vectors. Also the function passed to across does not have to be a logical function.</p>
+<p>By default, <code>mutate()</code> keeps all columns from the input data.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb126"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb126-1"><a href="#cb126-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">x =</span> <span class="dv">1</span>, <span class="at">y =</span> <span class="dv">2</span>, <span class="at">a =</span> <span class="st">"a"</span>, <span class="at">b =</span> <span class="st">"b"</span>)</span>
+<span id="cb126-2"><a href="#cb126-2" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">z =</span> x <span class="sc">+</span> y, <span class="at">.keep =</span> <span class="st">"all"</span>) <span class="co"># the default</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 5
+      x     y a     b         z
+  &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt;
+1     1     2 a     b         3</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb128"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb128-1"><a href="#cb128-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">z =</span> x <span class="sc">+</span> y, <span class="at">.keep =</span> <span class="st">"used"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 3
+      x     y     z
+  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1     1     2     3</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb130"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb130-1"><a href="#cb130-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">z =</span> x <span class="sc">+</span> y, <span class="at">.keep =</span> <span class="st">"unused"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 3
+  a     b         z
+  &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt;
+1 a     b         3</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb132"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb132-1"><a href="#cb132-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">z =</span> x <span class="sc">+</span> y, <span class="at">.keep =</span> <span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 1
+      z
+  &lt;dbl&gt;
+1     3</code></pre>
+</div>
+</div>
+<p>By default, <code>mutate</code> adds the new column at the end</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb134"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb134-1"><a href="#cb134-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">z =</span> x <span class="sc">+</span> y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 5
+      x     y a     b         z
+  &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt;
+1     1     2 a     b         3</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb136"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb136-1"><a href="#cb136-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">z =</span> x <span class="sc">+</span> y, <span class="at">.before =</span> x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 5
+      z     x     y a     b    
+  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;
+1     3     1     2 a     b    </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb138"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb138-1"><a href="#cb138-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">z =</span> x <span class="sc">+</span> y, <span class="at">.after =</span> x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 5
+      x     z     y a     b    
+  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;
+1     1     3     2 a     b    </code></pre>
+</div>
+</div>
+<p>Now scale the iris data within each species:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb140"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb140-1"><a href="#cb140-1" aria-hidden="true" tabindex="-1"></a>iris <span class="sc">%&gt;%</span> </span>
+<span id="cb140-2"><a href="#cb140-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Species) <span class="sc">%&gt;%</span> </span>
+<span id="cb140-3"><a href="#cb140-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">everything</span>(), <span class="sc">~</span>(.x <span class="sc">-</span> <span class="fu">mean</span>(.))<span class="sc">/</span><span class="fu">sd</span>(.)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 150 × 5
+# Groups:   Species [3]
+   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+          &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt; &lt;fct&gt;  
+ 1       0.267       0.190        -0.357      -0.436 setosa 
+ 2      -0.301      -1.13         -0.357      -0.436 setosa 
+ 3      -0.868      -0.601        -0.933      -0.436 setosa 
+ 4      -1.15       -0.865         0.219      -0.436 setosa 
+ 5      -0.0170      0.454        -0.357      -0.436 setosa 
+ 6       1.12        1.25          1.37        1.46  setosa 
+...</code></pre>
+</div>
+</div>
+<p>Why use <code>everything()</code>. Since <code>Species</code> has been taken to be the grouping column, we can use <code>everything()</code> to refer to all the columns apart from <code>Species</code></p>
+<p>This is equivalent to</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb142"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb142-1"><a href="#cb142-1" aria-hidden="true" tabindex="-1"></a>iris <span class="sc">%&gt;%</span> </span>
+<span id="cb142-2"><a href="#cb142-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">everything</span>(), <span class="sc">~</span>(.x <span class="sc">-</span> <span class="fu">mean</span>(.))<span class="sc">/</span><span class="fu">sd</span>(.)), <span class="at">.by =</span> Species)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    Sepal.Length Sepal.Width Petal.Length Petal.Width    Species
+1     0.26667447  0.18994136  -0.35701125 -0.43649232     setosa
+2    -0.30071802 -1.12909583  -0.35701125 -0.43649232     setosa
+3    -0.86811050 -0.60148096  -0.93283584 -0.43649232     setosa
+4    -1.15180675 -0.86528840   0.21881335 -0.43649232     setosa
+5    -0.01702177  0.45374879  -0.35701125 -0.43649232     setosa
+6     1.11776320  1.24517111   1.37046253  1.46130036     setosa
+7    -1.15180675 -0.07386608  -0.35701125  0.51240402     setosa
+8    -0.01702177 -0.07386608   0.21881335 -0.43649232     setosa
+9    -1.71919923 -1.39290327  -0.35701125 -0.43649232     setosa
+...</code></pre>
+</div>
+</div>
+<p>what if we wanted to have the new columns together with the original columns? We use the <code>.names</code> parameter.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb144"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb144-1"><a href="#cb144-1" aria-hidden="true" tabindex="-1"></a>trees <span class="sc">%&gt;%</span></span>
+<span id="cb144-2"><a href="#cb144-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">everything</span>(), log, <span class="at">.names =</span> <span class="st">'log_{col}'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Girth Height Volume log_Girth log_Height log_Volume
+1    8.3     70   10.3  2.116256   4.248495   2.332144
+2    8.6     65   10.3  2.151762   4.174387   2.332144
+3    8.8     63   10.2  2.174752   4.143135   2.322388
+4   10.5     72   16.4  2.351375   4.276666   2.797281
+5   10.7     81   18.8  2.370244   4.394449   2.933857
+6   10.8     83   19.7  2.379546   4.418841   2.980619
+7   11.0     66   15.6  2.397895   4.189655   2.747271
+8   11.0     75   18.2  2.397895   4.317488   2.901422
+9   11.1     80   22.6  2.406945   4.382027   3.117950
+...</code></pre>
+</div>
+</div>
+<section id="useful-mutate-functions" class="level3">
+<h3 class="anchored" data-anchor-id="useful-mutate-functions">Useful mutate functions</h3>
+<ul>
+<li><p><a href="http://127.0.0.1:34481/help/library/dplyr/help/%2B"><code>+</code></a>, <a href="http://127.0.0.1:34481/help/library/dplyr/help/-"><code>-</code></a>, <a href="http://127.0.0.1:34481/help/library/dplyr/help/log"><code>log()</code></a>, etc., for their usual mathematical meanings</p></li>
+<li><p><a href="http://127.0.0.1:34481/help/library/dplyr/help/lead"><code>lead()</code></a>, <a href="http://127.0.0.1:34481/help/library/dplyr/help/lag"><code>lag()</code></a></p></li>
+<li><p><a href="http://127.0.0.1:34481/help/library/dplyr/help/dense_rank"><code>dense_rank()</code></a>, <a href="http://127.0.0.1:34481/help/library/dplyr/help/min_rank"><code>min_rank()</code></a>, <a href="http://127.0.0.1:34481/help/library/dplyr/help/percent_rank"><code>percent_rank()</code></a>, <a href="http://127.0.0.1:34481/help/library/dplyr/help/row_number"><code>row_number()</code></a>, <a href="http://127.0.0.1:34481/help/library/dplyr/help/cume_dist"><code>cume_dist()</code></a>, <a href="http://127.0.0.1:34481/help/library/dplyr/help/ntile"><code>ntile()</code></a></p></li>
+<li><p><a href="http://127.0.0.1:34481/help/library/dplyr/help/cumsum"><code>cumsum()</code></a>, <a href="http://127.0.0.1:34481/help/library/dplyr/help/cummean"><code>cummean()</code></a>, <a href="http://127.0.0.1:34481/help/library/dplyr/help/cummin"><code>cummin()</code></a>, <a href="http://127.0.0.1:34481/help/library/dplyr/help/cummax"><code>cummax()</code></a>, <a href="http://127.0.0.1:34481/help/library/dplyr/help/cumany"><code>cumany()</code></a>, <a href="http://127.0.0.1:34481/help/library/dplyr/help/cumall"><code>cumall()</code></a></p></li>
+<li><p><a href="http://127.0.0.1:34481/help/library/dplyr/help/na_if"><code>na_if()</code></a>, <a href="http://127.0.0.1:34481/help/library/dplyr/help/coalesce"><code>coalesce()</code></a> <code>replace_na</code></p></li>
+<li><p><a href="http://127.0.0.1:34481/help/library/dplyr/help/if_else"><code>if_else()</code></a>, <a href="http://127.0.0.1:34481/help/library/dplyr/help/recode"><code>recode()</code></a>, <a href="http://127.0.0.1:34481/help/library/dplyr/help/case_when"><code>case_when()</code></a></p></li>
+<li><p><a href="https://dplyr.tidyverse.org/reference/consecutive_id.html"><code>consecutive_id()</code></a></p></li>
+</ul>
+<p>Example of using <code>coalesce</code></p>
+<p>Replace the <code>NA</code>’s with the mean of the data within each sex category for the numeric data, and for the characters, replace the NA with the mode, ie most occurring value.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb146"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb146-1"><a href="#cb146-1" aria-hidden="true" tabindex="-1"></a>starwars <span class="sc">%&gt;%</span></span>
+<span id="cb146-2"><a href="#cb146-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(sex) <span class="sc">%&gt;%</span> </span>
+<span id="cb146-3"><a href="#cb146-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.numeric), <span class="sc">~</span><span class="fu">coalesce</span>(.x, <span class="fu">mean</span>(.x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))),</span>
+<span id="cb146-4"><a href="#cb146-4" aria-hidden="true" tabindex="-1"></a>        <span class="fu">across</span>(<span class="fu">where</span>(is.character), <span class="sc">~</span><span class="fu">coalesce</span>(.x,gtools<span class="sc">::</span><span class="fu">stat_mode</span>(.x))))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 87 × 14
+# Groups:   sex [5]
+   name     height  mass hair_color skin_color eye_color birth_year sex   gender
+   &lt;chr&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; 
+ 1 Luke Sk…    172    77 blond      fair       blue            19   male  mascu…
+ 2 C-3PO       167    75 none       gold       yellow         112   none  mascu…
+ 3 R2-D2        96    32 none       white, bl… red             33   none  mascu…
+ 4 Darth V…    202   136 none       white      yellow          41.9 male  mascu…
+ 5 Leia Or…    150    49 brown      light      brown           19   fema… femin…
+ 6 Owen La…    178   120 brown, gr… light      blue            52   male  mascu…
+...</code></pre>
+</div>
+</div>
+<p>Check the <a href="https://dplyr.tidyverse.org/reference/index.html">reference page</a> to get more information about the above functions.</p>
+</section>
+</section>
+<section id="summarize-using-summarise" class="level2">
+<h2 class="anchored" data-anchor-id="summarize-using-summarise">Summarize using <code>summarise</code></h2>
+<p>While mutate adds a new column, summarize aggregates the data to produce aggregated results.</p>
+<p>Give the mean of the iris data</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb148"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb148-1"><a href="#cb148-1" aria-hidden="true" tabindex="-1"></a>iris <span class="sc">%&gt;%</span></span>
+<span id="cb148-2"><a href="#cb148-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="sc">-</span>Species, mean))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Sepal.Length Sepal.Width Petal.Length Petal.Width
+1     5.843333    3.057333        3.758    1.199333</code></pre>
+</div>
+</div>
+<p>Give the mean of the iris data per species</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb150"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb150-1"><a href="#cb150-1" aria-hidden="true" tabindex="-1"></a>iris <span class="sc">%&gt;%</span></span>
+<span id="cb150-2"><a href="#cb150-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">everything</span>(), mean), <span class="at">.by =</span> Species)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     Species Sepal.Length Sepal.Width Petal.Length Petal.Width
+1     setosa        5.006       3.428        1.462       0.246
+2 versicolor        5.936       2.770        4.260       1.326
+3  virginica        6.588       2.974        5.552       2.026</code></pre>
+</div>
+</div>
+<p>Give the count of actors per sex in the starwars data</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb152"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb152-1"><a href="#cb152-1" aria-hidden="true" tabindex="-1"></a>starwars <span class="sc">%&gt;%</span> </span>
+<span id="cb152-2"><a href="#cb152-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">number =</span> <span class="fu">n</span>(), <span class="at">.by =</span> sex)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 2
+  sex            number
+  &lt;chr&gt;           &lt;int&gt;
+1 male               60
+2 none                6
+3 female             16
+4 hermaphroditic      1
+5 &lt;NA&gt;                4</code></pre>
+</div>
+</div>
+<p>Note the use of the <code>n()</code> function which gives the total number of observations per group.</p>
+<p>Since counting is a common task, there is a function written to do the tast:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb154"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb154-1"><a href="#cb154-1" aria-hidden="true" tabindex="-1"></a>starwars <span class="sc">%&gt;%</span> </span>
+<span id="cb154-2"><a href="#cb154-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(sex)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 2
+  sex                n
+  &lt;chr&gt;          &lt;int&gt;
+1 female            16
+2 hermaphroditic     1
+3 male              60
+4 none               6
+5 &lt;NA&gt;               4</code></pre>
+</div>
+</div>
+<p>With the notion of grouping and summarizing/mutating within each group, we can be able to run various models within the sub groups without using for-loops:</p>
+<p>run linear regression model on the iris dataset for each species whereby the Sepal.Length is the response variable</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb156"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb156-1"><a href="#cb156-1" aria-hidden="true" tabindex="-1"></a>iris <span class="sc">%&gt;%</span> </span>
+<span id="cb156-2"><a href="#cb156-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(broom<span class="sc">::</span><span class="fu">tidy</span>(<span class="fu">lm</span>(Sepal.Length<span class="sc">~</span>., <span class="fu">cur_data</span>())), <span class="at">.by =</span> Species)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: There was 1 warning in `summarise()`.
+ℹ In argument: `broom::tidy(lm(Sepal.Length ~ ., cur_data()))`.
+ℹ In group 1: `Species = setosa`.
+Caused by warning:
+! `cur_data()` was deprecated in dplyr 1.1.0.
+ℹ Please use `pick()` instead.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Returning more (or less) than 1 row per `summarise()` group was deprecated in
+dplyr 1.1.0.
+ℹ Please use `reframe()` instead.
+ℹ When switching from `summarise()` to `reframe()`, remember that `reframe()`
+  always returns an ungrouped data frame and adjust accordingly.</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      Species         term   estimate  std.error  statistic      p.value
+1      setosa  (Intercept)  2.3518898 0.39286751  5.9864707 3.034183e-07
+2      setosa  Sepal.Width  0.6548350 0.09244742  7.0833236 6.834434e-09
+3      setosa Petal.Length  0.2375602 0.20801921  1.1420107 2.593594e-01
+4      setosa  Petal.Width  0.2521257 0.34686362  0.7268727 4.709870e-01
+5  versicolor  (Intercept)  1.8955395 0.50705524  3.7383295 5.112246e-04
+6  versicolor  Sepal.Width  0.3868576 0.20454490  1.8913091 6.488965e-02
+7  versicolor Petal.Length  0.9083370 0.16543248  5.4906811 1.666695e-06
+8  versicolor  Petal.Width -0.6792238 0.43538206 -1.5600639 1.255990e-01
+9   virginica  (Intercept)  0.6998830 0.53360089  1.3116227 1.961563e-01
+...</code></pre>
+</div>
+</div>
+<p>Notice that we do get a warning claiming this use of summarise was deprecated. We therefore need to use the correct function ie <code>reframe</code>. Note reframe is similar to <code>summarize</code> with the difference being that <code>reframe</code> does output a dataframe back while <code>summarise</code> only has to output one value per column per group.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb160"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb160-1"><a href="#cb160-1" aria-hidden="true" tabindex="-1"></a>iris <span class="sc">%&gt;%</span> </span>
+<span id="cb160-2"><a href="#cb160-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">reframe</span>(broom<span class="sc">::</span><span class="fu">tidy</span>(<span class="fu">lm</span>(Sepal.Length<span class="sc">~</span>., <span class="fu">cur_data</span>())), <span class="at">.by =</span> Species)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      Species         term   estimate  std.error  statistic      p.value
+1      setosa  (Intercept)  2.3518898 0.39286751  5.9864707 3.034183e-07
+2      setosa  Sepal.Width  0.6548350 0.09244742  7.0833236 6.834434e-09
+3      setosa Petal.Length  0.2375602 0.20801921  1.1420107 2.593594e-01
+4      setosa  Petal.Width  0.2521257 0.34686362  0.7268727 4.709870e-01
+5  versicolor  (Intercept)  1.8955395 0.50705524  3.7383295 5.112246e-04
+6  versicolor  Sepal.Width  0.3868576 0.20454490  1.8913091 6.488965e-02
+7  versicolor Petal.Length  0.9083370 0.16543248  5.4906811 1.666695e-06
+8  versicolor  Petal.Width -0.6792238 0.43538206 -1.5600639 1.255990e-01
+9   virginica  (Intercept)  0.6998830 0.53360089  1.3116227 1.961563e-01
+...</code></pre>
+</div>
+</div>
+<p>To compare with the <code>setosa</code> we could run:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb162"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb162-1"><a href="#cb162-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(Sepal.Length<span class="sc">~</span>Sepal.Width <span class="sc">+</span> Petal.Length <span class="sc">+</span> Petal.Width, iris, Species <span class="sc">==</span> <span class="st">'setosa'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = Sepal.Length ~ Sepal.Width + Petal.Length + Petal.Width, 
+    data = iris, subset = Species == "setosa")
+
+Coefficients:
+ (Intercept)   Sepal.Width  Petal.Length   Petal.Width  
+      2.3519        0.6548        0.2376        0.2521  </code></pre>
+</div>
+</div>
+</section>
+<section id="exercise-2" class="level2">
+<h2 class="anchored" data-anchor-id="exercise-2">Exercise:</h2>
+<ol type="1">
+<li><p>Given data below, double numeric columns that do not contain missing values. <a href="https://stackoverflow.com/questions/64555356/dplyr-across-mutate-condition-to-select-the-columns/64555987#64555987">[1]</a></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb164"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb164-1"><a href="#cb164-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">x=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="at">y=</span><span class="dv">101</span><span class="sc">:</span><span class="dv">110</span>,</span>
+<span id="cb164-2"><a href="#cb164-2" aria-hidden="true" tabindex="-1"></a>             <span class="at">w=</span><span class="fu">c</span>(<span class="dv">6</span>,<span class="cn">NA</span>,<span class="dv">4</span>,<span class="cn">NA</span>, <span class="dv">5</span>,<span class="dv">0</span>,<span class="cn">NA</span>,<span class="dv">4</span>,<span class="dv">8</span>,<span class="dv">17</span> ),</span>
+<span id="cb164-3"><a href="#cb164-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">z=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="cn">NA</span>, <span class="dv">5</span>,<span class="dv">10</span>,<span class="dv">22</span>,<span class="dv">34</span>,<span class="dv">58</span>,<span class="dv">7</span> ),</span>
+<span id="cb164-4"><a href="#cb164-4" aria-hidden="true" tabindex="-1"></a>             <span class="at">k=</span><span class="fu">rep</span>(<span class="st">"A"</span>,<span class="dv">10</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></li>
+<li><p>I’m attempting to reproduce the following code across 36 seperate columns in a df. So instead of having to retype this code 36 times, how can I write a function to apply this for all columns at once? Apply the code only to columns that begin with <code>score</code> <a href="https://stackoverflow.com/questions/68656809/mutating-across-multiple-columns-to-create-percent-score-in-r/68656908#68656908">[2]</a></p>
+<pre><code>df &lt;- df %&gt;% 
+      mutate(percent_score_1 = (score_1 / 5) * 100,  
+            percent_score_2 = (score_2 / 5) * 100) </code></pre>
+<p>The data looks like this:</p>
+<pre><code>   score_1   score_2    
+      2         3     
+      3         4    
+      5         1</code></pre></li>
+<li><p>mutate <a href="https://stackoverflow.com/questions/75178897/get-column-value-associated-to-another-column-maximum-in-dplyrs-across/75179405#75179405">[3]</a></p></li>
+<li><p>mutate <a href="https://stackoverflow.com/questions/75329910/using-mutate-and-across-to-create-a-column-based-on-two-others-in-r/75329968#75329968">[4]</a></p></li>
+<li><p>mutate <a href="https://stackoverflow.com/questions/72605730/how-do-i-rank-across-groups-in-r/72605802#72605802">[5]</a></p></li>
+<li><p>filter: <a href="https://stackoverflow.com/questions/74550776/r-applying-filter-on-multiple-variables-at-the-same-time/74551375#74551375">[6]</a></p></li>
+<li><p>filter: <a href="https://stackoverflow.com/questions/75712138/using-filter-to-select-specific-values-of-multiple-columns-in-r/75715957#75715957">[7]</a></p></li>
+<li><p>summarise <a href="https://stackoverflow.com/questions/70647629/r-dataframe-group-by-aggregate-pivot-wider-manipulation/70647803#70647803">[8]</a></p></li>
+</ol>
+</section>
+</section>
+<section id="relational-data-with-dplyr" class="level1">
+<h1>Relational Data With dplyr:</h1>
+<p>Often we work with a database rather than a single dataset. A database can be defined as a collection of datasets with a predefined relationship between them. Each observation in each data set has a unique identifier also known as a key that can be used to link the data sets together. Eg</p>
+</section>
+<section id="purrr" class="level1">
+<h1>purrr</h1>
+</section>
+<section id="stringr" class="level1">
+<h1>stringr</h1>
+</section>
+<section id="lubridate" class="level1">
+<h1>lubridate</h1>
+</section>
+<section id="forcats" class="level1">
+<h1>forcats</h1>
+</section>
+<section id="ggplot2" class="level1">
+<h1>ggplot2</h1>
+<p>Let us have a quick look at the functions provided by analyzing some data:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb167"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb167-1"><a href="#cb167-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb167-2"><a href="#cb167-2" aria-hidden="true" tabindex="-1"></a>population</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4,060 × 3
+   country      year population
+   &lt;chr&gt;       &lt;dbl&gt;      &lt;dbl&gt;
+ 1 Afghanistan  1995   17586073
+ 2 Afghanistan  1996   18415307
+ 3 Afghanistan  1997   19021226
+ 4 Afghanistan  1998   19496836
+ 5 Afghanistan  1999   19987071
+ 6 Afghanistan  2000   20595360
+ 7 Afghanistan  2001   21347782
+...</code></pre>
+</div>
+</div>
+<p>Notice that <code>population</code> dataframe above is a <code>tibble</code>. You can see that it only prints 10 first observations and the columns visible to the screen.</p>
+
+
+</section>
+
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation column-body">
+  <div class="nav-page nav-page-previous">
+      <a href="./Solutions.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Solutions</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./string.html" class="pagination-link">
+        <span class="nav-page-text">strings</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">Copyright 2023, Onyambu, S.</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/oonyambu">
+      <i class="bi bi-github" role="img">
+</i> 
+    </a>
+  </li>  
+</ul>
+    </div>
+  </div>
+</footer>
+
+
+
+</body></html>
