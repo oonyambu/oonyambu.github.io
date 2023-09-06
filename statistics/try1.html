@@ -6,6 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="onyambu">
 <meta name="dcterms.date" content="2023-08-31">
 <meta name="keywords" content="Kriging, Expected Improvement, Efficient Global Optimization">
 
@@ -56,7 +57,26 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -410,7 +430,7 @@ gtag('config', 'G-DKJJZ86ZQ1', { 'anonymize_ip': true});
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./linear_models.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Data Modeling</span></a>
+ <span class="menu-text">Linear Regression</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -460,22 +480,22 @@ gtag('config', 'G-DKJJZ86ZQ1', { 'anonymize_ip': true});
   </div>
 </li>
           <li class="sidebar-item">
- <span class="menu-text">K-Nearest Neighbours</span>
+ <span class="menu-text">KNN</span>
   </li>
           <li class="sidebar-item">
- <span class="menu-text">Logistic Classification</span>
+ <span class="menu-text">Logistic</span>
   </li>
           <li class="sidebar-item">
  <span class="menu-text">Neural Networks</span>
   </li>
           <li class="sidebar-item">
- <span class="menu-text">Linear Discriminant Analysis(LDA)</span>
+ <span class="menu-text">LDA</span>
   </li>
           <li class="sidebar-item">
- <span class="menu-text">Quadratic Discriminant Analysis(QDA)</span>
+ <span class="menu-text">QDA</span>
   </li>
           <li class="sidebar-item">
- <span class="menu-text">Support Vector Machines (SVM)</span>
+ <span class="menu-text">SVM</span>
   </li>
           <li class="sidebar-item">
  <span class="menu-text">Boosting and Regression Trees</span>
@@ -486,30 +506,33 @@ gtag('config', 'G-DKJJZ86ZQ1', { 'anonymize_ip': true});
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#" aria-expanded="false">
- <span class="menu-text">Unsupervised Learning</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#" aria-expanded="false" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="" class="collapse list-unstyled sidebar-section depth2 ">  
-          <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" aria-expanded="false">
- <span class="menu-text">Clustering</span></a>
+ <span class="menu-text">Unsupervised Learning</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-13" class="collapse list-unstyled sidebar-section depth3 ">  
+      <ul id="quarto-sidebar-section-13" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" aria-expanded="false">
+ <span class="menu-text">Clustering</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-14" class="collapse list-unstyled sidebar-section depth3 ">  
           <li class="sidebar-item">
- <span class="menu-text">K-means</span>
-  </li>
+  <div class="sidebar-item-container"> 
+  <a href="./kmeans.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">K means Clustering Algorithm</span></a>
+  </div>
+</li>
           <li class="sidebar-item">
  <span class="menu-text">Spectral Clustering</span>
   </li>
           <li class="sidebar-item">
- <span class="menu-text">Expectation Maximization clustering</span>
+ <span class="menu-text">EM clustering</span>
   </li>
       </ul>
   </li>
@@ -541,10 +564,23 @@ gtag('config', 'G-DKJJZ86ZQ1', { 'anonymize_ip': true});
 </div>
 
 
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">Author</div>
+  <div class="quarto-title-meta-heading">Affiliation</div>
+  
+    <div class="quarto-title-meta-contents">
+    <p class="author">onyambu </p>
+  </div>
+    <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            University of California, Los Angeles
+          </p>
+      </div>
+    </div>
 
 <div class="quarto-title-meta">
 
-    
+      
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
@@ -555,6 +591,12 @@ gtag('config', 'G-DKJJZ86ZQ1', { 'anonymize_ip': true});
     
   </div>
   
+<div>
+  <div class="abstract">
+    <div class="abstract-title">Abstract</div>
+    This document provides an introduction to R Markdown, argues for its…
+  </div>
+</div>
 
 </header>
 
@@ -631,12 +673,26 @@ gtag('config', 'G-DKJJZ86ZQ1', { 'anonymize_ip': true});
 <p>her: &gt;&gt;Keiseren er i Garderoben!&lt;&lt;~--</p>
 <p>Black box optimization is a fundamental problem in many fields, such as engineering, finance, and machine learning. The objective usually, is to find the optimal solution of a complex function that is expensive or impossible to evaluate analytically. <span class="math display">\[
 x^* = \underset{x\in A}{\arg\min f(x)}
-\]</span> where <span class="math inline">\(A\)</span> denotes the search space of <span class="math inline">\(x\)</span>.\ The optimization of <span class="math inline">\(f(x)\)</span> is a non-trivial task. There are two main methods that are used: (a) derivative-based optimization methods and (b) derivative-free optimization methods. Derivative-based methods require the computation of the derivatives of the objective function. They are typically used when <span class="math inline">\(f(x)\)</span> is smooth and well-behaved and the derivatives are tractable. On the other hand derivative-free methods are invoked when the function is unknown or when the derivatives are intractable or computationally infeasible to compute. As the black-box functions are usually unknown, often the derivative free based approaches are used to optimize them. The Hyperparameter Optimization (HPO) lies in this category.\\ In HPO, the task involves choosing a set of optimal hyperparameters for a learning algorithm. The performance of these algorithms highly depends on these chosen hyperparameter configurations and may flactuate drastically under different architectures. Hyperparameters are the parameters of a model that control the model’s behavior that are set before training. They include the learning rate, regularization method, optimization algorithm chosen etc. Currently, there are several methods for HPO. The mainly used ones are grid search, random search , and Bayesian optimization . Grid search involves specifying a set of hyperparameters and evaluating the model’s performance for each combination of hyperparameters in a grid then choosing the configuration that yields the best function evaluation. Random search involves randomly sampling hyperparameters from a predefined distribution with a predefined domain and evaluating the model’s performance for each set of hyperparameters then selecting the best configuration. Bayesian optimization involves iteratively constructing a probabilistic model of the objective function by combining the prior distribution of <span class="math inline">\(f(x)\)</span> with the sample information to obtain the posterior function; which is then optimized according to a chosen acquisition function to obtain the next set of hyperparameters. These is repeated until no further improvement can be done and the final set of configuration is taken to be the optimal setting.</p>
+\]</span> where <span class="math inline">\(A\)</span> denotes the search space of <span class="math inline">\(x\)</span>.\ The optimization of <span class="math inline">\(f(x)\)</span> is a non-trivial task. There are two main methods that are used: (a) derivative-based optimization methods and (b) derivative-free optimization methods. Derivative-based methods require the computation of the derivatives of the objective function. They are typically used when <span class="math inline">\(f(x)\)</span> is smooth and well-behaved and the derivatives are tractable. On the other hand derivative-free methods are invoked when the function is unknown or when the derivatives are intractable or computationally infeasible to compute. As the black-box functions are usually unknown, often the derivative free based approaches are used to optimize them. The Hyperparameter Optimization (HPO) lies in this category.\\ In HPO, the task involves choosing a set of optimal hyperparameters for a learning algorithm. The performance of these algorithms highly depends on these chosen hyperparameter configurations (<span class="citation" data-cites="feurer2019hyperparameter">Feurer and Hutter (<a href="#ref-feurer2019hyperparameter" role="doc-biblioref">2019</a>)</span>) and may flactuate drastically under different architectures (<span class="citation" data-cites="liu2018darts">Liu, Simonyan, and Yang (<a href="#ref-liu2018darts" role="doc-biblioref">2018</a>)</span>). Hyperparameters are the parameters of a model that control the model’s behavior that are set before training. They include the learning rate, regularization method, optimization algorithm chosen etc. Currently, there are several methods for HPO. The mainly used ones are grid search, random search <span class="citation" data-cites="bergstra2012random">(<a href="#ref-bergstra2012random" role="doc-biblioref">Bergstra and Bengio 2012</a>)</span>, and Bayesian optimization (<span class="citation" data-cites="pelikan1999boa">Pelikan et al. (<a href="#ref-pelikan1999boa" role="doc-biblioref">1999</a>)</span>). Grid search involves specifying a set of hyperparameters and evaluating the model’s performance for each combination of hyperparameters in a grid then choosing the configuration that yields the best function evaluation. Random search involves randomly sampling hyperparameters from a predefined distribution with a predefined domain and evaluating the model’s performance for each set of hyperparameters then selecting the best configuration. Bayesian optimization involves iteratively constructing a probabilistic model of the objective function by combining the prior distribution of <span class="math inline">\(f(x)\)</span> with the sample information to obtain the posterior function; which is then optimized according to a chosen acquisition function to obtain the next set of hyperparameters. These is repeated until no further improvement can be done and the final set of configuration is taken to be the optimal setting.</p>
+
 
 
 </section>
 
-<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a><div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-bergstra2012random" class="csl-entry" role="listitem">
+Bergstra, James, and Yoshua Bengio. 2012. <span>“Random Search for Hyper-Parameter Optimization.”</span> <em>Journal of Machine Learning Research</em> 13 (2).
+</div>
+<div id="ref-feurer2019hyperparameter" class="csl-entry" role="listitem">
+Feurer, Matthias, and Frank Hutter. 2019. <span>“Hyperparameter Optimization.”</span> <em>Automated Machine Learning: Methods, Systems, Challenges</em>, 3–33.
+</div>
+<div id="ref-liu2018darts" class="csl-entry" role="listitem">
+Liu, Hanxiao, Karen Simonyan, and Yiming Yang. 2018. <span>“Darts: Differentiable Architecture Search.”</span> <em>arXiv Preprint arXiv:1806.09055</em>.
+</div>
+<div id="ref-pelikan1999boa" class="csl-entry" role="listitem">
+Pelikan, Martin, David E Goldberg, Erick Cantú-Paz, et al. 1999. <span>“BOA: The Bayesian Optimization Algorithm.”</span> In <em>Proceedings of the Genetic and Evolutionary Computation Conference GECCO-99</em>, 1:525–32. Citeseer.
+</div>
+</div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {

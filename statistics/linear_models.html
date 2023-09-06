@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>ABC’s of R and Python - Data Modeling</title>
+<title>ABC’s of R and Python - Linear Regression</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -119,7 +119,7 @@ gtag('config', 'G-DKJJZ86ZQ1', { 'anonymize_ip': true});
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./intro_dataModeling.html">Data Modelling</a></li><li class="breadcrumb-item">Supervised Learning</li><li class="breadcrumb-item"><a href="./linear_models.html">Regression</a></li><li class="breadcrumb-item"><a href="./linear_models.html">Data Modeling</a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./intro_dataModeling.html">Data Modelling</a></li><li class="breadcrumb-item">Supervised Learning</li><li class="breadcrumb-item"><a href="./linear_models.html">Regression</a></li><li class="breadcrumb-item"><a href="./linear_models.html">Linear Regression</a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -408,7 +408,7 @@ gtag('config', 'G-DKJJZ86ZQ1', { 'anonymize_ip': true});
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./linear_models.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Data Modeling</span></a>
+ <span class="menu-text">Linear Regression</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -458,22 +458,22 @@ gtag('config', 'G-DKJJZ86ZQ1', { 'anonymize_ip': true});
   </div>
 </li>
           <li class="sidebar-item">
- <span class="menu-text">K-Nearest Neighbours</span>
+ <span class="menu-text">KNN</span>
   </li>
           <li class="sidebar-item">
- <span class="menu-text">Logistic Classification</span>
+ <span class="menu-text">Logistic</span>
   </li>
           <li class="sidebar-item">
  <span class="menu-text">Neural Networks</span>
   </li>
           <li class="sidebar-item">
- <span class="menu-text">Linear Discriminant Analysis(LDA)</span>
+ <span class="menu-text">LDA</span>
   </li>
           <li class="sidebar-item">
- <span class="menu-text">Quadratic Discriminant Analysis(QDA)</span>
+ <span class="menu-text">QDA</span>
   </li>
           <li class="sidebar-item">
- <span class="menu-text">Support Vector Machines (SVM)</span>
+ <span class="menu-text">SVM</span>
   </li>
           <li class="sidebar-item">
  <span class="menu-text">Boosting and Regression Trees</span>
@@ -484,30 +484,33 @@ gtag('config', 'G-DKJJZ86ZQ1', { 'anonymize_ip': true});
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#" aria-expanded="false">
- <span class="menu-text">Unsupervised Learning</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#" aria-expanded="false" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="" class="collapse list-unstyled sidebar-section depth2 ">  
-          <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" aria-expanded="false">
- <span class="menu-text">Clustering</span></a>
+ <span class="menu-text">Unsupervised Learning</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-13" class="collapse list-unstyled sidebar-section depth3 ">  
+      <ul id="quarto-sidebar-section-13" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" aria-expanded="false">
+ <span class="menu-text">Clustering</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-14" class="collapse list-unstyled sidebar-section depth3 ">  
           <li class="sidebar-item">
- <span class="menu-text">K-means</span>
-  </li>
+  <div class="sidebar-item-container"> 
+  <a href="./kmeans.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">K means Clustering Algorithm</span></a>
+  </div>
+</li>
           <li class="sidebar-item">
  <span class="menu-text">Spectral Clustering</span>
   </li>
           <li class="sidebar-item">
- <span class="menu-text">Expectation Maximization clustering</span>
+ <span class="menu-text">EM clustering</span>
   </li>
       </ul>
   </li>
@@ -525,8 +528,7 @@ gtag('config', 'G-DKJJZ86ZQ1', { 'anonymize_ip': true});
     <h2 id="toc-title">On this Page</h2>
    
   <ul>
-  <li><a href="#simple-linear-model-regression" id="toc-simple-linear-model-regression" class="nav-link active" data-scroll-target="#simple-linear-model-regression">Simple Linear Model /Regression</a></li>
-  <li><a href="#multiple-linear-regression" id="toc-multiple-linear-regression" class="nav-link" data-scroll-target="#multiple-linear-regression">Multiple Linear Regression</a></li>
+  <li><a href="#multiple-linear-regression" id="toc-multiple-linear-regression" class="nav-link active" data-scroll-target="#multiple-linear-regression">Multiple Linear Regression</a></li>
   <li><a href="#dealing-with-categoricalfactors." id="toc-dealing-with-categoricalfactors." class="nav-link" data-scroll-target="#dealing-with-categoricalfactors.">Dealing with categorical/factors.</a></li>
   <li><a href="#fitting-linear-model-using-packages" id="toc-fitting-linear-model-using-packages" class="nav-link" data-scroll-target="#fitting-linear-model-using-packages">Fitting linear model using packages</a></li>
   <li><a href="#gradient-descent-for-linear-regression" id="toc-gradient-descent-for-linear-regression" class="nav-link" data-scroll-target="#gradient-descent-for-linear-regression">Gradient Descent for Linear Regression:</a></li>
@@ -540,7 +542,7 @@ gtag('config', 'G-DKJJZ86ZQ1', { 'anonymize_ip': true});
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Data Modeling</h1>
+<h1 class="title">Linear Regression</h1>
 </div>
 
 
@@ -555,9 +557,6 @@ gtag('config', 'G-DKJJZ86ZQ1', { 'anonymize_ip': true});
 
 </header>
 
-<p>This is the idea of fitting a specific model to the data. This model can then be used predict a new observation that was previously in the data. We aim at quantifying the relationship between some variables of interest that are not random and the random variables. A model can be described as either a mathematical formula, or even a generic relation between the variables.</p>
-<section id="simple-linear-model-regression" class="level2">
-<h2 class="anchored" data-anchor-id="simple-linear-model-regression">Simple Linear Model /Regression</h2>
 <p>So far we have done some simple data modelling using linear and quadratic equations. ie in a perfect world, a linear model between one variable <span class="math inline">\(x\)</span> and another <span class="math inline">\(y\)</span> can be described as <span class="math inline">\(y= mx + b\)</span> ie using the equation of a line. Instead of using <span class="math inline">\(m\)</span> and <span class="math inline">\(b\)</span> we will use <span class="math inline">\(\alpha\)</span> to denote the intercept and <span class="math inline">\(\beta\)</span> to denote the slope. ie <span class="math inline">\(y = \alpha + \beta x\)</span>. Once we solve for <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span> we can estimate what the value of <span class="math inline">\(y\)</span> will be that corresponds to any given <span class="math inline">\(x\)</span>. All the points will line on this equation. To represent the different data points, we will use the subscript <span class="math inline">\(i\)</span>. Thus our equation becomes:</p>
 <p><span class="math display">\[ y_i = \alpha + \beta x_i \]</span></p>
 <p>where <span class="math inline">\((x_i, y_i)\)</span> represents the <span class="math inline">\(i^{th}\)</span> point. We can therefore have <span class="math inline">\((x_1,y_1), x_2,y_2), \cdots, (x_n,y_n)\)</span> to represent <span class="math inline">\(n\)</span> data points. example:</p>
@@ -690,7 +689,6 @@ gtag('config', 'G-DKJJZ86ZQ1', { 'anonymize_ip': true});
 </div>
 </div>
 <p>The formulation of <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span> is limited to only one predictor variable <span class="math inline">\(x\)</span> What if we had many predictors?</p>
-</section>
 <section id="multiple-linear-regression" class="level1">
 <h1>Multiple Linear Regression</h1>
 <p>In the simple linear regression above, we expressed every quantity in a scalar notation. We could rewrite the same using matrix notations:</p>
@@ -935,13 +933,13 @@ F-statistic: 188.3 on 5 and 144 DF,  p-value: &lt; 2.2e-16</code></pre>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">Date:</td>
-<td>Sun, 03 Sep 2023</td>
+<td>Wed, 06 Sep 2023</td>
 <td data-quarto-table-cell-role="th">Prob (F-statistic):</td>
 <td>2.67e-61</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">Time:</td>
-<td>16:07:27</td>
+<td>13:27:05</td>
 <td data-quarto-table-cell-role="th">Log-Likelihood:</td>
 <td>-32.558</td>
 </tr>

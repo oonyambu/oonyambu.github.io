@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -29,6 +63,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
+<link href="./naive_bayes.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -83,9 +118,7 @@ gtag('config', 'G-DKJJZ86ZQ1', { 'anonymize_ip': true});
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">
-      ABC's of R and Python
-      </li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./intro_dataModeling.html">Data Modelling</a></li><li class="breadcrumb-item">Unsupervised Learning</li><li class="breadcrumb-item"><a href="./kmeans.html">Clustering</a></li><li class="breadcrumb-item"><a href="./kmeans.html">K means Clustering Algorithm</a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -337,13 +370,13 @@ gtag('config', 'G-DKJJZ86ZQ1', { 'anonymize_ip': true});
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="true">
  <span class="menu-text">Data Modelling</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./intro_dataModeling.html" class="sidebar-item-text sidebar-link">
@@ -374,7 +407,7 @@ gtag('config', 'G-DKJJZ86ZQ1', { 'anonymize_ip': true});
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./linear_models.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Data Modeling</span></a>
+ <span class="menu-text">Linear Regression</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -424,22 +457,22 @@ gtag('config', 'G-DKJJZ86ZQ1', { 'anonymize_ip': true});
   </div>
 </li>
           <li class="sidebar-item">
- <span class="menu-text">K-Nearest Neighbours</span>
+ <span class="menu-text">KNN</span>
   </li>
           <li class="sidebar-item">
- <span class="menu-text">Logistic Classification</span>
+ <span class="menu-text">Logistic</span>
   </li>
           <li class="sidebar-item">
  <span class="menu-text">Neural Networks</span>
   </li>
           <li class="sidebar-item">
- <span class="menu-text">Linear Discriminant Analysis(LDA)</span>
+ <span class="menu-text">LDA</span>
   </li>
           <li class="sidebar-item">
- <span class="menu-text">Quadratic Discriminant Analysis(QDA)</span>
+ <span class="menu-text">QDA</span>
   </li>
           <li class="sidebar-item">
- <span class="menu-text">Support Vector Machines (SVM)</span>
+ <span class="menu-text">SVM</span>
   </li>
           <li class="sidebar-item">
  <span class="menu-text">Boosting and Regression Trees</span>
@@ -450,30 +483,33 @@ gtag('config', 'G-DKJJZ86ZQ1', { 'anonymize_ip': true});
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" aria-expanded="true">
  <span class="menu-text">Unsupervised Learning</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="" class="collapse list-unstyled sidebar-section depth2 ">  
+      <ul id="quarto-sidebar-section-13" class="collapse list-unstyled sidebar-section depth2 show">  
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" aria-expanded="true">
  <span class="menu-text">Clustering</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-13" class="collapse list-unstyled sidebar-section depth3 ">  
+      <ul id="quarto-sidebar-section-14" class="collapse list-unstyled sidebar-section depth3 show">  
           <li class="sidebar-item">
- <span class="menu-text">K-means</span>
-  </li>
+  <div class="sidebar-item-container"> 
+  <a href="./kmeans.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">K means Clustering Algorithm</span></a>
+  </div>
+</li>
           <li class="sidebar-item">
  <span class="menu-text">Spectral Clustering</span>
   </li>
           <li class="sidebar-item">
- <span class="menu-text">Expectation Maximization clustering</span>
+ <span class="menu-text">EM clustering</span>
   </li>
       </ul>
   </li>
@@ -486,11 +522,23 @@ gtag('config', 'G-DKJJZ86ZQ1', { 'anonymize_ip': true});
 </nav>
 <div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this Page</h2>
+   
+  <ul>
+  <li><a href="#example-1" id="toc-example-1" class="nav-link active" data-scroll-target="#example-1">Example 1</a></li>
+  <li><a href="#example-2" id="toc-example-2" class="nav-link" data-scroll-target="#example-2">Example 2</a></li>
+  <li><a href="#example-3" id="toc-example-3" class="nav-link" data-scroll-target="#example-3">Example 3:</a></li>
+  <li><a href="#example-3-continuation" id="toc-example-3-continuation" class="nav-link" data-scroll-target="#example-3-continuation">Example 3 continuation</a></li>
+  <li><a href="#example-4." id="toc-example-4." class="nav-link" data-scroll-target="#example-4.">Example 4.</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary:</a></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises">Exercises:</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
-<main class="content column-page-right" id="quarto-document-content">
+<main class="content column-body" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
@@ -523,8 +571,326 @@ gtag('config', 'G-DKJJZ86ZQ1', { 'anonymize_ip': true});
 <p>From the image on the left, we can note that there exists some grouping in the data. To our human eye, we can easily tell that there are 2 clusters. Given a new observation, depending how do we determine which cluster to put it in? How can we tell the computer to do the same?</p>
 </div>
 </div>
+<p>We were able to claim the presence of two cluster. This is due to how the points are distanced from one another. Points close together will be grouped together. Naturally, we will pick two points which we will consider to be the center of the clusters. Then points will be clustered according to their distance to these centers. A point <span class="math inline">\((x,y)\)</span> will be clustered to cluster 1 if its distance to the center of cluster 1 is smaller than its distance to the center of cluster 2. This can be shown in the graph below:</p>
+<div class="columns">
+<div class="column" style="width:60%;">
+<div class="cell" data-layout-align="left">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><img src="kmeans_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="480"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:40%;">
+<p>The question remains how to obtain the optimal centers. Note that we classify a point to the nearest center. Meaning all the distances obtained from an optimal clustering are minimal. The sum of all these distances will be the minimal.</p>
+</div><p>Any other centers other than the optimal centers will have larger distances.</p>
+</div>
+<p>Thus to obtain the optimal grouping with<span class="math inline">\(k\)</span> number of clusters we start from any <span class="math inline">\(k\)</span> random centers, and we compute the distance. We cluster the points to the closest center. Then we compute the mean of the points in each cluster. These computed means become the new centers. We then compute the distances and re-cluster the points to the nearest centers and compute the means. We repeat the process until there is no change in the means. That means that the optimal grouping has been achieved.</p>
+<p>Lets take a look at an example using the <strong>faithful</strong> dataset, assuming 2 clusters.</p>
+<p>First we write a function that computes a distance from 1 point to the rest of the data, making use of Vectorization feature.</p>
+<section id="example-1" class="level3">
+<h3 class="anchored" data-anchor-id="example-1">Example 1</h3>
+<div class="cell" data-layout-align="left">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>distance <span class="ot">&lt;-</span> <span class="cf">function</span>(a, b){</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(<span class="fu">is.null</span>(<span class="fu">dim</span>(b))) b <span class="ot">&lt;-</span> <span class="fu">t</span>(b)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">colSums</span>((<span class="fu">t</span>(b) <span class="sc">-</span> <span class="fu">c</span>(a))<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-layout-align="left">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Scale your data</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">scale</span>(faithful)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Pick two  points randomly to form the two centroids:</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>centers <span class="ot">&lt;-</span> data[<span class="fu">sample</span>(<span class="fu">nrow</span>(data), <span class="dv">2</span>),]</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>i <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="cf">repeat</span>{</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  i<span class="ot">&lt;-</span> i <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="co">#compute the distances between the points and the centers:</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  dist <span class="ot">&lt;-</span> <span class="fu">apply</span>(centers, <span class="dv">1</span>, distance, data)</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># cluster the points and obtain new means</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  grp <span class="ot">&lt;-</span> <span class="fu">max.col</span>(<span class="sc">-</span>dist)</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  new_centers <span class="ot">&lt;-</span> <span class="fu">apply</span>(data, <span class="dv">2</span>, tapply, grp, mean)</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Check if the current centers is the same as the previous centers</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>  <span class="co"># If so break </span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(<span class="fu">sum</span>(<span class="fu">abs</span>(new_centers <span class="sc">-</span> centers))<span class="sc">&lt;</span><span class="fl">1e-4</span>) <span class="cf">break</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>  <span class="co">#set the previous centers to be current centers and repeat</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>  centers <span class="ot">&lt;-</span> new_centers</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>data <span class="sc">|&gt;</span></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cbind</span>(<span class="fu">data.frame</span>(<span class="at">cluster =</span> <span class="fu">factor</span>(grp))) <span class="sc">|&gt;</span></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(eruptions, waiting, <span class="at">col =</span> cluster)) <span class="sc">+</span> </span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_fixed</span>() <span class="sc">+</span> </span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> <span class="fu">data.frame</span>(new_centers), <span class="at">size =</span> <span class="dv">5</span>, <span class="at">color=</span><span class="st">'blue'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><img src="kmeans_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="384"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>We can trace the clustering:</p>
+<div class="cell" data-layout-align="left">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><img src="kmeans_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="480"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>So far we have used intuition to guide in the clustering of points. Can we have a methematical formulation?</p>
+<p>We note that this is an optimization problem, with the loss function being the total within sum of squares.</p>
+<p><span id="eq-1"><span class="math display">\[
+\mathcal{L} = \sum_{k=1}^K\sum_{i=1}^n (x_i - \bar x_k)^2\Large{1}_{x_i\in k}
+\tag{1}\]</span></span></p>
+<p>The below explanation has been adapted from <a href="https://stats.stackexchange.com/questions/13637/how-to-derive-a-k-means-objective-function-in-matrix-form/13815#13815">cross validated</a></p>
+<p>Given an <span class="math inline">\(n\)</span> by <span class="math inline">\(p\)</span> matrix <span class="math inline">\(X\)</span>, the algorithm seeks to group its <span class="math inline">\(n\)</span> observations, thought of as <span class="math inline">\(p\)</span>-vectors, into a specified number of groups, <span class="math inline">\(k\)</span>. This can be represented by an <span class="math inline">\(n\)</span> by <span class="math inline">\(k\)</span> matrix <span class="math inline">\(Z\)</span> having entries in <span class="math inline">\(\{0,1\}\)</span> and one column for each of the <span class="math inline">\(k\)</span> groups. Column <span class="math inline">\(j\)</span> indicates which vectors in <span class="math inline">\(X\)</span> belong to group <span class="math inline">\(j\)</span>; that is, <span class="math inline">\(z_{ij} = 1\)</span> if and only if observation <span class="math inline">\(i\)</span> of <span class="math inline">\(X\)</span> is assigned to group <span class="math inline">\(j\)</span>.</p>
+<p>Let <span class="math inline">\(1_k\)</span> be the column vector of <span class="math inline">\(k\)</span> 1’s and <span class="math inline">\(1_n\)</span> the column vector of <span class="math inline">\(n\)</span> 1’s. <span class="math inline">\(Z\)</span> <strong>is constrained</strong> to satisfy <span class="math inline">\(Z\ 1_k = 1_n\)</span> reflecting the assignment of each observation of <span class="math inline">\(X\)</span> to exactly one group.</p>
+<p>The <span class="math inline">\(k\)</span> by <span class="math inline">\(p\)</span> matrix whose rows are the group centroids can be constructed as</p>
+<p><span id="eq-2"><span class="math display">\[{\Large{\mu}} =  (Z^{\top}\ Z)^{-1} Z^\top\ X \tag{2}\]</span></span></p>
+<p>The distances between the rows of <span class="math inline">\(X\)</span> and their associated centroids <span class="math inline">\(A{\Large\mu}\)</span> are</p>
+<p><span id="eq-3"><span class="math display">\[W = X - Z{\Large\mu} \tag{3}\]</span></span></p>
+<p>also an <span class="math inline">\(m\)</span> by <span class="math inline">\(n\)</span> matrix, whence the objective function can be expressed as the number</p>
+<p><span id="eq-4"><span class="math display">\[\mathcal{L} = tr(W^{'}\ W) \tag{4}\]</span></span></p>
+<p>(which is the sum of squares of the entries of <span class="math inline">\(W\)</span>).</p>
+<p>Note that in this case, <span class="math inline">\(tr(W^{'}\ W)\)</span> is equivalent to <span class="math inline">\({\large{1}}_n^\top W^{\odot2}\large{1}_k\)</span> where <span class="math inline">\(\odot\)</span> is the element-wise operator. This is the loss function that need to be minimized. We do not have to compute this as we can stop if no point is reassigned to a different cluster.</p>
+<p>For the distance from each element to all the centroids, we can compute it as:</p>
+<p><span id="eq-5"><span class="math display">\[
+\begin{aligned}
+d_{i,k} = &amp;(x_i - \mu_k)^\top(x_i - \mu_k)\\
+=&amp;x_i'x_i^{} - 2x_i'\mu_k + \mu_k'\mu_k
+\end{aligned}
+\tag{5}\]</span></span></p>
+<p>We could write the function in matrix notation for all points as:</p>
+<p><span id="eq-6"><span class="math display">\[
+D = X^{\odot2}{\large1}_p{\large1}^\top_k -2X{\Large\mu}^\top+ {\large 1}_n{\large1}_p^\top\left(U^{\odot2\top}\right)
+\tag{6}\]</span></span></p>
+<p>As <span class="math inline">\(\large\mu\)</span> is a function of <span class="math inline">\(X\)</span> and <span class="math inline">\(Z\)</span>, we could replace it with its formula and defining <span class="math inline">\(K = XX^\top\)</span> and <span class="math inline">\(M = (Z^\top Z)^{-1}\)</span> we get:</p>
+<p><span id="eq-7"><span class="math display">\[
+\begin{equation}
+D = \textrm{diag}(K){\large1}^\top_k - 2KZM + {\large{1}}_n\textrm{diag}(Z^\top KZMM)^\top
+\end{equation}
+\tag{7}\]</span></span></p>
+<p>A code to depict this:</p>
+</section>
+<section id="example-2" class="level3">
+<h3 class="anchored" data-anchor-id="example-2">Example 2</h3>
+<div class="cell" data-layout-align="left">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">scale</span>(faithful)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">nrow</span>(X)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>Jk <span class="ot">&lt;-</span><span class="fu">rep</span>(<span class="dv">1</span>,k)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>Jn <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">1</span>,n)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>K <span class="ot">&lt;-</span> <span class="fu">tcrossprod</span>(X)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>grp <span class="ot">&lt;-</span> <span class="fu">sample</span>(k, n, <span class="cn">TRUE</span>) <span class="co">#start with random groupings</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="cf">repeat</span>{</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  Z <span class="ot">&lt;-</span> <span class="fu">diag</span>(k)[grp,]</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  M <span class="ot">&lt;-</span> <span class="fu">solve</span>(<span class="fu">crossprod</span>(Z))</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  A <span class="ot">&lt;-</span> K<span class="sc">%*%</span>Z<span class="sc">%*%</span>M</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>  D <span class="ot">&lt;-</span> <span class="fu">diag</span>(K)<span class="sc">%*%</span><span class="fu">t</span>(Jk) <span class="sc">-</span> <span class="dv">2</span><span class="sc">*</span>A<span class="sc">+</span> Jn<span class="sc">%*%</span><span class="fu">t</span>(<span class="fu">diag</span>(<span class="fu">t</span>(Z)<span class="sc">%*%</span>A<span class="sc">%*%</span>M))</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>  new_grp <span class="ot">&lt;-</span> <span class="fu">max.col</span>(<span class="sc">-</span>D)</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(<span class="fu">mean</span>(new_grp <span class="sc">==</span> grp) <span class="sc">==</span> <span class="dv">1</span>)<span class="cf">break</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>  grp <span class="ot">&lt;-</span> new_grp</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(X, <span class="at">col =</span> new_grp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><img src="kmeans_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="480"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Writing the distance in the matrix notation enables one to easily use different functions on <span class="math inline">\(X\)</span>.</p>
+<p>We just change <span class="math inline">\(K\)</span> and still use the same formula.</p>
+</section>
+<section id="example-3" class="level3">
+<h3 class="anchored" data-anchor-id="example-3">Example 3:</h3>
+<p>Assume we have data like shown below:</p>
+<div class="cell" data-layout-align="left">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">50</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="fu">runif</span>(n,<span class="sc">-</span><span class="dv">4</span>,<span class="dv">4</span>), <span class="fu">sample</span>(<span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">1</span>), n, <span class="cn">TRUE</span>))</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">data.frame</span>(X, <span class="at">col =</span> <span class="fu">factor</span>(<span class="fu">kmeans</span>(X,k)<span class="sc">$</span>cluster)))<span class="sc">+</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(X1,X2, <span class="at">col=</span>col))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><img src="kmeans_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="480"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The native K-means is unable to cluster the data accordingly.</p>
+<p>Its not quite simple on how to separate the data. Suppose we transform the data above to a 3D. ie add one dimension. we get the following:</p>
+<div class="cell" data-layout-align="left">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>r <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="fu">nrow</span>(X))</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>X1 <span class="ot">&lt;-</span> <span class="fu">cbind</span>(r, X)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co">#initial design with added dimension:</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>scatterplot3d<span class="sc">::</span><span class="fu">scatterplot3d</span>(X1, <span class="at">pch=</span><span class="dv">16</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><img src="kmeans_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="480"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>We can clearly see that the data points lie on two planes, thereby they should be distinct. Assume the centroids were at the center of the planes, notice how in some instances, the distance to a point directly below/above a centroid, might be smaller in comparison to the distance of a point to the centroid within the same plane. This will make points from different planes to be grouped together. To avoid this, we may increase the height by a factor equal to the maximum of the width. ie 4. This ensures that points on different planes will be far from each other compared to points on the same plane. We thus get the plot below:</p>
+<div class="cell" data-layout-align="left">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>X2 <span class="ot">&lt;-</span> <span class="fu">cbind</span>(r, X[,<span class="dv">1</span>], <span class="dv">4</span><span class="sc">*</span>X[,<span class="dv">2</span>]) <span class="co"># [r, x1, 4*x2]</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>scatterplot3d<span class="sc">::</span><span class="fu">scatterplot3d</span>(X2, <span class="at">pch=</span><span class="dv">16</span>, <span class="at">color=</span><span class="fu">kmeans</span>(X2, <span class="dv">2</span>)<span class="sc">$</span>cluster)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><img src="kmeans_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="480"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Notice how on the transformed data, we were able to separate the data points into their respective clusters. We still used the native kmeans algorithm to cluster the points although we first had to transform the points. The notion of transformation enables us to make use of <em>kernels,</em> thereby being able to separate data that at first seems inseparable. Think of a kernel as a function that maps two two transformed inputs into one value. The inputs can be scalar or vector values. For instance, in our example above, the kernel can be thought of as being</p>
+<p><span id="eq-8"><span class="math display">\[
+\begin{aligned}
+&amp;\begin{array}{}K(x,y) &amp;= [x_{1}, 4x_2]^\top[y_1,4y_2]\\
+&amp;=x_1y_1 + 4x_2y_2\\
+&amp;=x'A'Ay=x'By
+\end{array}\quad\quad\text{where}\quad A = \begin{pmatrix}1&amp;0\\0&amp;4\end{pmatrix}\text{ and } B=\begin{pmatrix}1&amp;0\\0&amp;16\end{pmatrix}\\
+\\
+\implies&amp;K(X) = XBX^\top
+\end{aligned}
+\tag{8}\]</span></span></p>
+<p>All kernels are inner products of the transformed values/vectors. In the above example, the transformation function considered was <span class="math inline">\(f(x) = Ax\)</span>. By using a function on <span class="math inline">\(X\)</span>, we can be able to separate the data: Let <span class="math inline">\(\phi(x,y)\)</span> be the transformation function we could then do</p>
+<p><span id="eq-9"><span class="math display">\[
+\begin{aligned}
+K(x_i,x_j) = &amp;\left\langle \phi(x_i), \phi(x_j)\right\rangle\\
+\text{Thus for the whole }&amp; \text{dataset we have}\\
+K =&amp; \phi(X)\phi(X)^\top
+\end{aligned}
+\tag{9}\]</span></span></p>
+<p>Since the kernel is an inner product, we do not need to know the explicit form of the transformation function. We just need to obtain the kernel results, and using the this, we can cluster the data.</p>
+<p>Back to the example: Using everything as previously stated, kernel, we get the following:</p>
+</section>
+<section id="example-3-continuation" class="level3">
+<h3 class="anchored" data-anchor-id="example-3-continuation">Example 3 continuation</h3>
+<div class="cell" data-layout-align="left">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">nrow</span>(X)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>Jk <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">1</span>,k)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>Jn <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">1</span>,n)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>B <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">16</span>), <span class="dv">2</span>)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>K <span class="ot">&lt;-</span> X <span class="sc">%*%</span> B<span class="sc">%*%</span> <span class="fu">t</span>(X)</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>grp <span class="ot">&lt;-</span> <span class="fu">sample</span>(k, n, <span class="cn">TRUE</span>) <span class="co">#start with random groupings</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="cf">repeat</span>{</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>  Z <span class="ot">&lt;-</span> <span class="fu">diag</span>(k)[grp,]</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>  M <span class="ot">&lt;-</span> <span class="fu">solve</span>(<span class="fu">crossprod</span>(Z))</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>  A <span class="ot">&lt;-</span> K<span class="sc">%*%</span>Z<span class="sc">%*%</span>M</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>  D <span class="ot">&lt;-</span> <span class="fu">diag</span>(K)<span class="sc">%*%</span><span class="fu">t</span>(Jk) <span class="sc">-</span> <span class="dv">2</span><span class="sc">*</span>A<span class="sc">+</span> Jn<span class="sc">%*%</span><span class="fu">t</span>(<span class="fu">diag</span>(<span class="fu">t</span>(Z)<span class="sc">%*%</span>A<span class="sc">%*%</span>M))</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>  new_grp <span class="ot">&lt;-</span> <span class="fu">max.col</span>(<span class="sc">-</span>D)</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(<span class="fu">mean</span>(new_grp <span class="sc">==</span> grp) <span class="sc">==</span> <span class="dv">1</span>)<span class="cf">break</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>  grp <span class="ot">&lt;-</span> new_grp</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">data.frame</span>(X, <span class="at">col =</span> <span class="fu">factor</span>(new_grp)))<span class="sc">+</span></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(X1,X2, <span class="at">col=</span>col))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><img src="kmeans_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="480"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Note that kernels depict the relationship between one point to another. Thus are also referred to as correlation functions. Some <a href="https://en.wikipedia.org/wiki/Kernel_(statistics)#Kernel_functions_in_common_use">common kernel</a>] include:</p>
+<ul>
+<li><p>Gaussian <span class="math inline">\(\exp\left(-(x_i-x_j)^2\right)\)</span></p></li>
+<li><p>Mat ́ern,</p></li>
+<li><p>power-exponential family <span class="math inline">\(\exp\left(-\big|x_i-x_j\big|^p\right)\)</span> . If <span class="math inline">\(p=2\)</span> we get the gaussian kernel</p></li>
+</ul>
+<p>Mostly the gaussian is used. We could write a function that does kernelized k-means:</p>
+<div class="cell" data-layout-align="left">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>kernelized_kmeans <span class="ot">&lt;-</span> <span class="cf">function</span>(K, k){</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="fu">nrow</span>(K)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  Jk <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">1</span>, k)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  Jn <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">1</span>, n)</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  grp <span class="ot">&lt;-</span> <span class="fu">sample</span>(k, n, <span class="cn">TRUE</span>) <span class="co">#start with random groupings</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  <span class="cf">repeat</span>{</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    Z <span class="ot">&lt;-</span> <span class="fu">diag</span>(k)[grp,]</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    M <span class="ot">&lt;-</span> <span class="fu">solve</span>(<span class="fu">crossprod</span>(Z))</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    A <span class="ot">&lt;-</span> K<span class="sc">%*%</span>Z<span class="sc">%*%</span>M</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    D <span class="ot">&lt;-</span> <span class="fu">diag</span>(K)<span class="sc">%*%</span><span class="fu">t</span>(Jk) <span class="sc">-</span> <span class="dv">2</span><span class="sc">*</span>A <span class="sc">+</span> Jn<span class="sc">%*%</span><span class="fu">t</span>(<span class="fu">diag</span>(<span class="fu">t</span>(Z)<span class="sc">%*%</span>A<span class="sc">%*%</span>M))</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>    new_grp <span class="ot">&lt;-</span> <span class="fu">max.col</span>(<span class="sc">-</span>D)</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(<span class="fu">mean</span>(new_grp <span class="sc">==</span> grp) <span class="sc">==</span> <span class="dv">1</span>)<span class="cf">break</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>    grp <span class="ot">&lt;-</span> new_grp</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>  new_grp</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>All we have to do is pass in the kernel and the number of clusters.</p>
+</section>
+<section id="example-4." class="level3">
+<h3 class="anchored" data-anchor-id="example-4.">Example 4.</h3>
+<p>Using gaussian kernel, cluster the data below:</p>
+<div class="cell" data-layout-align="left">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">500</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>theta <span class="ot">&lt;-</span> <span class="fu">runif</span>(n, <span class="dv">0</span>,<span class="dv">2</span><span class="sc">*</span>pi)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>r2 <span class="ot">&lt;-</span> <span class="fu">runif</span>(n, <span class="dv">3</span>,<span class="dv">4</span>)</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>r1 <span class="ot">&lt;-</span> <span class="fu">runif</span>(n, <span class="dv">0</span>,<span class="dv">1</span>)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> r1<span class="sc">*</span><span class="fu">cos</span>(theta)</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>y1 <span class="ot">&lt;-</span> r1<span class="sc">*</span><span class="fu">sin</span>(theta)</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> r2<span class="sc">*</span><span class="fu">cos</span>(theta)</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>y2 <span class="ot">&lt;-</span> r2<span class="sc">*</span><span class="fu">sin</span>(theta)</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="at">x =</span> <span class="fu">c</span>(x1,x2),<span class="at">y =</span> <span class="fu">c</span>(y1,y2))</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">cbind</span>(X, X), </span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>      <span class="at">col =</span> <span class="fu">c</span>(<span class="fu">factor</span>(<span class="fu">numeric</span>(n<span class="sc">*</span><span class="dv">2</span>)), <span class="fu">factor</span>(<span class="fu">kmeans</span>(X, <span class="dv">2</span>)<span class="sc">$</span>cluster)),</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>      <span class="at">ty =</span><span class="fu">c</span>(<span class="st">' Unclustered'</span>, <span class="st">'Clustered using Kmeans'</span>)[<span class="fu">gl</span>(<span class="dv">2</span>,<span class="dv">1000</span>)])</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(d, <span class="fu">aes</span>(x, y, <span class="at">col=</span>col))<span class="sc">+</span></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span><span class="fu">coord_fixed</span>()<span class="sc">+</span></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values=</span><span class="fu">c</span>(<span class="st">"grey40"</span>, scales<span class="sc">::</span><span class="fu">hue_pal</span>()(<span class="dv">2</span>)))<span class="sc">+</span></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>ty)<span class="sc">+</span></span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><img src="kmeans_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="480"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Results using kernelized k-means</p>
+<div class="cell" data-layout-align="left">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>grp <span class="ot">&lt;-</span> <span class="fu">kernelized_kmeans</span>(<span class="fu">as.matrix</span>(<span class="fu">exp</span>(<span class="sc">-</span><span class="fu">dist</span>(X)<span class="sc">^</span><span class="dv">2</span>)), <span class="dv">2</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">data.frame</span>(X, <span class="at">cluster =</span> <span class="fu">factor</span>(grp))) <span class="sc">+</span> </span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(x, y, <span class="at">col =</span> cluster)) <span class="sc">+</span><span class="fu">coord_fixed</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><img src="kmeans_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="480"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="summary" class="level2">
+<h2 class="anchored" data-anchor-id="summary">Summary:</h2>
+<p>To perform the native K-means, we use <span class="math inline">\(K = XX^\top\)</span> as shown in example 2</p>
+</section>
+<section id="exercises" class="level1">
+<h1>Exercises:</h1>
 
 
+</section>
 
 <a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -760,6 +1126,15 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
+<nav class="page-navigation column-body">
+  <div class="nav-page nav-page-previous">
+      <a href="./naive_bayes.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Naive Bayes</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav>
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
