@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Welcome to Online Study – ABC’s of R and Python</title>
+<title>Introduction – ABC’s of R and Python</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -29,7 +29,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./about.html" rel="next">
+<link href="./linear_models.html" rel="next">
+<link href="./minimization.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -89,7 +90,7 @@ gtag('config', 'G-DKJJZ86ZQ1', { 'anonymize_ip': true});
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Welcome to Online Study</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./intro_dataModeling.html">Data Modelling</a></li><li class="breadcrumb-item"><a href="./intro_dataModeling.html">Introduction</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -123,7 +124,7 @@ gtag('config', 'G-DKJJZ86ZQ1', { 'anonymize_ip': true});
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Welcome to Online Study</span></a>
   </div>
 </li>
@@ -381,16 +382,16 @@ gtag('config', 'G-DKJJZ86ZQ1', { 'anonymize_ip': true});
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="true">
  <span class="menu-text">Data Modelling</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./intro_dataModeling.html" class="sidebar-item-text sidebar-link">
+  <a href="./intro_dataModeling.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Introduction</span></a>
   </div>
 </li>
@@ -536,30 +537,20 @@ gtag('config', 'G-DKJJZ86ZQ1', { 'anonymize_ip': true});
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this Page</h2>
-   
-  <ul>
-  <li><a href="#requirements" id="toc-requirements" class="nav-link active" data-scroll-target="#requirements">Requirements</a>
-  <ul class="collapse">
-  <li><a href="#hardware" id="toc-hardware" class="nav-link" data-scroll-target="#hardware">Hardware</a></li>
-  <li><a href="#software" id="toc-software" class="nav-link" data-scroll-target="#software">Software</a></li>
-  </ul></li>
-  </ul>
-</nav>
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
     </div>
 <!-- main -->
-<main class="content column-body" id="quarto-document-content">
+<main class="content column-page-right" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./intro_dataModeling.html">Data Modelling</a></li><li class="breadcrumb-item"><a href="./intro_dataModeling.html">Introduction</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Welcome to Online Study</h1>
+<h1 class="title">Introduction</h1>
 </div>
 
 
 
-<div class="quarto-title-meta column-body">
+<div class="quarto-title-meta column-page-right">
 
     
   
@@ -571,39 +562,9 @@ gtag('config', 'G-DKJJZ86ZQ1', { 'anonymize_ip': true});
 </header>
 
 
-<section id="requirements" class="level1">
-<h1>Requirements</h1>
-<section id="hardware" class="level2">
-<h2 class="anchored" data-anchor-id="hardware">Hardware</h2>
-<ol type="1">
-<li><p>Laptop/Desktop - macOS, windows OS, linux OS eg Ubuntu etc. Preferably Windows OS for now.</p></li>
-<li><p>A second Screen - a monitor, TV, another laptop etc</p>
-<div>
-<ul>
-<li><p>If the second screen is a monitor, it should have a HDMI compatibility. Old ones have VGA input thus you will need to get a HDMI to VGA adapter/converter. If your laptop has USB-C port only then you will need a USB-C to HDMI adapter depending on what your second screen has.</p></li>
-<li><p>For the TV screen, it must be HDMI compatibility. If not, we do not need it.</p></li>
-<li><p>If Laptop, it must satisfy the requirements in 1. above</p></li>
-<li><p>Have a HDMI cable to connect to the second screen from your laptop, if the second screen is any of the first 2 above. -Note that casting is prone to lags hence not recommended.</p></li>
-<li><p>if using old computers, you do not need the HDMI but rather the VGA is sufficient.</p></li>
-</ul>
-</div></li>
-<li><p>A webcam, if not using a laptop with webcam compatibility.</p></li>
-<li><p>WiFi.</p></li>
-</ol>
-</section>
-<section id="software" class="level2">
-<h2 class="anchored" data-anchor-id="software">Software</h2>
-<p>Regarding software, all programs <strong>should be</strong> downloaded and installed in a folder in a drive separate from the main drive of the computer. Preferably D/E/G if windows. eg C:\online_school\Programs</p>
-<ol type="1">
-<li><p>R &amp; Rstudio: Go to the page <a href="https://posit.co/download/rstudio-desktop/">RStudio Desktop</a>. Follow the two steps provided on downloading and installing R and Rstudio</p></li>
-<li><p>Python: Go to the page <a href="https://www.anaconda.com/products/distribution">Anaconda | Anaconda Distribution</a> and download Anaconda.</p></li>
-<li><p>If windows go to <a href="https://www.msys2.org/">MSYS2</a> follow the instructions on how to install it.</p>
-<p>The video below will give a description on how to install to the preferred folder.</p></li>
-</ol>
+<p>This is the idea of fitting a specific model to the data. This model can then be used predict a new observation that was previously in the data. We aim at quantifying the relationship between some variables of interest that are not random and the random variables. A model can be described as either a mathematical formula, or even a generic relation between the variables.</p>
 
 
-</section>
-</section>
 
 <a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -1026,12 +987,15 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
-<nav class="page-navigation column-body">
+<nav class="page-navigation column-page-right">
   <div class="nav-page nav-page-previous">
+      <a href="./minimization.html" class="pagination-link" aria-label="Minimization">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Minimization</span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./about.html" class="pagination-link" aria-label="Introduction">
-        <span class="nav-page-text">Introduction</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./linear_models.html" class="pagination-link" aria-label="Linear Regression">
+        <span class="nav-page-text">Linear Regression</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

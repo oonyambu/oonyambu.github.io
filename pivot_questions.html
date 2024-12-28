@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Welcome to Online Study – ABC’s of R and Python</title>
+<title>Questions – ABC’s of R and Python</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -29,7 +63,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./about.html" rel="next">
+<link href="./root_finding.html" rel="next">
+<link href="./string.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -89,7 +124,7 @@ gtag('config', 'G-DKJJZ86ZQ1', { 'anonymize_ip': true});
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Welcome to Online Study</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">tidyverse</li><li class="breadcrumb-item"><a href="./pivot_questions.html">Questions</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -123,7 +158,7 @@ gtag('config', 'G-DKJJZ86ZQ1', { 'anonymize_ip': true});
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Welcome to Online Study</span></a>
   </div>
 </li>
@@ -308,13 +343,13 @@ gtag('config', 'G-DKJJZ86ZQ1', { 'anonymize_ip': true});
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true">
  <span class="menu-text">tidyverse</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
  <span class="menu-text">dplyr, tidyr, purrr</span>
   </li>
@@ -332,7 +367,7 @@ gtag('config', 'G-DKJJZ86ZQ1', { 'anonymize_ip': true});
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./pivot_questions.html" class="sidebar-item-text sidebar-link">
+  <a href="./pivot_questions.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Questions</span></a>
   </div>
 </li>
@@ -541,20 +576,24 @@ gtag('config', 'G-DKJJZ86ZQ1', { 'anonymize_ip': true});
     <h2 id="toc-title">On this Page</h2>
    
   <ul>
-  <li><a href="#requirements" id="toc-requirements" class="nav-link active" data-scroll-target="#requirements">Requirements</a>
+  <li><a href="#question-1" id="toc-question-1" class="nav-link active" data-scroll-target="#question-1">Question 1</a></li>
+  <li><a href="#question-2" id="toc-question-2" class="nav-link" data-scroll-target="#question-2">Question 2</a></li>
+  <li><a href="#question-3" id="toc-question-3" class="nav-link" data-scroll-target="#question-3">Question 3</a>
   <ul class="collapse">
-  <li><a href="#hardware" id="toc-hardware" class="nav-link" data-scroll-target="#hardware">Hardware</a></li>
-  <li><a href="#software" id="toc-software" class="nav-link" data-scroll-target="#software">Software</a></li>
+  <li><a href="#ranges" id="toc-ranges" class="nav-link" data-scroll-target="#ranges">Ranges</a></li>
+  <li><a href="#back-references" id="toc-back-references" class="nav-link" data-scroll-target="#back-references">Back References</a></li>
+  <li><a href="#primes" id="toc-primes" class="nav-link" data-scroll-target="#primes">Primes</a></li>
   </ul></li>
+  <li><a href="#question-4" id="toc-question-4" class="nav-link" data-scroll-target="#question-4">Question 4</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content column-body" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">tidyverse</li><li class="breadcrumb-item"><a href="./pivot_questions.html">Questions</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Welcome to Online Study</h1>
+<h1 class="title">Questions</h1>
 </div>
 
 
@@ -571,38 +610,481 @@ gtag('config', 'G-DKJJZ86ZQ1', { 'anonymize_ip': true});
 </header>
 
 
-<section id="requirements" class="level1">
-<h1>Requirements</h1>
-<section id="hardware" class="level2">
-<h2 class="anchored" data-anchor-id="hardware">Hardware</h2>
-<ol type="1">
-<li><p>Laptop/Desktop - macOS, windows OS, linux OS eg Ubuntu etc. Preferably Windows OS for now.</p></li>
-<li><p>A second Screen - a monitor, TV, another laptop etc</p>
-<div>
-<ul>
-<li><p>If the second screen is a monitor, it should have a HDMI compatibility. Old ones have VGA input thus you will need to get a HDMI to VGA adapter/converter. If your laptop has USB-C port only then you will need a USB-C to HDMI adapter depending on what your second screen has.</p></li>
-<li><p>For the TV screen, it must be HDMI compatibility. If not, we do not need it.</p></li>
-<li><p>If Laptop, it must satisfy the requirements in 1. above</p></li>
-<li><p>Have a HDMI cable to connect to the second screen from your laptop, if the second screen is any of the first 2 above. -Note that casting is prone to lags hence not recommended.</p></li>
-<li><p>if using old computers, you do not need the HDMI but rather the VGA is sufficient.</p></li>
-</ul>
-</div></li>
-<li><p>A webcam, if not using a laptop with webcam compatibility.</p></li>
-<li><p>WiFi.</p></li>
-</ol>
+<section id="question-1" class="level2">
+<h2 class="anchored" data-anchor-id="question-1"><a href="https://stackoverflow.com/questions/76896053/create-multiple-columns-with-r-dplyr-mutate-with-across-instead-of-with-a-loop/76896124#76896124">Question 1</a></h2>
+<p>Given the data Below, create 3 columns ie Sum_15, Sum_16, Sum_17 whereby sum_* is the sum of the values for the corresponding year and agegroup. The result should look like shown below:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: center;">AgeGroup</th>
+<th style="text-align: right;">Sum_15</th>
+<th style="text-align: right;">Sum_16</th>
+<th style="text-align: right;">Sum_17</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">A</td>
+<td style="text-align: right;">321</td>
+<td style="text-align: right;">342</td>
+<td style="text-align: right;">372</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">B</td>
+<td style="text-align: right;">391</td>
+<td style="text-align: right;">339</td>
+<td style="text-align: right;">345</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">C</td>
+<td style="text-align: right;">353</td>
+<td style="text-align: right;">361</td>
+<td style="text-align: right;">363</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">D</td>
+<td style="text-align: right;">356</td>
+<td style="text-align: right;">388</td>
+<td style="text-align: right;">359</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">E</td>
+<td style="text-align: right;">351</td>
+<td style="text-align: right;">390</td>
+<td style="text-align: right;">386</td>
+</tr>
+</tbody>
+</table>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">100</span>) <span class="co"># make results reproducible by setting seed</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>vars <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"AgeGroup"</span>, <span class="fu">paste0</span>(month.abb, <span class="st">"_"</span>, <span class="fu">rep</span>(<span class="dv">15</span><span class="sc">:</span><span class="dv">17</span>, <span class="at">each =</span> <span class="dv">12</span>)))</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>(df <span class="ot">&lt;-</span> <span class="fu">cbind</span>(LETTERS[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>], <span class="fu">matrix</span>(<span class="fu">rpois</span>(<span class="at">n =</span> (<span class="fu">length</span>(vars) <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> <span class="dv">5</span>, <span class="dv">30</span>), <span class="at">nrow =</span> <span class="dv">5</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">data.frame</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">setNames</span>(vars) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tibble</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="sc">-</span><span class="dv">1</span>, as.integer))</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 37
+  AgeGroup Jan_15 Feb_15 Mar_15 Apr_15 May_15 Jun_15 Jul_15 Aug_15 Sep_15 Oct_15
+  &lt;chr&gt;     &lt;int&gt;  &lt;int&gt;  &lt;int&gt;  &lt;int&gt;  &lt;int&gt;  &lt;int&gt;  &lt;int&gt;  &lt;int&gt;  &lt;int&gt;  &lt;int&gt;
+1 A            27     26     33     36     34     25     27     37     37     32
+2 B            21     32     24     31     25     39     32     20     30     32
+3 C            34     28     30     23     25     29     35     26     19     30
+4 D            30     32     29     34     31     29     35     37     28     34
+5 E            31     33     27     31     23     26     29     28     28     26
+# ℹ 26 more variables: Nov_15 &lt;int&gt;, Dec_15 &lt;int&gt;, Jan_16 &lt;int&gt;, Feb_16 &lt;int&gt;,
+#   Mar_16 &lt;int&gt;, Apr_16 &lt;int&gt;, May_16 &lt;int&gt;, Jun_16 &lt;int&gt;, Jul_16 &lt;int&gt;,
+#   Aug_16 &lt;int&gt;, Sep_16 &lt;int&gt;, Oct_16 &lt;int&gt;, Nov_16 &lt;int&gt;, Dec_16 &lt;int&gt;,
+#   Jan_17 &lt;int&gt;, Feb_17 &lt;int&gt;, Mar_17 &lt;int&gt;, Apr_17 &lt;int&gt;, May_17 &lt;int&gt;,
+#   Jun_17 &lt;int&gt;, Jul_17 &lt;int&gt;, Aug_17 &lt;int&gt;, Sep_17 &lt;int&gt;, Oct_17 &lt;int&gt;,
+#   Nov_17 &lt;int&gt;, Dec_17 &lt;int&gt;</code></pre>
+</div>
+</div>
 </section>
-<section id="software" class="level2">
-<h2 class="anchored" data-anchor-id="software">Software</h2>
-<p>Regarding software, all programs <strong>should be</strong> downloaded and installed in a folder in a drive separate from the main drive of the computer. Preferably D/E/G if windows. eg C:\online_school\Programs</p>
-<ol type="1">
-<li><p>R &amp; Rstudio: Go to the page <a href="https://posit.co/download/rstudio-desktop/">RStudio Desktop</a>. Follow the two steps provided on downloading and installing R and Rstudio</p></li>
-<li><p>Python: Go to the page <a href="https://www.anaconda.com/products/distribution">Anaconda | Anaconda Distribution</a> and download Anaconda.</p></li>
-<li><p>If windows go to <a href="https://www.msys2.org/">MSYS2</a> follow the instructions on how to install it.</p>
-<p>The video below will give a description on how to install to the preferred folder.</p></li>
-</ol>
+<section id="question-2" class="level2">
+<h2 class="anchored" data-anchor-id="question-2"><a href="https://stackoverflow.com/questions/76802640/convert-large-to-long/76803986#76803986">Question 2</a></h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>df1 <span class="ot">&lt;-</span> <span class="fu">structure</span>(<span class="fu">list</span>(</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">num_pp =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>), </span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">nombre_dp1 =</span> <span class="fu">c</span>(<span class="dv">24</span>,<span class="dv">14</span>, <span class="dv">2</span>, <span class="dv">6</span>, <span class="dv">6</span>, <span class="dv">21</span>), </span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">nombre_dp05 =</span> <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">28</span>, <span class="dv">2</span>, <span class="dv">9</span>, <span class="dv">8</span>, <span class="dv">21</span>), </span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">nombre_dp0 =</span> <span class="fu">c</span>(<span class="dv">24</span>,<span class="dv">20</span>, <span class="dv">4</span>, <span class="dv">11</span>, <span class="dv">8</span>, <span class="dv">20</span>), </span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">jugement_causal_dp1 =</span> <span class="fu">c</span>(<span class="st">"Oui"</span>, <span class="st">"Oui"</span>, <span class="st">"Oui"</span>,<span class="st">"Oui"</span>, <span class="st">"Oui"</span>, <span class="st">"Oui"</span>), </span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">jugement_causal_dp05 =</span> <span class="fu">c</span>(<span class="st">"Non"</span>, <span class="st">"Oui"</span>,<span class="st">"Non"</span>, <span class="st">"Non"</span>, <span class="st">"Oui"</span>, <span class="st">"Non"</span>),</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">jugement_causal_dp0 =</span> <span class="fu">c</span>(<span class="st">"Non"</span>, <span class="st">"Non"</span>,<span class="st">"Oui"</span>, <span class="st">"Non"</span>, <span class="st">"Non"</span>, <span class="st">"Non"</span>),</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">confiance_dp1 =</span> <span class="fu">c</span>(<span class="dv">90</span>, <span class="dv">80</span>, <span class="dv">63</span>, <span class="dv">80</span>,<span class="dv">90</span>, <span class="dv">80</span>),</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">confiance_dp05 =</span> <span class="fu">c</span>(<span class="dv">60</span>, <span class="dv">50</span>, <span class="dv">86</span>, <span class="dv">65</span>, <span class="dv">50</span>, <span class="dv">90</span>),</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">confiance_dp0 =</span> <span class="fu">c</span>(<span class="dv">65</span>,<span class="dv">60</span>, <span class="dv">55</span>, <span class="dv">43</span>, <span class="dv">50</span>, <span class="dv">80</span>),</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">age =</span> <span class="fu">c</span>(<span class="dv">33</span>, <span class="dv">22</span>, <span class="dv">20</span>, <span class="dv">20</span>, <span class="dv">18</span>, <span class="dv">18</span>),</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">genre =</span> <span class="fu">c</span>(<span class="st">"Masculin"</span>,<span class="st">"Feminin"</span>, <span class="st">"Feminin"</span>, <span class="st">"Feminin"</span>, <span class="st">"Feminin"</span>, <span class="st">"Feminin"</span>),</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">etude =</span> <span class="fu">c</span>(<span class="st">"L1"</span>,<span class="st">"L1"</span>, <span class="st">"L1"</span>, <span class="st">"L1"</span>, <span class="st">"L1"</span>, <span class="st">"L1"</span>),</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">ordre =</span> <span class="fu">c</span>(<span class="st">"dp_05|dp_1|dp_0"</span>, <span class="st">"dp_0|dp_1|dp_05"</span>,<span class="st">"dp_0|dp_1|dp_05"</span>, <span class="st">"dp_0|dp_05|dp_1"</span>, <span class="st">"dp_1|dp_05|dp_0"</span>, <span class="st">"dp_1|dp_05|dp_0"</span>),</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">wdif_dp1dp05 =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">4</span>, <span class="dv">14</span>, <span class="dv">0</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">0</span>)),</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">row.names =</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="sc">-</span><span class="dv">6</span>L), <span class="at">class =</span> <span class="fu">c</span>(<span class="st">"tbl_df"</span>, <span class="st">"tbl"</span>, <span class="st">"data.frame"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The dataset above represents a repeated measure design. ie It has multiple measures with each measure under 3 conditions.</p>
+<p>For example, the measure <code>nombre</code> is repeated under conditions <code>dp1</code>, <code>dp05</code> and <code>dp0</code>. In this dataset we have 3 measures ie:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">matrix</span>(<span class="fu">str_subset</span>(<span class="fu">names</span>(df1), <span class="st">"_dp</span><span class="sc">\\</span><span class="st">d+$"</span>), <span class="dv">3</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1]                  [,2]                   [,3]                 
+[1,] "nombre_dp1"          "nombre_dp05"          "nombre_dp0"         
+[2,] "jugement_causal_dp1" "jugement_causal_dp05" "jugement_causal_dp0"
+[3,] "confiance_dp1"       "confiance_dp05"       "confiance_dp0"      </code></pre>
+</div>
+</div>
+<p>Transform the data to have only the measures as the columns and include the conditions in their own column ie:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: right;">participant id</th>
+<th style="text-align: right;">condition</th>
+<th>measure1</th>
+<th>measure2</th>
+<th>measure3</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">5</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="question-3" class="level2">
+<h2 class="anchored" data-anchor-id="question-3">Question 3</h2>
+<p>write regular expression patterns which will match all of the values in <code>x</code> and none of the values in <code>y</code>.</p>
+<section id="ranges" class="level3">
+<h3 class="anchored" data-anchor-id="ranges">Ranges</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: center;">x</th>
+<th style="text-align: center;">y</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">abac</td>
+<td style="text-align: center;">beam</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">accede</td>
+<td style="text-align: center;">buoy</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">adead</td>
+<td style="text-align: center;">canjac</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">babe</td>
+<td style="text-align: center;">chymia</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">bead</td>
+<td style="text-align: center;">corah</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">bebed</td>
+<td style="text-align: center;">cupula</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">bedad</td>
+<td style="text-align: center;">griece</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">bedded</td>
+<td style="text-align: center;">hafter</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">bedead</td>
+<td style="text-align: center;">idic</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">bedeaf</td>
+<td style="text-align: center;">lucy</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">caba</td>
+<td style="text-align: center;">martyr</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">caffa</td>
+<td style="text-align: center;">matron</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">dace</td>
+<td style="text-align: center;">messrs</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">dade</td>
+<td style="text-align: center;">mucose</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">daff</td>
+<td style="text-align: center;">relose</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">dead</td>
+<td style="text-align: center;">sonly</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">deed</td>
+<td style="text-align: center;">tegua</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">deface</td>
+<td style="text-align: center;">threap</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">faded</td>
+<td style="text-align: center;">towned</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">faff</td>
+<td style="text-align: center;">widish</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">feed</td>
+<td style="text-align: center;">yite</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="back-references" class="level3">
+<h3 class="anchored" data-anchor-id="back-references">Back References</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: center;">x</th>
+<th style="text-align: center;">y</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">allochirally</td>
+<td style="text-align: center;">anticker</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">anticovenanting</td>
+<td style="text-align: center;">corundum</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">barbary</td>
+<td style="text-align: center;">crabcatcher</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">calelectrical</td>
+<td style="text-align: center;">damnably</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">entablement</td>
+<td style="text-align: center;">foxtailed</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">ethanethiol</td>
+<td style="text-align: center;">galvanotactic</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">froufrou</td>
+<td style="text-align: center;">gummage</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">furfuryl</td>
+<td style="text-align: center;">gurniad</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">galagala</td>
+<td style="text-align: center;">hypergoddess</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">heavyheaded</td>
+<td style="text-align: center;">kashga</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">linguatuline</td>
+<td style="text-align: center;">nonimitative</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">mathematic</td>
+<td style="text-align: center;">parsonage</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">monoammonium</td>
+<td style="text-align: center;">pouchlike</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">perpera</td>
+<td style="text-align: center;">presumptuously</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">photophonic</td>
+<td style="text-align: center;">pylar</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">purpuraceous</td>
+<td style="text-align: center;">rachioparalysis</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">salpingonasal</td>
+<td style="text-align: center;">scherzando</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">testes</td>
+<td style="text-align: center;">swayed</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">trisectrix</td>
+<td style="text-align: center;">unbridledness</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">undergrounder</td>
+<td style="text-align: center;">unupbraidingly</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">untaunted</td>
+<td style="text-align: center;">wellside</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="primes" class="level3">
+<h3 class="anchored" data-anchor-id="primes">Primes</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">x</th>
+<th style="text-align: left;">y</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">xx</td>
+<td style="text-align: left;">xxxx</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">xxx</td>
+<td style="text-align: left;">xxxxxx</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">xxxxx</td>
+<td style="text-align: left;">xxxxxxxx</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">xxxxxxx</td>
+<td style="text-align: left;">xxxxxxxxx</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">xxxxxxxxxxx</td>
+<td style="text-align: left;">xxxxxxxxxx</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">xxxxxxxxxxxxx</td>
+<td style="text-align: left;">xxxxxxxxxxxx</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">xxxxxxxxxxxxxxxxx</td>
+<td style="text-align: left;">xxxxxxxxxxxxxx</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">xxxxxxxxxxxxxxxxxxx</td>
+<td style="text-align: left;">xxxxxxxxxxxxxxx</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">xxxxxxxxxxxxxxxxxxxxxxx</td>
+<td style="text-align: left;">xxxxxxxxxxxxxxxx</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">xxxxxxxxxxxxxxxxxxxxxxxxxxxxx</td>
+<td style="text-align: left;">xxxxxxxxxxxxxxxxxx</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</td>
+<td style="text-align: left;">xxxxxxxxxxxxxxxxxxxx</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</td>
+<td style="text-align: left;">xxxxxxxxxxxxxxxxxxxxx</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</td>
+<td style="text-align: left;">xxxxxxxxxxxxxxxxxxxxxx</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</td>
+<td style="text-align: left;">xxxxxxxxxxxxxxxxxxxxxxxx</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</td>
+<td style="text-align: left;">xxxxxxxxxxxxxxxxxxxxxxxxx</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</td>
+<td style="text-align: left;">xxxxxxxxxxxxxxxxxxxxxxxxxx</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</td>
+<td style="text-align: left;">xxxxxxxxxxxxxxxxxxxxxxxxxxx</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</td>
+<td style="text-align: left;">xxxxxxxxxxxxxxxxxxxxxxxxxxxx</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</td>
+<td style="text-align: left;">xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</td>
+<td style="text-align: left;">xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="question-4" class="level2">
+<h2 class="anchored" data-anchor-id="question-4"><a href="https://stackoverflow.com/questions/76942060/extract-number-within-brackets-at-the-end-of-a-string-yyyy/76943116#76943116">Question 4</a></h2>
+<p>Given the dataset below, transform it to have two columns, ie the Name column and the Year column:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: center;">Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">Percy Vere (2020)</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">Ginger Plant (2017)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">Perry (2019)</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">Pat Thettick (2020)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">Samuel (2022)</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">Fay Daway (2008)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">Greg (2022)</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">Simon Sais (2011)</td>
+</tr>
+</tbody>
+</table>
 
 
-</section>
 </section>
 
 <a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
@@ -1028,10 +1510,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation column-body">
   <div class="nav-page nav-page-previous">
+      <a href="./string.html" class="pagination-link" aria-label="strings">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">strings</span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./about.html" class="pagination-link" aria-label="Introduction">
-        <span class="nav-page-text">Introduction</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./root_finding.html" class="pagination-link" aria-label="Root finding Algorithms">
+        <span class="nav-page-text">Root finding Algorithms</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

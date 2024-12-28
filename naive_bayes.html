@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Welcome to Online Study – ABC’s of R and Python</title>
+<title>Naive Bayes – ABC’s of R and Python</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -29,7 +63,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./about.html" rel="next">
+<link href="./kmeans.html" rel="next">
+<link href="./linear_models.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -76,6 +111,35 @@ gtag('js', new Date());
 gtag('config', 'G-DKJJZ86ZQ1', { 'anonymize_ip': true});
 </script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -89,7 +153,7 @@ gtag('config', 'G-DKJJZ86ZQ1', { 'anonymize_ip': true});
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Welcome to Online Study</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./intro_dataModeling.html">Data Modelling</a></li><li class="breadcrumb-item">Supervised Learning</li><li class="breadcrumb-item"><a href="./naive_bayes.html">Classification</a></li><li class="breadcrumb-item"><a href="./naive_bayes.html">Naive Bayes</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -123,7 +187,7 @@ gtag('config', 'G-DKJJZ86ZQ1', { 'anonymize_ip': true});
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Welcome to Online Study</span></a>
   </div>
 </li>
@@ -381,13 +445,13 @@ gtag('config', 'G-DKJJZ86ZQ1', { 'anonymize_ip': true});
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="true">
  <span class="menu-text">Data Modelling</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./intro_dataModeling.html" class="sidebar-item-text sidebar-link">
@@ -399,13 +463,13 @@ gtag('config', 'G-DKJJZ86ZQ1', { 'anonymize_ip': true});
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="true">
  <span class="menu-text">Supervised Learning</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth2 ">  
+      <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth2 show">  
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" role="navigation" aria-expanded="false">
@@ -457,16 +521,16 @@ gtag('config', 'G-DKJJZ86ZQ1', { 'anonymize_ip': true});
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" role="navigation" aria-expanded="true">
  <span class="menu-text">Classification</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-14" class="collapse list-unstyled sidebar-section depth3 ">  
+      <ul id="quarto-sidebar-section-14" class="collapse list-unstyled sidebar-section depth3 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./naive_bayes.html" class="sidebar-item-text sidebar-link">
+  <a href="./naive_bayes.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Naive Bayes</span></a>
   </div>
 </li>
@@ -541,20 +605,21 @@ gtag('config', 'G-DKJJZ86ZQ1', { 'anonymize_ip': true});
     <h2 id="toc-title">On this Page</h2>
    
   <ul>
-  <li><a href="#requirements" id="toc-requirements" class="nav-link active" data-scroll-target="#requirements">Requirements</a>
+  <li><a href="#categorical-variables" id="toc-categorical-variables" class="nav-link active" data-scroll-target="#categorical-variables">Categorical Variables</a>
   <ul class="collapse">
-  <li><a href="#hardware" id="toc-hardware" class="nav-link" data-scroll-target="#hardware">Hardware</a></li>
-  <li><a href="#software" id="toc-software" class="nav-link" data-scroll-target="#software">Software</a></li>
+  <li><a href="#task." id="toc-task." class="nav-link" data-scroll-target="#task.">TASK.</a></li>
   </ul></li>
+  <li><a href="#continuous-variables" id="toc-continuous-variables" class="nav-link" data-scroll-target="#continuous-variables">Continuous Variables</a></li>
+  <li><a href="#exercise" id="toc-exercise" class="nav-link" data-scroll-target="#exercise">Exercise:</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content column-body" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./intro_dataModeling.html">Data Modelling</a></li><li class="breadcrumb-item">Supervised Learning</li><li class="breadcrumb-item"><a href="./naive_bayes.html">Classification</a></li><li class="breadcrumb-item"><a href="./naive_bayes.html">Naive Bayes</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Welcome to Online Study</h1>
+<h1 class="title">Naive Bayes</h1>
 </div>
 
 
@@ -571,38 +636,272 @@ gtag('config', 'G-DKJJZ86ZQ1', { 'anonymize_ip': true});
 </header>
 
 
-<section id="requirements" class="level1">
-<h1>Requirements</h1>
-<section id="hardware" class="level2">
-<h2 class="anchored" data-anchor-id="hardware">Hardware</h2>
-<ol type="1">
-<li><p>Laptop/Desktop - macOS, windows OS, linux OS eg Ubuntu etc. Preferably Windows OS for now.</p></li>
-<li><p>A second Screen - a monitor, TV, another laptop etc</p>
-<div>
+<p>Assumes that all features are independent of one another. And each impact the response y differently.</p>
+<p>The cummulative impact is just a multiplication of each of the individual impacts.</p>
+<p>Lets look at a simple example:</p>
+<section id="categorical-variables" class="level1">
+<h1>Categorical Variables</h1>
+<p>Consider a data set with 1500 observations and the following output classes:</p>
 <ul>
-<li><p>If the second screen is a monitor, it should have a HDMI compatibility. Old ones have VGA input thus you will need to get a HDMI to VGA adapter/converter. If your laptop has USB-C port only then you will need a USB-C to HDMI adapter depending on what your second screen has.</p></li>
-<li><p>For the TV screen, it must be HDMI compatibility. If not, we do not need it.</p></li>
-<li><p>If Laptop, it must satisfy the requirements in 1. above</p></li>
-<li><p>Have a HDMI cable to connect to the second screen from your laptop, if the second screen is any of the first 2 above. -Note that casting is prone to lags hence not recommended.</p></li>
-<li><p>if using old computers, you do not need the HDMI but rather the VGA is sufficient.</p></li>
+<li>Cat</li>
+<li>Parrot</li>
+<li>Turtle</li>
 </ul>
-</div></li>
-<li><p>A webcam, if not using a laptop with webcam compatibility.</p></li>
-<li><p>WiFi.</p></li>
-</ol>
+<p>The Predictor variables are categorical in nature i.e., they store two values, either True or False:</p>
+<ul>
+<li>Swim</li>
+<li>Wings</li>
+<li>Green Color</li>
+<li>Sharp Teeth</li>
+</ul>
+<p><span class="math display">\[
+\begin{array}{|c|c|c|c|c|}
+\hline \text { Type } &amp; \text { Swim } &amp; \text { Wings } &amp; \text { Green } &amp; \text { Sharp teeth } \\
+\hline \text { Cat } &amp; 450 / 500 &amp; 0 &amp; 0 &amp; 500 / 500 \\
+\hline \text { Parrot } &amp; 50 / 500 &amp; 500 / 500 &amp; 400 / 500 &amp; 0 \\
+\hline \text { Turtle } &amp; 500 / 500 &amp; 0 &amp; 100 / 500 &amp; 50 / 500 \\
+\hline
+\end{array}
+\]</span></p>
+<p>From the above table, we can summarise that:</p>
+<ul>
+<li><p>There are 1500 animals.</p></li>
+<li><p>There are 4 predictors ie X. ie can swim, has wings, is green, has sharp teeth.</p></li>
+<li><p>The response variable, Y, ie Type has three classes.</p></li>
+<li><p>The class of type cats shows that: - Out of <span class="math inline">\(500,450(90 \%)\)</span> cats can swim - 0 number of cats have wings - 0 number of cats are of Green color - All 500 cats have sharp teeth.</p></li>
+<li><p>The class of type Parrot shows that: - <span class="math inline">\(50(10 \%)\)</span> parrots have a true value for swim - All 500 parrots have wings - Out of <span class="math inline">\(500,400(80 \%)\)</span> parrots are green in color - No parrots have sharp teeth</p></li>
+<li><p>The class of type Turtle shows: - All 500 turtles can swim - 0 number of turtles have wings - Out of <span class="math inline">\(500,100(20 \%)\)</span> turtles are green in color - 50 out of <span class="math inline">\(500(10 \%)\)</span> turtles have sharp teeth</p></li>
+</ul>
+<p>Now, with the available data, let’s classify the following observation into one of the output classes (Cats, Parrot or Turtle) by using the Naive Bayes Classifier.</p>
+<p><span class="math display">\[
+\begin{array}{|c|c|c|c|c|}
+&amp; \hline\text { Swim } &amp; \text { Wings } &amp; \text { Green } &amp; \text { Sharp Teeth } \\
+\hline \text { Observation } &amp; \text { True } &amp; \text { False } &amp; \text { True } &amp; \text { False }\\\hline
+\end{array}
+\]</span></p>
+<p>The goal here is to predict whether the new observed type is a Cat, Parrot or a Turtle based on the defined predictor variables (swim, wings, green, sharp teeth).</p>
+<p>What type of animal is this? ie it can swim and its green but and it does not have wings and sharp teeth. Looking at our initial table of conditional probabilities we see that only the Turtle fits this description. Can we depict this in mathematical notation?</p>
+<p>To solve this, we will use some notations. Let</p>
+<p><span class="math display">\[
+\begin{aligned}
+X_{ij} =&amp; \text{Variable } j \text{ for observation } i\\
+x_{ij} =&amp; \text{Value observation }i \text{ takes for variable } j \text{ in this case 1 or 0}\\
+C = &amp;\text{the response variable}\\
+k =&amp;\text{Value of the response variable, ie Cat, Parrot, Turtle}
+\end{aligned}
+\]</span></p>
+<p><span class="math display">\[
+P(\text{X}_{ij} = x_{ij} \mid \text{Class} = k) = P(X_{ij}\mid C=k)\text{ and }P( \text{Class}=k) = P(C = k)
+\]</span></p>
+<p>Then we can compute the probability of the true class being <span class="math inline">\(k\)</span> given the new observation as:</p>
+<p><span class="math display">\[
+\begin{aligned}P(C = k\mid X_{i1}= x_{i1},&amp;X_{i2}=x_{i2},\cdots,X_{ip}= x_{ip} )\\
+&amp;=\frac{P(X_{i1}=x_{i1} \mid C = k)P(X_{i2}=x_{i1}\mid C = k) \cdots  P(X_{ip} =x_{ip}\mid C = k)P(C= k)}{\text{Normalizing Constant}}\\
+\\
+&amp;=\frac{P(C = k)\prod_j^p P(X_{ij} = x_{ij}\mid C = k)}{\sum_{k\in K}P(C = k)\prod_j^p P(X_{ij} = x_{ij}\mid C = k)}
+\end{aligned}
+\]</span> To understand this formula, lets continue with the example:</p>
+<p>Using <span class="math inline">\(S = Swim\)</span>, <span class="math inline">\(W = Wings\)</span>, <span class="math inline">\(G = Green\)</span> and <span class="math inline">\(T = Sharp ~Teeth\)</span>, we can determine the probabilities of the classes given the new observation as follows:</p>
+<p>Prior Probabilities: <span class="math display">\[
+P(C = Cat) = 500/1500 = 1/3\quad P(C=Parrot) = 1/3\quad P(C=Turtle) = 1/3
+\]</span></p>
+<p>Posterior Probabilities:</p>
+<p><strong>cat</strong>:</p>
+<p><span class="math display">\[
+\begin{aligned}
+P( C = Cat \mid \text{S=1,W=0,G=1,T=0})=&amp;\frac{P( \text{S=1} \mid Cat ) P(\text{W=0}\mid Cat)P(\text{G=1} \mid Cat ) P(\text{T=0}\mid Cat)P(Cat)}{P( \text{S=1,W=0,G=1,T=0} )}\\
+=&amp;\frac{(0.9)(1)(0) (0)(1/3)}{\text{Normalizing Constant}}\\
+=&amp;0
+\end{aligned}
+\]</span></p>
+<p><strong>Parrot</strong>:</p>
+<p><span class="math display">\[
+\begin{aligned}
+P( C = Parrot \mid \text{S=1,W=0,G=1,T=0})=&amp;\frac{P( \text{S=1} \mid Parrot ) P(\text{W=0}\mid Parrot)P(\text{G=1} \mid Parrot ) P(\text{T=0}\mid Parrot)P(Parrot)}{P( \text{S=1,W=0,G=1,T=0} )}\\
+=&amp;\frac{(0.1)(0) (0.80)(1)(1/3)}{\text{Normalizing Constant}}\\
+=&amp;0
+\end{aligned}
+\]</span></p>
+<p><strong>Turtle</strong>:</p>
+<p><span class="math display">\[
+\begin{aligned}
+P( C= Turtle \mid \text{S=1,W=0,G=1,T=0})=&amp;\frac{P( \text{S=1} \mid Turtle ) P(\text{W=0}\mid Turtle)P(\text{G=1} \mid Turtle ) P(\text{T=0}\mid Turtle)P(Turtle)}{P( \text{S=1,W=0,G=1,T=0} )}\\
+=&amp;\frac{(1)(1)(0.2)(0.9)(1/3)}{\text{Normalizing Constant}}\\
+=&amp; \frac{0.06}{\text{Normalizing Constant}}\\
+\end{aligned}
+\]</span></p>
+<p>Where <span class="math inline">\(\text{Normalizing Constant} = 0 + 0 + 0.06 = 0.06\)</span>. Thus we get the posterior probabilities of the new observation belonging to cat, parrot and turtle as 0, 0, 1 respectively. This shows that we are quite sure its a turtle. What is we had different values? We pick the class with the largest posterior probability.</p>
+<p>Note that with computer computation, we use logarithms. This is because multiplication of really small numbers diminish quickly to zero and therefore difficulty in exact binary representation. But another issue arises when using logarithms. There is no log of 0. To get around this, we introduce a threshold where by anything below this threshold is replaced by the threshold. eg in the example above, using a threshold of <span class="math inline">\(0.0001\)</span> = <span class="math inline">\(10^{-4}\)</span> = <span class="math inline">\(1e-4\)</span> , we can compute the posteriors as:</p>
+<p><span class="math display">\[
+\begin{aligned}
+Cat:&amp;\quad\exp^{\log(0.9) + \log(1e-4) + \log(1e-4) +\log(1)+\log(1/3)}=3e-9\\
+Parrot:&amp;\quad\exp^{\log(0.1)+\log(1e-4)+\log (0.80)+\log(1)+\log(1/3)} =  2.666667e-06\\
+Turtle:&amp;\quad\exp^{\log(1)+\log(1)+\log (0.2)+\log(0.9)+\log(1/3)} =  0.06\\
+\text{Normalizing Constant }:&amp;\quad3e-9 + 2.666667e-06+0.06 = 0.06000267\\
+\text{the resulting posterior}&amp;\text{ probabilities are }:
+[4.999778e-08, 4.444247e-05, 0.9999555]
+\end{aligned}
+\]</span></p>
+<p>We can still predict that the class for the new observation is turtle.</p>
+<section id="task." class="level3">
+<h3 class="anchored" data-anchor-id="task.">TASK.</h3>
+<p>Compute the above using R/Python. Note that if probability is zero, you could use a threshold in order to be able to do logarithm.</p>
+<p>Note that, the data is sometimes not neatly presented as given above, but rather as individual observations. We then have to aggregate it to get the conditional probabilities.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset" data-group="language">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" aria-current="page">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Python</a></li></ul>
+<div class="tab-content" data-group="language">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<iframe src="https://trinket.io/embed/R/44b96858a8" width="100%" height="670" frameborder="0" marginwidth="0" marginheight="0" allowfullscreen=""></iframe>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<iframe src="https://trinket.io/embed/python3/8ec0a1b55b" width="100%" height="670" frameborder="0" marginwidth="0" marginheight="0" allowfullscreen=""></iframe>
+</div>
+</div>
+</div>
 </section>
-<section id="software" class="level2">
-<h2 class="anchored" data-anchor-id="software">Software</h2>
-<p>Regarding software, all programs <strong>should be</strong> downloaded and installed in a folder in a drive separate from the main drive of the computer. Preferably D/E/G if windows. eg C:\online_school\Programs</p>
-<ol type="1">
-<li><p>R &amp; Rstudio: Go to the page <a href="https://posit.co/download/rstudio-desktop/">RStudio Desktop</a>. Follow the two steps provided on downloading and installing R and Rstudio</p></li>
-<li><p>Python: Go to the page <a href="https://www.anaconda.com/products/distribution">Anaconda | Anaconda Distribution</a> and download Anaconda.</p></li>
-<li><p>If windows go to <a href="https://www.msys2.org/">MSYS2</a> follow the instructions on how to install it.</p>
-<p>The video below will give a description on how to install to the preferred folder.</p></li>
-</ol>
+</section>
+<section id="continuous-variables" class="level1">
+<h1>Continuous Variables</h1>
+<p>What if the variable is continuous? How do we proceed? We compute the likelihood for being in class <span class="math inline">\(k\)</span>using the normal density and then include the prior. ie:</p>
+<p>Taking</p>
+<p><span class="math display">\[
+\begin{array}{}
+\mathcal{p}(\text{X}_i | \text{Class} = k)=p(x_i|\mu_k,\sigma_k) = \mathcal{N}(x_i;~\mu_k, ~\sigma_k)
+\end{array}
+\]</span></p>
+<p>We can compute the posterior density of class <span class="math inline">\(k\)</span> as:</p>
+<p><span class="math display">\[p(  C=k \mid X_{i1},\cdots, X_{ip}=x_{ip} )=\frac{P(C = k)\prod_{j=1}^p\mathcal{N}(x_{ij} ,~\mu_k, ~\sigma_k)}{\sum_k P(C = k)\prod_{j=1}^p\mathcal{N}(x_{ij} ,~\mu_k, ~\sigma_k)}\]</span></p>
+<p>Note that to perform the computation, use the log-likelihood for stability as the likelihood produces numbers which are essentially 0. Then afterwards exponentiate the results before normalizing.</p>
+<p>ie</p>
+<p><span class="math display">\[
+\ell = \log P(C=k) + \sum_{j=1}^p\log \mathcal{N}(x_{ij} ,~\mu_k, ~\sigma_k) - \log(\text{Normalizing Constant})
+\]</span></p>
+<p>For example:</p>
+<p>assume we had the data</p>
+<p><span class="math display">\[
+\begin{matrix}\begin{array}{}
+X_1 &amp;X_2 &amp; y\\
+\hline
+5.1   &amp; 3.5   &amp; 1\\
+4.9   &amp; 3     &amp; 1\\
+7     &amp; 3.2   &amp; 2\\
+6.4   &amp; 3.2   &amp; 2\\
+6.3   &amp; 3.3   &amp; 3\\
+5.8   &amp; 2.7   &amp; 3
+\end{array}&amp;
+\begin{array}{}\text{And we want to predict the} \\
+\text{class of some new observations:}\end{array}
+\begin{array}{}
+X_1&amp;X_2\\
+\hline
+5.9&amp; 3.2\\
+5.1&amp; 3.5\\
+5.7&amp; 2.8\\
+\end{array}
+\end{matrix}
+\]</span></p>
+<p>How can we go about this?</p>
+<p>Solution:</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset" data-group="language">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">Python</a></li></ul>
+<div class="tab-content" data-group="language">
+<div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
+<iframe src="https://trinket.io/embed/R/3a1aaa26ee" width="100%" height="690" frameborder="0" marginwidth="0" marginheight="0" allowfullscreen=""></iframe>
+</div>
+<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
+<iframe src="https://trinket.io/embed/python3/5146562b91" width="100%" height="714" frameborder="0" marginwidth="0" marginheight="0" allowfullscreen=""></iframe>
+</div>
+</div>
+</div>
+<p>From the probabilities above, we can tell that the first new observation belongs to <code>class 2</code> as this has the highest probability. Note that the code is repetitive and redundant. R/numpy does vectorization, and it will be good to make use of this feature. Thus the new code will be</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset" data-group="language">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false">Python</a></li></ul>
+<div class="tab-content" data-group="language">
+<div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
+<iframe src="https://trinket.io/embed/R/7515a7fe41" width="100%" height="365" frameborder="0" marginwidth="0" marginheight="0" allowfullscreen=""></iframe>
+<p>The predicted classes can easily be obtained as</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Try running this code in the chunk above</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">max.col</span>(probs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
+<iframe src="https://trinket.io/embed/python3/9d7862c4a2" width="100%" height="360" frameborder="0" marginwidth="0" marginheight="0" allowfullscreen=""></iframe>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Try running this code in the chunk above</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>probs.argmax(<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+<p>The implementation above involves numeric variables. Naive Bayes does assume that the continuous variables are independent of one another and are normally distributed. For categorical variables, the implementation is as shown in the first example.</p>
+<p>There are packages written that do the naive bayes classification.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset" data-group="language">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false">Python</a></li></ul>
+<div class="tab-content" data-group="language">
+<div id="tabset-4-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-4-1-tab">
+<p>in R we can use the <code>e1071</code> library to perform Naive Bayes. For this, we can pass both numeric and categorical predictors. Therefore its preferred to pass in a dataframe. The column names of the test must match the column names of train. or both of them should not have column names.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> e1071<span class="sc">::</span><span class="fu">naiveBayes</span>(trainX, trainY)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(model, testX)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># predict probabilities</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(model, testX, <span class="at">type =</span> <span class="st">'raw'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<iframe src="https://trinket.io/embed/R/b0a3053618" width="100%" height="346" frameborder="0" marginwidth="0" marginheight="0" allowfullscreen=""></iframe>
+</div>
+<div id="tabset-4-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-2-tab">
+<p>In python we can use <code>GaussianNB</code> class from <code>naive_bayes</code> package in <code>sklearn</code> module. There is also <code>CategoricalNB</code> <code>BinomialNB</code> <code>MultinomialNB</code> classes. Note that there is no module to work with mixed data. You could easily implement this.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.naive_bayes <span class="im">import</span> GaussianNB</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> GaussianNB().fit(trainX, trainY)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>model.predict(testX)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Predict probabilities</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>model.predict_proba(testX)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<iframe src="https://trinket.io/embed/python3/5d9c670fdc" width="100%" height="353" frameborder="0" marginwidth="0" marginheight="0" allowfullscreen=""></iframe>
+</div>
+</div>
+</div>
+<p>These probability results do not exactly match the ones in R. this is because of the usage of a variance smoothing parameter that adds an epsilon to every element of the variance matrix. Also numpy uses 0 ddof (delta degrees of freedom) by default, thus dividing by <code>N</code> when computing the variance instead of dividing by <code>N-1</code>. The subtle differences leads to the differences in the results :::</p>
+</section>
+<section id="exercise" class="level1">
+<h1>Exercise:</h1>
+<p>Submit work <a href="https://forms.gle/pUZ7YVPqvL64uzMT9">here</a></p>
+<p>Implement a Naive Bayes function that will predict the class of new observations from a training set that contains both numeric and categorical predictors. The training set must be a dataframe. Use the <a href="https://raw.githubusercontent.com/oonyambu/ECON430/main/horseshoe_crab.csv">Horseshoe crab Data</a> provided below to test your function taking y as the response variables. Note that <code>color</code> <code>spine</code> and <code>y</code> are categorical variables.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset" data-group="language">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-5-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-1" role="tab" aria-controls="tabset-5-1" aria-selected="true">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-5-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-2" role="tab" aria-controls="tabset-5-2" aria-selected="false">Python</a></li></ul>
+<div class="tab-content" data-group="language">
+<div id="tabset-5-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-5-1-tab">
+<iframe src="https://trinket.io/embed/R/dca96e3522" width="100%" height="300" frameborder="0" marginwidth="0" marginheight="0" allowfullscreen=""></iframe>
+</div>
+<div id="tabset-5-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-5-2-tab">
+<iframe src="https://trinket.io/embed/python3/8e9a9eef16" width="100%" height="300" frameborder="0" marginwidth="0" marginheight="0" allowfullscreen=""></iframe>
+</div>
+</div>
+</div>
+<p>Your function should match the following results for the head</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Probabilities</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(e1071<span class="sc">::</span><span class="fu">naiveBayes</span>(y<span class="sc">~</span>.,train), test, <span class="at">type =</span> <span class="st">'raw'</span>)<span class="sc">|&gt;</span><span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                0            1
+[1,] 0.0282940500 0.9717059500
+[2,] 0.9999067092 0.0000932908
+[3,] 0.0001659840 0.9998340160
+[4,] 0.1459058444 0.8540941556
+[5,] 0.0003250912 0.9996749088
+[6,] 0.9998464750 0.0001535250</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Accuracy</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>Metrics<span class="sc">::</span><span class="fu">accuracy</span>(test<span class="sc">$</span>y, <span class="fu">predict</span>(e1071<span class="sc">::</span><span class="fu">naiveBayes</span>(y<span class="sc">~</span>.,train), test))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1</code></pre>
+</div>
+</div>
 
 
-</section>
 </section>
 
 <a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
@@ -1028,10 +1327,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation column-body">
   <div class="nav-page nav-page-previous">
+      <a href="./linear_models.html" class="pagination-link" aria-label="Linear Regression">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Linear Regression</span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./about.html" class="pagination-link" aria-label="Introduction">
-        <span class="nav-page-text">Introduction</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./kmeans.html" class="pagination-link" aria-label="KMeans">
+        <span class="nav-page-text">KMeans</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
