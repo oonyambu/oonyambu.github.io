@@ -11,10 +11,10 @@
       --orange: #FF5C00;
       --sky: #00C2FF;
       --pink: #FF2D78;
-      --dark: #0D0D0D;
-      --card: #161616;
-      --muted: #555;
-      --text: #F0F0F0;
+      --dark: #f0f0f2;
+      --card: #ffffff;
+      --muted: #888;
+      --text: #1a1a1a;
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -48,9 +48,9 @@
       justify-content: space-between;
       align-items: center;
       padding: 1.2rem 3rem;
-      background: rgba(13,13,13,0.85);
+      background: rgba(240,240,242,0.92);
       backdrop-filter: blur(12px);
-      border-bottom: 1px solid #222;
+      border-bottom: 1px solid #ddd;
     }
     .nav-logo {
       font-family: 'Space Mono', monospace;
@@ -121,7 +121,7 @@
       font-size: 1.1rem;
       font-weight: 300;
       line-height: 1.7;
-      color: #aaa;
+      color: #555;
       max-width: 420px;
       animation: fadeUp 0.7s 0.2s ease both;
     }
@@ -185,7 +185,7 @@
 
     .stat-card {
       background: var(--card);
-      border: 1px solid #222;
+      border: 1px solid #ddd;
       border-radius: 8px;
       padding: 1.8rem 1.5rem;
       transition: transform 0.3s, border-color 0.3s;
@@ -234,13 +234,13 @@
       margin-bottom: 3rem;
     }
 
-    /* ── MARQUEE ── */
+        /* ── MARQUEE ── */
     .marquee-wrap {
       overflow: hidden;
-      border-top: 1px solid #1e1e1e;
-      border-bottom: 1px solid #1e1e1e;
+      border-top: 1px solid #e0e0e6;
+      border-bottom: 1px solid #e0e0e6;
       padding: 1rem 0;
-      background: #111;
+      background: #f5f5f7;
     }
     .marquee-track {
       display: flex;
@@ -253,13 +253,13 @@
       font-size: 0.75rem;
       letter-spacing: 0.15em;
       text-transform: uppercase;
-      color: #444;
+      color: #ffaaaa;
       flex-shrink: 0;
     }
     .marquee-item span { color: var(--lime); margin-right: 1rem; }
 
     /* ── EXPERIENCE ── */
-    .exp-section { background: #111; }
+    .exp-section { background: #e8e8ec; }
     .timeline { position: relative; }
     .timeline::before {
       content: '';
@@ -321,7 +321,7 @@
     /* ── PUBLICATIONS ── */
     .pub-card {
       background: var(--card);
-      border: 1px solid #222;
+      border: 1px solid #ddd;
       border-radius: 8px;
       padding: 2rem;
       margin-bottom: 1.2rem;
@@ -363,7 +363,7 @@
     .pub-link:hover { border-color: var(--sky); }
 
     /* ── SKILLS ── */
-    .skills-section { background: #0a0a0a; }
+    .skills-section { background: #ebebef; }
     .skills-group { margin-bottom: 2.5rem; }
     .skills-group-label {
       font-family: 'Space Mono', monospace;
@@ -402,7 +402,7 @@
     }
     .talk-card {
       background: var(--card);
-      border: 1px solid #222;
+      border: 1px solid #ddd;
       border-radius: 8px;
       padding: 1.8rem;
       transition: border-color 0.3s, transform 0.3s;
@@ -436,7 +436,7 @@
     }
     .edu-card {
       background: var(--card);
-      border: 1px solid #222;
+      border: 1px solid #ddd;
       border-radius: 8px;
       padding: 1.8rem;
       transition: border-color 0.3s, transform 0.3s;
@@ -470,7 +470,7 @@
 
     /* ── CONTACT ── */
     .contact-section {
-      background: linear-gradient(135deg, #0D0D0D 0%, #111 100%);
+      background: linear-gradient(135deg, #e8e8ec 0%, #ebebef 100%);
       text-align: center;
       padding: 8rem 5rem;
       position: relative;
@@ -504,15 +504,15 @@
 
     /* ── FOOTER ── */
     footer {
-      background: #080808;
-      border-top: 1px solid #1a1a1a;
+      background: #dcdce0;
+      border-top: 1px solid #ccc;
       padding: 2rem 5rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
       font-family: 'Space Mono', monospace;
       font-size: 0.72rem;
-      color: #444;
+      color: #888;
     }
 
     /* ── ANIMATIONS ── */
@@ -571,8 +571,7 @@
     <div class="hero-btns">
       <a class="btn btn-primary" href="https://github.com/oonyambu" target="_blank">⌥ GitHub</a>
       <a class="btn btn-primary" href="https://oonyambu.github.io/statistics/index.html" target="_blank">🎓 Teaching</a>
-      <a class="btn btn-ghost" href="mailto:oonyambu@gmail.com">✉ Email Me</a>
-      <a class="btn btn-ghost" href="https://stackoverflow.com/users/8380272/onyambu" target="_blank">◈ Stack Overflow</a>
+    <a class="btn btn-primary" href="https://stackoverflow.com/users/8380272/onyambu" target="_blank">◈ stackoverflow/onyambu </a>
     </div>
   </div>
   <div class="hero-right">
@@ -695,7 +694,7 @@
 </section>
 
 <!-- INVITED TALKS -->
-<section style="background:#111; padding: 6rem 5rem;">
+<section style="background:#303035; padding: 6rem 5rem;">
   <div class="section-eyebrow">On Stage</div>
   <div class="section-title">Invited Talks</div>
   <div class="talks-grid">
@@ -806,7 +805,7 @@
       <div class="edu-degree">CPA · Certified Public Accountant</div>
       <div class="edu-school">KASNEB, Kenya</div>
       <div class="edu-period">Dec 2011 – Dec 2014</div>
-      <div class="edu-gpa">Pass · Quantitative Analysis, Advanced Financial Reporting</div>
+      <div class="edu-gpa">Pass: CPA-K</div>
     </div>
 
   </div>
@@ -817,9 +816,9 @@
   <div class="contact-title">Let's <span style="color:var(--lime)">Connect</span></div>
   <p class="contact-sub">Open to research collaborations, teaching, and new opportunities.</p>
   <div class="contact-links">
-    <a class="btn btn-primary" href="mailto:oonyambu@gmail.com">✉ oonyambu@gmail.com</a>
-    <a class="btn btn-ghost" href="https://github.com/oonyambu" target="_blank">⌥ github/oonyambu</a>
-    <a class="btn btn-ghost" href="https://stackoverflow.com/users/onyambu" target="_blank">◈ stackoverflow/onyambu</a>
+    <a class="btn btn-primary" href="https://github.com/oonyambu" target="_blank">⌥ github/oonyambu</a>
+    <a class="btn btn-primary" href="https://stackoverflow.com/users/8380272/onyambu" target="_blank">◈ stackoverflow/onyambu </a>
+    <a class="btn btn-ghost" href="mailto:oonyambu@gmail.com">✉ oonyambu@gmail.com</a>
     <a class="btn btn-ghost" href="tel:6572000543">📞 657-200-0543</a>
   </div>
 </section>
