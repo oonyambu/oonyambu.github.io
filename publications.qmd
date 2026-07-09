@@ -11,16 +11,22 @@ toc: true
 Dahal, L., Burton, H., and **Onyambu, S.** (2022). Quantifying the effect of probability model misspecification in seismic collapse risk assessment. *Structural Safety*, 96, 102185.
 [DOI](https://doi.org/10.1016/j.strusafe.2022.102185)
 
+## Under review
+
+**Onyambu, S.**, Toledo, J., Ying, D., and Xu, H. (2026). KARGO: a kriging-based adaptive-region global optimization method with a data-driven quantile region of interest and sufficient-decrease discipline.
+[PDF](files/Onyambu-KARGO.pdf)
+
+**Onyambu, S.** and Xu, H. (2026). Evaluating space-filling designs for prediction and sequential optimization.
+
 ## In preparation
 
-- **Onyambu, S.** KARGO: a kriging-based adaptive-region global optimization method with a data-driven quantile region of interest and sufficient-decrease discipline. [PDF](files/Onyambu-KARGO.pdf)
 - Efficient search for **minimum-aberration factorial designs**.
 
 ## Invited talks
 
 | When | Talk | Venue |
 |------|------|-------|
-| 2026 (upcoming) | Design and Analysis of Experiments (DAE 2026) | Rutgers University, NJ |
+| May 2026 | Uniform Projection Designs for AI/ML Hyperparameter Optimization and Explainability, DAE 2026 | Rutgers University, NJ |
 | Aug 2025 | Generation of Uniform Projection Designs via Differential Evolution, EcoSta 2025 | Waseda University, Tokyo, Japan |
 | Aug 2025 | Kriging-based Adaptive Region Global Optimization Algorithm, 11th Annual Loma Linda Workshop | Loma Linda University, CA |
 | May 2023 | A Trust Region Novel Optimization Algorithm, ICODOE | University of Memphis, Tennessee |
@@ -29,4 +35,4 @@ Dahal, L., Burton, H., and **Onyambu, S.** (2022). Quantifying the effect of pro
 
 ## Dissertation
 
-*Hyperparameter Tuning, Design Selection and Optimization.* PhD dissertation, Department of Statistics & Data Science, UCLA, 2024.
+*Studies in Hyperparameter Tuning, Design Selection and Optimization.* PhD dissertation, Department of Statistics & Data Science, UCLA, 2024.

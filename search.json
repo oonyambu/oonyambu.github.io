@@ -42,25 +42,32 @@
     "text": "Onyambu, S. and Xu, H. (2025). Tuning differential evolution algorithm for constructing uniform projection designs. Journal of Statistical Planning and Inference. PDF · Publisher page\nDahal, L., Burton, H., and Onyambu, S. (2022). Quantifying the effect of probability model misspecification in seismic collapse risk assessment. Structural Safety, 96, 102185. DOI"
   },
   {
+    "objectID": "publications.html#under-review",
+    "href": "publications.html#under-review",
+    "title": "Publications & Talks",
+    "section": "Under review",
+    "text": "Under review\nOnyambu, S., Toledo, J., Ying, D., and Xu, H. (2026). KARGO: a kriging-based adaptive-region global optimization method with a data-driven quantile region of interest and sufficient-decrease discipline. PDF\nOnyambu, S. and Xu, H. (2026). Evaluating space-filling designs for prediction and sequential optimization."
+  },
+  {
     "objectID": "publications.html#in-preparation",
     "href": "publications.html#in-preparation",
     "title": "Publications & Talks",
     "section": "In preparation",
-    "text": "In preparation\n\nOnyambu, S. KARGO: a kriging-based adaptive-region global optimization method with a data-driven quantile region of interest and sufficient-decrease discipline. PDF\nEfficient search for minimum-aberration factorial designs."
+    "text": "In preparation\n\nEfficient search for minimum-aberration factorial designs."
   },
   {
     "objectID": "publications.html#invited-talks",
     "href": "publications.html#invited-talks",
     "title": "Publications & Talks",
     "section": "Invited talks",
-    "text": "Invited talks\n\n\n\n\n\n\n\n\nWhen\nTalk\nVenue\n\n\n\n\n2026 (upcoming)\nDesign and Analysis of Experiments (DAE 2026)\nRutgers University, NJ\n\n\nAug 2025\nGeneration of Uniform Projection Designs via Differential Evolution, EcoSta 2025\nWaseda University, Tokyo, Japan\n\n\nAug 2025\nKriging-based Adaptive Region Global Optimization Algorithm, 11th Annual Loma Linda Workshop\nLoma Linda University, CA\n\n\nMay 2023\nA Trust Region Novel Optimization Algorithm, ICODOE\nUniversity of Memphis, Tennessee"
+    "text": "Invited talks\n\n\n\n\n\n\n\n\nWhen\nTalk\nVenue\n\n\n\n\nMay 2026\nUniform Projection Designs for AI/ML Hyperparameter Optimization and Explainability, DAE 2026\nRutgers University, NJ\n\n\nAug 2025\nGeneration of Uniform Projection Designs via Differential Evolution, EcoSta 2025\nWaseda University, Tokyo, Japan\n\n\nAug 2025\nKriging-based Adaptive Region Global Optimization Algorithm, 11th Annual Loma Linda Workshop\nLoma Linda University, CA\n\n\nMay 2023\nA Trust Region Novel Optimization Algorithm, ICODOE\nUniversity of Memphis, Tennessee"
   },
   {
     "objectID": "publications.html#dissertation",
     "href": "publications.html#dissertation",
     "title": "Publications & Talks",
     "section": "Dissertation",
-    "text": "Dissertation\nHyperparameter Tuning, Design Selection and Optimization. PhD dissertation, Department of Statistics & Data Science, UCLA, 2024."
+    "text": "Dissertation\nStudies in Hyperparameter Tuning, Design Selection and Optimization. PhD dissertation, Department of Statistics & Data Science, UCLA, 2024."
   },
   {
     "objectID": "cv.html",
@@ -74,7 +81,7 @@
     "href": "cv.html#education",
     "title": "Curriculum Vitae",
     "section": "Education",
-    "text": "Education\n\nPhD, Statistics – University of California, Los Angeles (2018-2024). Dissertation: Hyperparameter Tuning, Design Selection and Optimization.\nMS, Statistics – California State University, Fullerton (2016-2018).\nBS, Statistics & Programming – Kenyatta University, Kenya (2011-2015). First Class Honours.\nCPA-K – KASNEB, Kenya (2011-2014)."
+    "text": "Education\n\nPhD, Statistics – University of California, Los Angeles (2018-2024). Dissertation: Studies in Hyperparameter Tuning, Design Selection and Optimization.\nMS, Statistics – California State University, Fullerton (2016-2018).\nBS, Statistics & Programming – Kenyatta University, Kenya (2011-2015). First Class Honours.\nCPA-K – KASNEB, Kenya (2011-2014)."
   },
   {
     "objectID": "cv.html#appointments",
