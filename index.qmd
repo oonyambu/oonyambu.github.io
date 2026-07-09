@@ -14,7 +14,7 @@ I build methods and the software that makes them fast: my research code runs on 
 
 ## What I work on
 
-**[Bayesian optimization & experimental design](research.qmd)** -- KARGO, a trust-region Bayesian optimization algorithm; uniform projection (UniPro), maximum projection, and maximin optimal designs; minimum-aberration factorial design search.
+**[Bayesian optimization & experimental design](research.qmd)** -- KARGO, a trust-region Bayesian optimization algorithm; uniform projection (UniPro), maximum projection, and maximin optimal designs.
 
 **[Applied machine learning](applied-ml.qmd)** -- image-classification projects in PyTorch and TensorFlow (face-mask detection; X-ray fracture screening), alongside work-in-progress explorations in development data science (satellite-imagery poverty estimation, facility mapping, informal cross-border trade) and medical ML (offline reinforcement learning for sepsis with MIMIC-IV).
 

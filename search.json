@@ -116,7 +116,7 @@
     "href": "index.html#what-i-work-on",
     "title": "Samuel Onyambu",
     "section": "What I work on",
-    "text": "What I work on\nBayesian optimization & experimental design – KARGO, a trust-region Bayesian optimization algorithm; uniform projection (UniPro), maximum projection, and maximin optimal designs; minimum-aberration factorial design search.\nApplied machine learning – image-classification projects in PyTorch and TensorFlow (face-mask detection; X-ray fracture screening), alongside work-in-progress explorations in development data science (satellite-imagery poverty estimation, facility mapping, informal cross-border trade) and medical ML (offline reinforcement learning for sepsis with MIMIC-IV).\nScientific software – R packages with native C/C++ backends, including differential evolution optimizers parallelized with OpenMP."
+    "text": "What I work on\nBayesian optimization & experimental design – KARGO, a trust-region Bayesian optimization algorithm; uniform projection (UniPro), maximum projection, and maximin optimal designs.\nApplied machine learning – image-classification projects in PyTorch and TensorFlow (face-mask detection; X-ray fracture screening), alongside work-in-progress explorations in development data science (satellite-imagery poverty estimation, facility mapping, informal cross-border trade) and medical ML (offline reinforcement learning for sepsis with MIMIC-IV).\nScientific software – R packages with native C/C++ backends, including differential evolution optimizers parallelized with OpenMP."
   },
   {
     "objectID": "index.html#highlights",
@@ -145,13 +145,6 @@
     "title": "Research",
     "section": "Optimal designs: UniPro, MaxPro, and maximin",
     "text": "Optimal designs: UniPro, MaxPro, and maximin\nSpace-filling designs are the workhorse of computer experiments, and finding good ones is a hard combinatorial optimization problem. My dissertation work (with Hongquan Xu, UCLA) developed a tuned differential evolution algorithm for constructing uniform projection designs (UniPro), with the tuning itself treated as a design-of-experiments problem. The same engine extends to maximum projection (MaxPro) and maximin distance criteria.\nThe result is published in the Journal of Statistical Planning and Inference (2025) and implemented in UniPro, an R package whose core is native C parallelized with OpenMP, which makes routine the construction of designs at sizes where general-purpose optimizers stall.\nRelated talk: Generation of Uniform Projection Designs via Differential Evolution (EcoSta 2025, Waseda University, Tokyo)."
-  },
-  {
-    "objectID": "research.html#minimum-aberration-factorial-design-search",
-    "href": "research.html#minimum-aberration-factorial-design-search",
-    "title": "Research",
-    "section": "Minimum-aberration factorial design search",
-    "text": "Minimum-aberration factorial design search\nRegular factorial designs are ranked by aberration, and exhaustive search over word-length patterns becomes infeasible quickly. I am developing efficient search strategies for minimum-aberration factorial designs that prune the search space using algebraic structure, aimed at making large minimum-aberration catalogs computable. Manuscript in preparation; I will present related work at DAE 2026 (Rutgers University)."
   },
   {
     "objectID": "research.html#hyperparameter-optimization",

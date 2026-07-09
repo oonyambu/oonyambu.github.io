@@ -20,10 +20,6 @@ The result is published in the *Journal of Statistical Planning and Inference* (
 
 *Related talk:* Generation of Uniform Projection Designs via Differential Evolution (EcoSta 2025, Waseda University, Tokyo).
 
-## Minimum-aberration factorial design search
-
-Regular factorial designs are ranked by aberration, and exhaustive search over word-length patterns becomes infeasible quickly. I am developing efficient search strategies for **minimum-aberration factorial designs** that prune the search space using algebraic structure, aimed at making large minimum-aberration catalogs computable. Manuscript in preparation; I will present related work at **DAE 2026** (Rutgers University).
-
 ## Hyperparameter optimization
 
 Running through all of the above is a practical interest in **hyperparameter optimization** for machine-learning models: the same surrogate-based and design-based tools (Bayesian optimization, space-filling initialization, adaptive sampling) applied to tuning deep networks and gradient-boosted models under tight evaluation budgets.
