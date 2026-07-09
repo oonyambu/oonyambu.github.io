@@ -1,0 +1,29 @@
+---
+title: "Software"
+subtitle: "R packages with native C/C++ backends"
+toc: false
+---
+
+I write research software where the algorithm lives in native C/C++ (parallelized with OpenMP where it pays off) and the interface lives in R. All code is on [GitHub](https://github.com/oonyambu).
+
+## UniPro
+
+Construction of **uniform projection designs** (and related space-filling designs) via a tuned **differential evolution** algorithm. The optimizer core is written in C and parallelized with **OpenMP**; the R interface makes large design construction a one-liner. Companion software to my *Journal of Statistical Planning and Inference* (2025) paper with Hongquan Xu.
+
+[github.com/oonyambu/UniPro](https://github.com/oonyambu/UniPro){.btn .btn-outline-primary .btn-sm}
+
+## egoOptim
+
+R package for **kriging-based global optimization**: efficient global optimization (EGO) style algorithms, companion code to my trust-region Bayesian optimization research (**KARGO**).
+
+[github.com/oonyambu/egoOptim](https://github.com/oonyambu/egoOptim){.btn .btn-outline-primary .btn-sm}
+
+## DEdesigns
+
+Differential evolution engines for constructing optimal experimental designs, written in C. The experimental sandbox behind UniPro's production code.
+
+[github.com/oonyambu/DEdesigns](https://github.com/oonyambu/DEdesigns){.btn .btn-outline-primary .btn-sm}
+
+---
+
+I am also a long-time contributor on Stack Overflow ([onyambu](https://stackoverflow.com/users/8380272/onyambu)), mostly answering R, regex, and data-manipulation questions.

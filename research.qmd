@@ -1,0 +1,29 @@
+---
+title: "Research"
+subtitle: "Bayesian optimization, optimal design of experiments, and the algorithms that construct them"
+toc: true
+---
+
+## KARGO: trust-region Bayesian optimization
+
+**KARGO** (Kriging-based Adaptive Region Global Optimization) is a Bayesian optimization algorithm that manages an adaptive trust region around the incumbent: the kriging surrogate is fit and optimized locally, and the region expands or contracts based on the observed quality of proposed points. This keeps the surrogate accurate where it matters and avoids the over-exploration that plagues global acquisition maximization in higher dimensions.
+
+I benchmark KARGO against **TREGO** and other trust-region Bayesian optimization methods on standard global-optimization test suites. Manuscript in preparation.
+
+*Related talks:* Kriging-based Adaptive Region Global Optimization Algorithm (Loma Linda Workshop, 2025); A Trust Region Novel Optimization Algorithm (ICODOE, University of Memphis).
+
+## Optimal designs: UniPro, MaxPro, and maximin
+
+Space-filling designs are the workhorse of computer experiments, and finding good ones is a hard combinatorial optimization problem. My dissertation work (with **Hongquan Xu**, UCLA) developed a **tuned differential evolution algorithm** for constructing **uniform projection designs** (UniPro), with the tuning itself treated as a design-of-experiments problem. The same engine extends to **maximum projection (MaxPro)** and **maximin distance** criteria.
+
+The result is published in the *Journal of Statistical Planning and Inference* (2025) and implemented in [UniPro](https://github.com/oonyambu/UniPro), an R package whose core is native C parallelized with OpenMP, which makes routine the construction of designs at sizes where general-purpose optimizers stall.
+
+*Related talk:* Generation of Uniform Projection Designs via Differential Evolution (EcoSta 2025, Waseda University, Tokyo).
+
+## Minimum-aberration factorial design search
+
+Regular factorial designs are ranked by aberration, and exhaustive search over word-length patterns becomes infeasible quickly. I am developing efficient search strategies for **minimum-aberration factorial designs** that prune the search space using algebraic structure, aimed at making large minimum-aberration catalogs computable. Manuscript in preparation; I will present related work at **DAE 2026** (Rutgers University).
+
+## Hyperparameter optimization
+
+Running through all of the above is a practical interest in **hyperparameter optimization** for machine-learning models: the same surrogate-based and design-based tools (Bayesian optimization, space-filling initialization, adaptive sampling) applied to tuning deep networks and gradient-boosted models under tight evaluation budgets.

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Samuel Onyambu</title>
+<title>Applied Machine Learning – Samuel Onyambu</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -75,7 +75,7 @@ ul.task-list li input[type="checkbox"] {
 <link rel="stylesheet" href="styles.css">
 </head>
 
-<body class="nav-fixed fullcontent quarto-light">
+<body class="nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -93,7 +93,7 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
+    <a class="nav-link" href="./index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
@@ -101,7 +101,7 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">Research</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./applied-ml.html"> 
+    <a class="nav-link active" href="./applied-ml.html" aria-current="page"> 
 <span class="menu-text">Applied ML</span></a>
   </li>  
   <li class="nav-item">
@@ -147,14 +147,31 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#development-data-science" id="toc-development-data-science" class="nav-link active" data-scroll-target="#development-data-science">Development data science</a>
+  <ul class="collapse">
+  <li><a href="#poverty-estimation-from-satellite-imagery" id="toc-poverty-estimation-from-satellite-imagery" class="nav-link" data-scroll-target="#poverty-estimation-from-satellite-imagery">Poverty estimation from satellite imagery</a></li>
+  <li><a href="#school-and-hospital-mapping" id="toc-school-and-hospital-mapping" class="nav-link" data-scroll-target="#school-and-hospital-mapping">School and hospital mapping</a></li>
+  <li><a href="#informal-cross-border-trade" id="toc-informal-cross-border-trade" class="nav-link" data-scroll-target="#informal-cross-border-trade">Informal cross-border trade</a></li>
+  </ul></li>
+  <li><a href="#medical-machine-learning" id="toc-medical-machine-learning" class="nav-link" data-scroll-target="#medical-machine-learning">Medical machine learning</a>
+  <ul class="collapse">
+  <li><a href="#offline-reinforcement-learning-for-sepsis-treatment" id="toc-offline-reinforcement-learning-for-sepsis-treatment" class="nav-link" data-scroll-target="#offline-reinforcement-learning-for-sepsis-treatment">Offline reinforcement learning for sepsis treatment</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Samuel Onyambu</h1>
-<p class="subtitle lead">Statistician · Researcher · PhD, UCLA</p>
+<h1 class="title">Applied Machine Learning</h1>
+<p class="subtitle lead">Development data science and medical machine learning</p>
 </div>
 
 
@@ -171,34 +188,41 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>I am a statistician working at the intersection of <strong>Bayesian optimization</strong>, <strong>design of experiments</strong>, and <strong>applied machine learning</strong>. I completed my PhD in Statistics at UCLA in 2024 and currently teach there as an Adjunct Assistant Professor.</p>
-<p>I build methods and the software that makes them fast: my research code runs on native C/C++ backends (with OpenMP parallelism) wrapped in R packages, and my applied work spans Python (PyTorch, TensorFlow), R, C/C++, and Fortran.</p>
+<section id="development-data-science" class="level2">
+<h2 class="anchored" data-anchor-id="development-data-science">Development data science</h2>
+<p>Ongoing independent projects applying modern ML to core development-economics measurement problems, with a focus on African contexts.</p>
+<section id="poverty-estimation-from-satellite-imagery" class="level3">
+<h3 class="anchored" data-anchor-id="poverty-estimation-from-satellite-imagery">Poverty estimation from satellite imagery</h3>
+<p>Training convolutional neural networks on satellite imagery, calibrated against household-survey data, to produce small-area estimates of poverty and wealth indicators in regions where survey coverage is sparse or infrequent. The goal is timely, low-cost poverty maps that complement (not replace) traditional survey programs.</p>
+</section>
+<section id="school-and-hospital-mapping" class="level3">
+<h3 class="anchored" data-anchor-id="school-and-hospital-mapping">School and hospital mapping</h3>
+<p>Detecting and mapping schools and health facilities from satellite imagery to support service-delivery planning and equitable resource allocation, particularly where official facility registries are incomplete or outdated.</p>
+</section>
+<section id="informal-cross-border-trade" class="level3">
+<h3 class="anchored" data-anchor-id="informal-cross-border-trade">Informal cross-border trade</h3>
+<p>Informal cross-border trade is a large but poorly measured share of intra-African commerce. I am working on model-based estimation strategies that combine limited field observation with auxiliary data to produce credible ICBT estimates, a problem where careful survey design and statistical modeling matter as much as the data collection itself.</p>
+</section>
+</section>
+<section id="medical-machine-learning" class="level2">
+<h2 class="anchored" data-anchor-id="medical-machine-learning">Medical machine learning</h2>
+<section id="offline-reinforcement-learning-for-sepsis-treatment" class="level3">
+<h3 class="anchored" data-anchor-id="offline-reinforcement-learning-for-sepsis-treatment">Offline reinforcement learning for sepsis treatment</h3>
+<p>Using the <strong>MIMIC-IV</strong> critical-care database to study offline (batch) reinforcement learning for sepsis treatment policies: learning from retrospective ICU trajectories, with emphasis on reliable off-policy evaluation, so that learned policies can be assessed honestly before any claim of clinical relevance.</p>
+<hr>
 <div class="callout callout-style-simple callout-note no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
-<p><strong>Currently:</strong> Adjunct Assistant Professor, Department of Statistics &amp; Data Science, UCLA. Open to research and applied data-science opportunities.</p>
+<p>These projects share a common thread with my <a href="./research.html">methodological research</a>: when data are expensive (surveys, field studies, clinical records), experimental design and sample-efficient optimization decide what is learnable.</p>
 </div>
 </div>
 </div>
-<section id="what-i-work-on" class="level2">
-<h2 class="anchored" data-anchor-id="what-i-work-on">What I work on</h2>
-<p><strong><a href="./research.html">Bayesian optimization &amp; experimental design</a></strong> – KARGO, a trust-region Bayesian optimization algorithm; uniform projection (UniPro), maximum projection, and maximin optimal designs; minimum-aberration factorial design search.</p>
-<p><strong><a href="./applied-ml.html">Applied machine learning</a></strong> – development data science (satellite-imagery poverty estimation, school and hospital mapping, informal cross-border trade) and medical ML (offline reinforcement learning for sepsis treatment with MIMIC-IV).</p>
-<p><strong><a href="./software.html">Scientific software</a></strong> – R packages with native C/C++ backends, including differential evolution optimizers parallelized with OpenMP.</p>
+
+
 </section>
-<section id="highlights" class="level2">
-<h2 class="anchored" data-anchor-id="highlights">Highlights</h2>
-<ul>
-<li><em>Tuning Differential Evolution Algorithm for Constructing Uniform Projection Designs</em> (with Hongquan Xu), <strong>Journal of Statistical Planning and Inference</strong>, 2025.</li>
-<li>Invited talks at <strong>EcoSta 2025</strong> (Waseda University, Tokyo) and the <strong>Loma Linda Workshop 2025</strong>; speaking at <strong>DAE 2026</strong> (Rutgers University).</li>
-<li><a href="https://github.com/oonyambu/UniPro">UniPro</a>: design construction via differential evolution with a native C, OpenMP-parallel backend.</li>
-</ul>
-<p><a href="./research.html" class="btn btn-primary btn-sm">View my research</a> <a href="./cv.html" class="btn btn-outline-primary btn-sm">Download CV</a> <a href="./contact.html" class="btn btn-outline-primary btn-sm">Get in touch</a></p>
-
-
 </section>
 
 </main> <!-- /main -->

@@ -1,0 +1,29 @@
+---
+title: "Samuel Onyambu"
+subtitle: "Statistician &middot; Researcher &middot; PhD, UCLA"
+toc: false
+---
+
+I am a statistician working at the intersection of **Bayesian optimization**, **design of experiments**, and **applied machine learning**. I completed my PhD in Statistics at UCLA in 2024 and currently teach there as an Adjunct Assistant Professor.
+
+I build methods and the software that makes them fast: my research code runs on native C/C++ backends (with OpenMP parallelism) wrapped in R packages, and my applied work spans Python (PyTorch, TensorFlow), R, C/C++, and Fortran.
+
+::: {.callout-note appearance="simple" icon="false"}
+**Currently:** Adjunct Assistant Professor, Department of Statistics & Data Science, UCLA. Open to research and applied data-science opportunities.
+:::
+
+## What I work on
+
+**[Bayesian optimization & experimental design](research.qmd)** -- KARGO, a trust-region Bayesian optimization algorithm; uniform projection (UniPro), maximum projection, and maximin optimal designs; minimum-aberration factorial design search.
+
+**[Applied machine learning](applied-ml.qmd)** -- development data science (satellite-imagery poverty estimation, school and hospital mapping, informal cross-border trade) and medical ML (offline reinforcement learning for sepsis treatment with MIMIC-IV).
+
+**[Scientific software](software.qmd)** -- R packages with native C/C++ backends, including differential evolution optimizers parallelized with OpenMP.
+
+## Highlights
+
+- *Tuning Differential Evolution Algorithm for Constructing Uniform Projection Designs* (with Hongquan Xu), **Journal of Statistical Planning and Inference**, 2025.
+- Invited talks at **EcoSta 2025** (Waseda University, Tokyo) and the **Loma Linda Workshop 2025**; speaking at **DAE 2026** (Rutgers University).
+- [UniPro](https://github.com/oonyambu/UniPro): design construction via differential evolution with a native C, OpenMP-parallel backend.
+
+[View my research](research.qmd){.btn .btn-primary .btn-sm} [Download CV](cv.qmd){.btn .btn-outline-primary .btn-sm} [Get in touch](contact.qmd){.btn .btn-outline-primary .btn-sm}

@@ -1,0 +1,47 @@
+project:
+  type: website
+  output-dir: _site
+  render:
+    - "*.qmd"
+
+website:
+  title: "Samuel Onyambu"
+  description: "Statistician and researcher. Bayesian optimization, design of experiments, and applied machine learning."
+  site-url: https://oonyambu.github.io
+  favicon: favicon.ico
+  navbar:
+    pinned: true
+    left:
+      - href: index.qmd
+        text: Home
+      - href: research.qmd
+        text: Research
+      - href: applied-ml.qmd
+        text: Applied ML
+      - href: software.qmd
+        text: Software
+      - href: publications.qmd
+        text: Publications & Talks
+      - href: cv.qmd
+        text: CV
+      - href: contact.qmd
+        text: Contact
+    right:
+      - text: Teaching
+        href: https://oonyambu.github.io/statistics/
+      - icon: github
+        href: https://github.com/oonyambu
+        aria-label: GitHub
+      - icon: stack-overflow
+        href: https://stackoverflow.com/users/8380272/onyambu
+        aria-label: Stack Overflow
+  page-footer:
+    center: |
+      (c) 2026 Samuel Onyambu &middot; [oonyambu@gmail.com](mailto:oonyambu@gmail.com) &middot; Los Angeles, CA
+
+format:
+  html:
+    theme: litera
+    css: styles.css
+    toc: false
+    link-external-newwindow: true

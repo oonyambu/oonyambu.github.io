@@ -1,0 +1,12 @@
+---
+title: "Contact"
+toc: false
+---
+
+I am open to research collaborations, teaching, and new opportunities in statistics, machine learning, and data science.
+
+- **Email:** [oonyambu@gmail.com](mailto:oonyambu@gmail.com)
+- **GitHub:** [github.com/oonyambu](https://github.com/oonyambu)
+- **Stack Overflow:** [onyambu](https://stackoverflow.com/users/8380272/onyambu)
+- **Phone:** 657-200-0543
+- **Location:** Los Angeles, CA (open to relocation)

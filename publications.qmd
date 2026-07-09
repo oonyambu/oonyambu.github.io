@@ -1,0 +1,32 @@
+---
+title: "Publications & Talks"
+toc: true
+---
+
+## Peer-reviewed publications
+
+**Onyambu, S.** and Xu, H. (2025). Tuning differential evolution algorithm for constructing uniform projection designs. *Journal of Statistical Planning and Inference*.
+[Publisher page](https://www.sciencedirect.com/science/article/abs/pii/S0378375825000941)
+
+Dahal, L., Burton, H., and **Onyambu, S.** (2022). Quantifying the effect of probability model misspecification in seismic collapse risk assessment. *Structural Safety*, 96, 102185.
+[DOI](https://doi.org/10.1016/j.strusafe.2022.102185)
+
+## In preparation
+
+- **KARGO**: a trust-region kriging-based global optimization algorithm, with benchmarks against TREGO and related methods.
+- Efficient search for **minimum-aberration factorial designs**.
+
+## Invited talks
+
+| When | Talk | Venue |
+|------|------|-------|
+| 2026 (upcoming) | Design and Analysis of Experiments (DAE 2026) | Rutgers University, NJ |
+| Aug 2025 | Generation of Uniform Projection Designs via Differential Evolution, EcoSta 2025 | Waseda University, Tokyo, Japan |
+| Aug 2025 | Kriging-based Adaptive Region Global Optimization Algorithm, 11th Annual Loma Linda Workshop | Loma Linda University, CA |
+| May 2023 | A Trust Region Novel Optimization Algorithm, ICODOE 2022 | University of Memphis, TN |
+
+: {tbl-colwidths="[18,52,30]"}
+
+## Dissertation
+
+*Hyperparameter Tuning, Design Selection and Optimization.* PhD dissertation, Department of Statistics & Data Science, UCLA, 2024.

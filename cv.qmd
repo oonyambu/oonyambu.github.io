@@ -1,0 +1,25 @@
+---
+title: "Curriculum Vitae"
+toc: false
+---
+
+<!-- When the CV PDF is added at files/Onyambu_CV.pdf, restore:
+[Download CV (PDF)](files/Onyambu_CV.pdf){.btn .btn-primary}
+-->
+A PDF version of my full CV is available on request: [oonyambu@gmail.com](mailto:oonyambu@gmail.com).
+
+## Education
+
+- **PhD, Statistics** -- University of California, Los Angeles (2018-2024). Dissertation: *Hyperparameter Tuning, Design Selection and Optimization*.
+- **MS, Statistics** -- California State University, Fullerton (2016-2018).
+- **BS, Statistics & Programming** -- Kenyatta University, Kenya (2011-2015). First Class Honours.
+- **CPA-K** -- KASNEB, Kenya (2011-2014).
+
+## Appointments
+
+- **Adjunct Assistant Professor**, Department of Statistics & Data Science, UCLA (2025-present).
+- **Graduate Student Researcher**, UCLA (2023-2024). Travel demand choice models.
+- **Teaching Fellow**, UCLA (2019-2023).
+- **Data Analyst / Statistician**, California State University, Fullerton (2016-2017).
+
+For the full CV including publications, talks, teaching, and technical skills, download the PDF above or [contact me](contact.qmd).
