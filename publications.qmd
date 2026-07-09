@@ -14,13 +14,8 @@ Dahal, L., Burton, H., and **Onyambu, S.** (2022). Quantifying the effect of pro
 ## Under review
 
 **Onyambu, S.**, Toledo, J., Ying, D., and Xu, H. (2026). KARGO: a kriging-based adaptive-region global optimization method with a data-driven quantile region of interest and sufficient-decrease discipline.
-[PDF](files/Onyambu-KARGO.pdf)
 
 **Onyambu, S.** and Xu, H. (2026). Evaluating space-filling designs for prediction and sequential optimization.
-
-## In preparation
-
-- Efficient search for **minimum-aberration factorial designs**.
 
 ## Invited talks
 
