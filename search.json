@@ -18,14 +18,7 @@
     "href": "software.html#egooptim",
     "title": "Software",
     "section": "egoOptim",
-    "text": "egoOptim\nR package for kriging-based global optimization: efficient global optimization (EGO) style algorithms, companion code to my trust-region Bayesian optimization research (KARGO).\ngithub.com/oonyambu/egoOptim"
-  },
-  {
-    "objectID": "software.html#dedesigns",
-    "href": "software.html#dedesigns",
-    "title": "Software",
-    "section": "DEdesigns",
-    "text": "DEdesigns\nDifferential evolution engines for constructing optimal experimental designs, written in C. The experimental sandbox behind UniPro’s production code.\ngithub.com/oonyambu/DEdesigns\n\nI am also a long-time contributor on Stack Overflow (onyambu), mostly answering R, regex, and data-manipulation questions."
+    "text": "egoOptim\nR package for kriging-based global optimization: efficient global optimization (EGO) style algorithms, companion code to my trust-region Bayesian optimization research (KARGO).\ngithub.com/oonyambu/egoOptim\n\nI am also a long-time contributor on Stack Overflow (onyambu), mostly answering R, regex, and data-manipulation questions."
   },
   {
     "objectID": "publications.html",
@@ -95,21 +88,21 @@
     "href": "applied-ml.html",
     "title": "Applied Machine Learning",
     "section": "",
-    "text": "Ongoing independent projects applying modern ML to core development-economics measurement problems, with a focus on African contexts.\n\n\nTraining convolutional neural networks on satellite imagery, calibrated against household-survey data, to produce small-area estimates of poverty and wealth indicators in regions where survey coverage is sparse or infrequent. The goal is timely, low-cost poverty maps that complement (not replace) traditional survey programs.\n\n\n\nDetecting and mapping schools and health facilities from satellite imagery to support service-delivery planning and equitable resource allocation, particularly where official facility registries are incomplete or outdated.\n\n\n\nInformal cross-border trade is a large but poorly measured share of intra-African commerce. I am working on model-based estimation strategies that combine limited field observation with auxiliary data to produce credible ICBT estimates, a problem where careful survey design and statistical modeling matter as much as the data collection itself."
+    "text": "A convolutional neural network in PyTorch that classifies face images as with mask or without mask. A supervised binary image-classification project covering the full pipeline: image preprocessing and augmentation, CNN training, and evaluation on held-out data. Built in Python.\n\n\n\nWorking with X-ray scan images to separate fracture from no fracture, using TensorFlow. The project pairs supervised labelling with unsupervised clustering of the scans to surface structure in the images and support annotation. Built in Python."
   },
   {
-    "objectID": "applied-ml.html#development-data-science",
-    "href": "applied-ml.html#development-data-science",
+    "objectID": "applied-ml.html#machine-learning-projects",
+    "href": "applied-ml.html#machine-learning-projects",
     "title": "Applied Machine Learning",
     "section": "",
-    "text": "Ongoing independent projects applying modern ML to core development-economics measurement problems, with a focus on African contexts.\n\n\nTraining convolutional neural networks on satellite imagery, calibrated against household-survey data, to produce small-area estimates of poverty and wealth indicators in regions where survey coverage is sparse or infrequent. The goal is timely, low-cost poverty maps that complement (not replace) traditional survey programs.\n\n\n\nDetecting and mapping schools and health facilities from satellite imagery to support service-delivery planning and equitable resource allocation, particularly where official facility registries are incomplete or outdated.\n\n\n\nInformal cross-border trade is a large but poorly measured share of intra-African commerce. I am working on model-based estimation strategies that combine limited field observation with auxiliary data to produce credible ICBT estimates, a problem where careful survey design and statistical modeling matter as much as the data collection itself."
+    "text": "A convolutional neural network in PyTorch that classifies face images as with mask or without mask. A supervised binary image-classification project covering the full pipeline: image preprocessing and augmentation, CNN training, and evaluation on held-out data. Built in Python.\n\n\n\nWorking with X-ray scan images to separate fracture from no fracture, using TensorFlow. The project pairs supervised labelling with unsupervised clustering of the scans to surface structure in the images and support annotation. Built in Python."
   },
   {
-    "objectID": "applied-ml.html#medical-machine-learning",
-    "href": "applied-ml.html#medical-machine-learning",
+    "objectID": "applied-ml.html#work-in-progress",
+    "href": "applied-ml.html#work-in-progress",
     "title": "Applied Machine Learning",
-    "section": "Medical machine learning",
-    "text": "Medical machine learning\n\nOffline reinforcement learning for sepsis treatment\nUsing the MIMIC-IV critical-care database to study offline (batch) reinforcement learning for sepsis treatment policies: learning from retrospective ICU trajectories, with emphasis on reliable off-policy evaluation, so that learned policies can be assessed honestly before any claim of clinical relevance.\n\n\n\n\n\n\n\nThese projects share a common thread with my methodological research: when data are expensive (surveys, field studies, clinical records), experimental design and sample-efficient optimization decide what is learnable."
+    "section": "Work in progress",
+    "text": "Work in progress\n\n\n\n\n\n\nThe projects below are works in progress. Several are exploratory and are currently paused or shelved for lack of funding; they are listed to show direction rather than finished results.\n\n\n\n\nPoverty estimation from satellite imagery\nTraining convolutional neural networks on satellite imagery, calibrated against household-survey data, to produce small-area estimates of poverty and wealth indicators where survey coverage is sparse or infrequent. The aim is timely, low-cost poverty maps that complement traditional survey programs.\n\n\nSchool and hospital mapping\nDetecting and mapping schools and health facilities from satellite imagery to support service-delivery planning and equitable resource allocation, particularly where official facility registries are incomplete or outdated.\n\n\nInformal cross-border trade\nInformal cross-border trade is a large but poorly measured share of intra-African commerce. This work explores model-based estimation strategies that combine limited field observation with auxiliary data, a problem where careful survey design and statistical modeling matter as much as the data collection.\n\n\nOffline reinforcement learning for sepsis treatment\nUsing the MIMIC-IV critical-care database to study offline (batch) reinforcement learning for sepsis treatment policies: learning from retrospective ICU trajectories, with emphasis on reliable off-policy evaluation so that learned policies can be assessed honestly before any claim of clinical relevance.\n\nA common thread with my methodological research: when data are expensive (surveys, field studies, clinical records), experimental design and sample-efficient methods decide what is learnable."
   },
   {
     "objectID": "contact.html",
@@ -130,7 +123,7 @@
     "href": "index.html#what-i-work-on",
     "title": "Samuel Onyambu",
     "section": "What I work on",
-    "text": "What I work on\nBayesian optimization & experimental design – KARGO, a trust-region Bayesian optimization algorithm; uniform projection (UniPro), maximum projection, and maximin optimal designs; minimum-aberration factorial design search.\nApplied machine learning – development data science (satellite-imagery poverty estimation, school and hospital mapping, informal cross-border trade) and medical ML (offline reinforcement learning for sepsis treatment with MIMIC-IV).\nScientific software – R packages with native C/C++ backends, including differential evolution optimizers parallelized with OpenMP."
+    "text": "What I work on\nBayesian optimization & experimental design – KARGO, a trust-region Bayesian optimization algorithm; uniform projection (UniPro), maximum projection, and maximin optimal designs; minimum-aberration factorial design search.\nApplied machine learning – image-classification projects in PyTorch and TensorFlow (face-mask detection; X-ray fracture screening), alongside work-in-progress explorations in development data science (satellite-imagery poverty estimation, facility mapping, informal cross-border trade) and medical ML (offline reinforcement learning for sepsis with MIMIC-IV).\nScientific software – R packages with native C/C++ backends, including differential evolution optimizers parallelized with OpenMP."
   },
   {
     "objectID": "index.html#highlights",

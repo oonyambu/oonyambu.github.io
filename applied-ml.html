@@ -152,14 +152,16 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#development-data-science" id="toc-development-data-science" class="nav-link active" data-scroll-target="#development-data-science">Development data science</a>
+  <li><a href="#machine-learning-projects" id="toc-machine-learning-projects" class="nav-link active" data-scroll-target="#machine-learning-projects">Machine learning projects</a>
+  <ul class="collapse">
+  <li><a href="#face-mask-image-classification-pytorch" id="toc-face-mask-image-classification-pytorch" class="nav-link" data-scroll-target="#face-mask-image-classification-pytorch">Face mask image classification (PyTorch)</a></li>
+  <li><a href="#x-ray-fracture-screening-tensorflow" id="toc-x-ray-fracture-screening-tensorflow" class="nav-link" data-scroll-target="#x-ray-fracture-screening-tensorflow">X-ray fracture screening (TensorFlow)</a></li>
+  </ul></li>
+  <li><a href="#work-in-progress" id="toc-work-in-progress" class="nav-link" data-scroll-target="#work-in-progress">Work in progress</a>
   <ul class="collapse">
   <li><a href="#poverty-estimation-from-satellite-imagery" id="toc-poverty-estimation-from-satellite-imagery" class="nav-link" data-scroll-target="#poverty-estimation-from-satellite-imagery">Poverty estimation from satellite imagery</a></li>
   <li><a href="#school-and-hospital-mapping" id="toc-school-and-hospital-mapping" class="nav-link" data-scroll-target="#school-and-hospital-mapping">School and hospital mapping</a></li>
   <li><a href="#informal-cross-border-trade" id="toc-informal-cross-border-trade" class="nav-link" data-scroll-target="#informal-cross-border-trade">Informal cross-border trade</a></li>
-  </ul></li>
-  <li><a href="#medical-machine-learning" id="toc-medical-machine-learning" class="nav-link" data-scroll-target="#medical-machine-learning">Medical machine learning</a>
-  <ul class="collapse">
   <li><a href="#offline-reinforcement-learning-for-sepsis-treatment" id="toc-offline-reinforcement-learning-for-sepsis-treatment" class="nav-link" data-scroll-target="#offline-reinforcement-learning-for-sepsis-treatment">Offline reinforcement learning for sepsis treatment</a></li>
   </ul></li>
   </ul>
@@ -171,7 +173,7 @@ ul.task-list li input[type="checkbox"] {
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
 <h1 class="title">Applied Machine Learning</h1>
-<p class="subtitle lead">Development data science and medical machine learning</p>
+<p class="subtitle lead">Deep-learning projects, plus development and medical ML in progress</p>
 </div>
 
 
@@ -188,12 +190,32 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="development-data-science" class="level2">
-<h2 class="anchored" data-anchor-id="development-data-science">Development data science</h2>
-<p>Ongoing independent projects applying modern ML to core development-economics measurement problems, with a focus on African contexts.</p>
+<section id="machine-learning-projects" class="level2">
+<h2 class="anchored" data-anchor-id="machine-learning-projects">Machine learning projects</h2>
+<section id="face-mask-image-classification-pytorch" class="level3">
+<h3 class="anchored" data-anchor-id="face-mask-image-classification-pytorch">Face mask image classification (PyTorch)</h3>
+<p>A convolutional neural network in <strong>PyTorch</strong> that classifies face images as <em>with mask</em> or <em>without mask</em>. A supervised binary image-classification project covering the full pipeline: image preprocessing and augmentation, CNN training, and evaluation on held-out data. Built in Python.</p>
+</section>
+<section id="x-ray-fracture-screening-tensorflow" class="level3">
+<h3 class="anchored" data-anchor-id="x-ray-fracture-screening-tensorflow">X-ray fracture screening (TensorFlow)</h3>
+<p>Working with X-ray scan images to separate <em>fracture</em> from <em>no fracture</em>, using <strong>TensorFlow</strong>. The project pairs supervised labelling with unsupervised clustering of the scans to surface structure in the images and support annotation. Built in Python.</p>
+</section>
+</section>
+<section id="work-in-progress" class="level2">
+<h2 class="anchored" data-anchor-id="work-in-progress">Work in progress</h2>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>The projects below are works in progress. Several are exploratory and are currently paused or shelved for lack of funding; they are listed to show direction rather than finished results.</p>
+</div>
+</div>
+</div>
 <section id="poverty-estimation-from-satellite-imagery" class="level3">
 <h3 class="anchored" data-anchor-id="poverty-estimation-from-satellite-imagery">Poverty estimation from satellite imagery</h3>
-<p>Training convolutional neural networks on satellite imagery, calibrated against household-survey data, to produce small-area estimates of poverty and wealth indicators in regions where survey coverage is sparse or infrequent. The goal is timely, low-cost poverty maps that complement (not replace) traditional survey programs.</p>
+<p>Training convolutional neural networks on satellite imagery, calibrated against household-survey data, to produce small-area estimates of poverty and wealth indicators where survey coverage is sparse or infrequent. The aim is timely, low-cost poverty maps that complement traditional survey programs.</p>
 </section>
 <section id="school-and-hospital-mapping" class="level3">
 <h3 class="anchored" data-anchor-id="school-and-hospital-mapping">School and hospital mapping</h3>
@@ -201,25 +223,13 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="informal-cross-border-trade" class="level3">
 <h3 class="anchored" data-anchor-id="informal-cross-border-trade">Informal cross-border trade</h3>
-<p>Informal cross-border trade is a large but poorly measured share of intra-African commerce. I am working on model-based estimation strategies that combine limited field observation with auxiliary data to produce credible ICBT estimates, a problem where careful survey design and statistical modeling matter as much as the data collection itself.</p>
+<p>Informal cross-border trade is a large but poorly measured share of intra-African commerce. This work explores model-based estimation strategies that combine limited field observation with auxiliary data, a problem where careful survey design and statistical modeling matter as much as the data collection.</p>
 </section>
-</section>
-<section id="medical-machine-learning" class="level2">
-<h2 class="anchored" data-anchor-id="medical-machine-learning">Medical machine learning</h2>
 <section id="offline-reinforcement-learning-for-sepsis-treatment" class="level3">
 <h3 class="anchored" data-anchor-id="offline-reinforcement-learning-for-sepsis-treatment">Offline reinforcement learning for sepsis treatment</h3>
-<p>Using the <strong>MIMIC-IV</strong> critical-care database to study offline (batch) reinforcement learning for sepsis treatment policies: learning from retrospective ICU trajectories, with emphasis on reliable off-policy evaluation, so that learned policies can be assessed honestly before any claim of clinical relevance.</p>
+<p>Using the <strong>MIMIC-IV</strong> critical-care database to study offline (batch) reinforcement learning for sepsis treatment policies: learning from retrospective ICU trajectories, with emphasis on reliable off-policy evaluation so that learned policies can be assessed honestly before any claim of clinical relevance.</p>
 <hr>
-<div class="callout callout-style-simple callout-note no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<p>These projects share a common thread with my <a href="./research.html">methodological research</a>: when data are expensive (surveys, field studies, clinical records), experimental design and sample-efficient optimization decide what is learnable.</p>
-</div>
-</div>
-</div>
+<p><em>A common thread with my <a href="./research.html">methodological research</a>: when data are expensive (surveys, field studies, clinical records), experimental design and sample-efficient methods decide what is learnable.</em></p>
 
 
 </section>

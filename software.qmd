@@ -18,12 +18,6 @@ R package for **kriging-based global optimization**: efficient global optimizati
 
 [github.com/oonyambu/egoOptim](https://github.com/oonyambu/egoOptim){.btn .btn-outline-primary .btn-sm}
 
-## DEdesigns
-
-Differential evolution engines for constructing optimal experimental designs, written in C. The experimental sandbox behind UniPro's production code.
-
-[github.com/oonyambu/DEdesigns](https://github.com/oonyambu/DEdesigns){.btn .btn-outline-primary .btn-sm}
-
 ---
 
 I am also a long-time contributor on Stack Overflow ([onyambu](https://stackoverflow.com/users/8380272/onyambu)), mostly answering R, regex, and data-manipulation questions.
