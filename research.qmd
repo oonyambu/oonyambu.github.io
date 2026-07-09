@@ -6,11 +6,11 @@ toc: true
 
 ## KARGO: trust-region Bayesian optimization
 
-**KARGO** (Kriging-based Adaptive Region Global Optimization) is a Bayesian optimization algorithm that manages an adaptive trust region around the incumbent: the kriging surrogate is fit and optimized locally, and the region expands or contracts based on the observed quality of proposed points. This keeps the surrogate accurate where it matters and avoids the over-exploration that plagues global acquisition maximization in higher dimensions.
+**KARGO** (Kriging-based Adaptive-Region Global Optimization) is a Bayesian optimization method for expensive, moderate-dimensional black-box minimization. At every iteration it maintains a local **region of interest** defined as the intersection of two complementary pieces: a **data-driven quantile bounding box**, built from the per-coordinate range of the best-performing subset of evaluated points, which adapts the *shape* of the region to the response distribution; and a **scalar trust-region cap** whose radius is updated under a **sufficient-decrease** criterion, which controls its *size*. Expected improvement is maximized inside this region, but the first inner step of every iteration is reserved for a global EI maximization over the full domain, so the algorithm cannot lock onto a sub-optimal basin.
 
-I benchmark KARGO against **TREGO** and other trust-region Bayesian optimization methods on standard global-optimization test suites. Manuscript in preparation.
+I benchmark KARGO against **EGO**, **TREGO**, and **TRIKE** on a 14-cell synthetic suite spanning dimensions 2 to 10, with replicated runs under a fixed evaluation budget and a shared initial design that removes surrogate-fit variance from the comparison. Across the suite KARGO is the single strongest method, and a linear-model sensitivity analysis of its trust-region controls places the default settings inside the 95% confidence interval of the predicted optimum. Manuscript in preparation ([PDF](files/Onyambu-KARGO.pdf)).
 
-*Related talks:* Kriging-based Adaptive Region Global Optimization Algorithm (Loma Linda Workshop, 2025); A Trust Region Novel Optimization Algorithm (ICODOE, University of Memphis).
+*Related talks:* Kriging-based Adaptive Region Global Optimization Algorithm (Loma Linda Workshop, 2025); A Trust Region Novel Optimization Algorithm (ICODOE, University of Memphis, Tennessee, 2023).
 
 ## Optimal designs: UniPro, MaxPro, and maximin
 

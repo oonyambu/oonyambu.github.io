@@ -3,10 +3,7 @@ title: "Curriculum Vitae"
 toc: false
 ---
 
-<!-- When the CV PDF is added at files/Onyambu_CV.pdf, restore:
 [Download CV (PDF)](files/Onyambu_CV.pdf){.btn .btn-primary}
--->
-A PDF version of my full CV is available on request: [oonyambu@gmail.com](mailto:oonyambu@gmail.com).
 
 ## Education
 

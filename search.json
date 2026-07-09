@@ -32,28 +32,28 @@
     "href": "publications.html",
     "title": "Publications & Talks",
     "section": "",
-    "text": "Onyambu, S. and Xu, H. (2025). Tuning differential evolution algorithm for constructing uniform projection designs. Journal of Statistical Planning and Inference. Publisher page\nDahal, L., Burton, H., and Onyambu, S. (2022). Quantifying the effect of probability model misspecification in seismic collapse risk assessment. Structural Safety, 96, 102185. DOI"
+    "text": "Onyambu, S. and Xu, H. (2025). Tuning differential evolution algorithm for constructing uniform projection designs. Journal of Statistical Planning and Inference. PDF · Publisher page\nDahal, L., Burton, H., and Onyambu, S. (2022). Quantifying the effect of probability model misspecification in seismic collapse risk assessment. Structural Safety, 96, 102185. DOI"
   },
   {
     "objectID": "publications.html#peer-reviewed-publications",
     "href": "publications.html#peer-reviewed-publications",
     "title": "Publications & Talks",
     "section": "",
-    "text": "Onyambu, S. and Xu, H. (2025). Tuning differential evolution algorithm for constructing uniform projection designs. Journal of Statistical Planning and Inference. Publisher page\nDahal, L., Burton, H., and Onyambu, S. (2022). Quantifying the effect of probability model misspecification in seismic collapse risk assessment. Structural Safety, 96, 102185. DOI"
+    "text": "Onyambu, S. and Xu, H. (2025). Tuning differential evolution algorithm for constructing uniform projection designs. Journal of Statistical Planning and Inference. PDF · Publisher page\nDahal, L., Burton, H., and Onyambu, S. (2022). Quantifying the effect of probability model misspecification in seismic collapse risk assessment. Structural Safety, 96, 102185. DOI"
   },
   {
     "objectID": "publications.html#in-preparation",
     "href": "publications.html#in-preparation",
     "title": "Publications & Talks",
     "section": "In preparation",
-    "text": "In preparation\n\nKARGO: a trust-region kriging-based global optimization algorithm, with benchmarks against TREGO and related methods.\nEfficient search for minimum-aberration factorial designs."
+    "text": "In preparation\n\nOnyambu, S. KARGO: a kriging-based adaptive-region global optimization method with a data-driven quantile region of interest and sufficient-decrease discipline. PDF\nEfficient search for minimum-aberration factorial designs."
   },
   {
     "objectID": "publications.html#invited-talks",
     "href": "publications.html#invited-talks",
     "title": "Publications & Talks",
     "section": "Invited talks",
-    "text": "Invited talks\n\n\n\n\n\n\n\n\nWhen\nTalk\nVenue\n\n\n\n\n2026 (upcoming)\nDesign and Analysis of Experiments (DAE 2026)\nRutgers University, NJ\n\n\nAug 2025\nGeneration of Uniform Projection Designs via Differential Evolution, EcoSta 2025\nWaseda University, Tokyo, Japan\n\n\nAug 2025\nKriging-based Adaptive Region Global Optimization Algorithm, 11th Annual Loma Linda Workshop\nLoma Linda University, CA\n\n\nMay 2023\nA Trust Region Novel Optimization Algorithm, ICODOE 2022\nUniversity of Memphis, TN"
+    "text": "Invited talks\n\n\n\n\n\n\n\n\nWhen\nTalk\nVenue\n\n\n\n\n2026 (upcoming)\nDesign and Analysis of Experiments (DAE 2026)\nRutgers University, NJ\n\n\nAug 2025\nGeneration of Uniform Projection Designs via Differential Evolution, EcoSta 2025\nWaseda University, Tokyo, Japan\n\n\nAug 2025\nKriging-based Adaptive Region Global Optimization Algorithm, 11th Annual Loma Linda Workshop\nLoma Linda University, CA\n\n\nMay 2023\nA Trust Region Novel Optimization Algorithm, ICODOE\nUniversity of Memphis, Tennessee"
   },
   {
     "objectID": "publications.html#dissertation",
@@ -67,7 +67,7 @@
     "href": "cv.html",
     "title": "Curriculum Vitae",
     "section": "",
-    "text": "A PDF version of my full CV is available on request: oonyambu@gmail.com."
+    "text": "Download CV (PDF)"
   },
   {
     "objectID": "cv.html#education",
@@ -137,14 +137,14 @@
     "href": "research.html",
     "title": "Research",
     "section": "",
-    "text": "KARGO (Kriging-based Adaptive Region Global Optimization) is a Bayesian optimization algorithm that manages an adaptive trust region around the incumbent: the kriging surrogate is fit and optimized locally, and the region expands or contracts based on the observed quality of proposed points. This keeps the surrogate accurate where it matters and avoids the over-exploration that plagues global acquisition maximization in higher dimensions.\nI benchmark KARGO against TREGO and other trust-region Bayesian optimization methods on standard global-optimization test suites. Manuscript in preparation.\nRelated talks: Kriging-based Adaptive Region Global Optimization Algorithm (Loma Linda Workshop, 2025); A Trust Region Novel Optimization Algorithm (ICODOE, University of Memphis)."
+    "text": "KARGO (Kriging-based Adaptive-Region Global Optimization) is a Bayesian optimization method for expensive, moderate-dimensional black-box minimization. At every iteration it maintains a local region of interest defined as the intersection of two complementary pieces: a data-driven quantile bounding box, built from the per-coordinate range of the best-performing subset of evaluated points, which adapts the shape of the region to the response distribution; and a scalar trust-region cap whose radius is updated under a sufficient-decrease criterion, which controls its size. Expected improvement is maximized inside this region, but the first inner step of every iteration is reserved for a global EI maximization over the full domain, so the algorithm cannot lock onto a sub-optimal basin.\nI benchmark KARGO against EGO, TREGO, and TRIKE on a 14-cell synthetic suite spanning dimensions 2 to 10, with replicated runs under a fixed evaluation budget and a shared initial design that removes surrogate-fit variance from the comparison. Across the suite KARGO is the single strongest method, and a linear-model sensitivity analysis of its trust-region controls places the default settings inside the 95% confidence interval of the predicted optimum. Manuscript in preparation (PDF).\nRelated talks: Kriging-based Adaptive Region Global Optimization Algorithm (Loma Linda Workshop, 2025); A Trust Region Novel Optimization Algorithm (ICODOE, University of Memphis, Tennessee, 2023)."
   },
   {
     "objectID": "research.html#kargo-trust-region-bayesian-optimization",
     "href": "research.html#kargo-trust-region-bayesian-optimization",
     "title": "Research",
     "section": "",
-    "text": "KARGO (Kriging-based Adaptive Region Global Optimization) is a Bayesian optimization algorithm that manages an adaptive trust region around the incumbent: the kriging surrogate is fit and optimized locally, and the region expands or contracts based on the observed quality of proposed points. This keeps the surrogate accurate where it matters and avoids the over-exploration that plagues global acquisition maximization in higher dimensions.\nI benchmark KARGO against TREGO and other trust-region Bayesian optimization methods on standard global-optimization test suites. Manuscript in preparation.\nRelated talks: Kriging-based Adaptive Region Global Optimization Algorithm (Loma Linda Workshop, 2025); A Trust Region Novel Optimization Algorithm (ICODOE, University of Memphis)."
+    "text": "KARGO (Kriging-based Adaptive-Region Global Optimization) is a Bayesian optimization method for expensive, moderate-dimensional black-box minimization. At every iteration it maintains a local region of interest defined as the intersection of two complementary pieces: a data-driven quantile bounding box, built from the per-coordinate range of the best-performing subset of evaluated points, which adapts the shape of the region to the response distribution; and a scalar trust-region cap whose radius is updated under a sufficient-decrease criterion, which controls its size. Expected improvement is maximized inside this region, but the first inner step of every iteration is reserved for a global EI maximization over the full domain, so the algorithm cannot lock onto a sub-optimal basin.\nI benchmark KARGO against EGO, TREGO, and TRIKE on a 14-cell synthetic suite spanning dimensions 2 to 10, with replicated runs under a fixed evaluation budget and a shared initial design that removes surrogate-fit variance from the comparison. Across the suite KARGO is the single strongest method, and a linear-model sensitivity analysis of its trust-region controls places the default settings inside the 95% confidence interval of the predicted optimum. Manuscript in preparation (PDF).\nRelated talks: Kriging-based Adaptive Region Global Optimization Algorithm (Loma Linda Workshop, 2025); A Trust Region Novel Optimization Algorithm (ICODOE, University of Memphis, Tennessee, 2023)."
   },
   {
     "objectID": "research.html#optimal-designs-unipro-maxpro-and-maximin",
